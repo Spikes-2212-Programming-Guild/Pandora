@@ -18,28 +18,51 @@
     <br/>
     <div class="form-group">
         <input type="hidden" id="userName" value="">
-        <div class="col-lg-4 col-sm-4 col-md-4 col-xs-4 input-group input-group-lg input-group-middle">
+        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
             <input type="text" class="form-control" placeholder="Team Number" id="teamNumber">
         </div>
-        <div class="col-lg-7 col-sm-7 col-md-7 col-xs-7 input-group input-group-lg input-group-middle">
+
+        <br/>
+        <br/>
+
+        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
             <input type="text" class="form-control" placeholder="Team Name" id="teamName">
         </div>
+
         <br/>
         <br/>
 
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#HighShooting').hide()">
+                <input type="radio" name="didHigh" id="highFalse" autocomplete="off" checked> Dosen't Shoots High
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').show()">
+                <input type="radio" name="didHigh" id="highTrue" autocomplete="off"> Shoots High
+            </label>
+        </div>
+
+        <br/>
+
+        <div id="HighShooting" class="input-group input-group-lg input-group-middle" style="display:none">
+
+            <input type="text" class="form-control" placeholder="Team Number">
+
+        </div>
+        <br/>
+        <br/>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6">
-                <input type="radio" name="didHigh" id="highFalse" autocomplete="off" checked> Didn't Shoot High
+                <input type="radio" name="didHigh" id="lowFalse" autocomplete="off" checked> Dosen't Shoots Low
             </label>
             <label class="btn btn-primary btn-group col-lg-6">
-                <input type="radio" name="didHigh" id="highTrue" autocomplete="off"> Shoot High
+                <input type="radio" name="didHigh" id="lowTrue" autocomplete="off"> Shoots Low
             </label>
         </div>
 
         <br/>
         <br/>
-
 
 
     </div>
