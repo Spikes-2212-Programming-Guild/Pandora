@@ -58,7 +58,9 @@ def game_page(gamenumber):
     game = Game.query.filter_by(number='gamenumber').first()
     return render_template('game_page.html', game)
 
-
+@app.route("/scoutingForm")
+def createForm():
+    return render_template('scoutingForm.html')
 if __name__ == "__main__":
     # set the secret key.  keep this really secret:
     app.secret_key = 'Spikes2212Spikes2212'
