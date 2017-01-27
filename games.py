@@ -32,12 +32,12 @@ class Game(Base):
     __tablename__ = 'games'
 
     number = Column(Integer, primary_key=True)
-    red1 = Column(Integer, ForeignKey('Team.number'))
-    red2 = Column(Integer, ForeignKey('Team.number'))
-    red3 = Column(Integer, ForeignKey('Team.number'))
-    blue1 = Column(Integer, ForeignKey('Team.number'))
-    blue2 = Column(Integer, ForeignKey('Team.number'))
-    blue3 = Column(Integer, ForeignKey('Team.number'))
+    red1 = Column(Integer, ForeignKey('teams.number'))
+    red2 = Column(Integer, ForeignKey('teams.number'))
+    red3 = Column(Integer, ForeignKey('teams.number'))
+    blue1 = Column(Integer, ForeignKey('teams.number'))
+    blue2 = Column(Integer, ForeignKey('teams.number'))
+    blue3 = Column(Integer, ForeignKey('teams.number'))
 
     def __init__(self, number, red, blue):
         self.number = number

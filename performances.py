@@ -21,8 +21,9 @@ class Performance(Base):
     __tablename__ = 'results'
 
     # id fields
-    number = Column(Integer, ForeignKey("Game.number"))
-    team = Column(Integer, ForeignKey("Team.number"),primary_key=True,autoincrement=False)
+    index= Column(Integer,primary_key=True,autoincrement=True)
+    number = Column(Integer, ForeignKey("games.number"))
+    team = Column(Integer, ForeignKey("teams.number"))
 
     # countable fields
     highgoal = Column("high goal", Integer)
