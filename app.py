@@ -39,15 +39,20 @@ def login():
         if request.form["formtype"] == 'login':
             print"login"
         else:
-            signup()
+            error=signup()
     return render_template('login.html', error=error)
 
 
 def signup():
     usr = User(request.form['username'], request.form['password'], request.form['email'])
-    db_session.add(usr)
-    print usr
-    return redirect(url_for('games'))
+    error= None
+    try:
+        db_session.add(usr)
+        db_session.flush()
+    except:
+        error= "username is already in use, try another one"
+    print User.query.all()
+    return error
 
 
 @app.route("/teams")
@@ -58,8 +63,9 @@ def teams():
 
 @app.route("/users")
 def users():
-    usr = User.query.all()
-    return render_template("users.html", users=usr)
+    users = User.query.all()
+    print users
+    return render_template("users.html", users=users)
 
 
 @app.route("/team/<teamnumber>")
