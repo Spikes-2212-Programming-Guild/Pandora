@@ -17,5 +17,5 @@ def init_db():
     # you will have to import them first before calling init_db()
     from teams import Team
     from games import Game
-    from performances import Performance
+    from performances import Results
     Base.metadata.create_all(bind=engine)
