@@ -17,7 +17,7 @@
 <script>
     var fuelHigh=0;
 </script>
-<form id="scoutingForm" method="post" class="navbar-form navbar-default" role="search">
+<form id="scoutingForm" method="post" action="" class="navbar-form navbar-default" role="search">
     <br/>
     <div class="form-group">
         <input type="hidden" id="userName" value="">
@@ -32,12 +32,12 @@
             <input type="text" class="form-control" placeholder="Game" id="game">
         </div>
 
-        <br/>
-        <br/>
+        <!--<br/>-->
+        <!--<br/>-->
 
-        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
-            <input type="text" class="form-control" placeholder="Team Name" id="teamName">
-        </div>
+        <!--<div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">-->
+            <!--<input type="text" class="form-control" placeholder="Team Name" id="teamName">-->
+        <!--</div>-->
 
         <br/>
         <br/>
@@ -210,10 +210,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#hangs').hide()">
-                <input type="radio" name="didHang" id="hangsFalse" autocomplete="off" checked> Dosen't Hang
+                <input type="radio" name="didHang" id="hangsFalse" autocomplete="off" checked> Dosen't Climbs
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
-                <input type="radio" name="didHang" id="hangsTrue" autocomplete="off"> Hangs
+                <input type="radio" name="didHang" id="hangsTrue" autocomplete="off"> Climbs
             </label>
         </div>
 
@@ -223,7 +223,7 @@
         <div id="hangs" style="display:none">
           <div class="panel panel-default">
               <div class="panel-heading">
-                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Quality</span>
+                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Climbing Time</span>
                   </h3>
               </div>
               <div class="panel-body">
@@ -231,7 +231,7 @@
                   {%for enums in time[1::]%}
                   <div class="btn btn-group-justified btn-primary">
                     <label>
-                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off" >
+                        <input type="radio" name="qualityGears" value={{enums}} id="climbingTime{{enums}}" autocomplete="off" >
                         {{enums}}
                     </label>
                   </div>
@@ -266,7 +266,7 @@
                   {%for enums in quality[1::]%}
                   <div class="btn btn-group-justified btn-primary">
                     <label>
-                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off">
+                        <input type="radio" name="qualityGears" value={{enums}} id="qualityDefence{{enums}}" autocomplete="off">
                         {{enums}}
                     </label>
                   </div>
@@ -280,7 +280,7 @@
 
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
             <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
-            <textarea id="Comment" form="scoutingForm" class="form-control" rows="30"></textarea>
+            <textarea id="Comment" form="scoutingForm" class="form-control" placeholder="Game Comments" rows="30"></textarea>
         </div>
 
         <br/>
