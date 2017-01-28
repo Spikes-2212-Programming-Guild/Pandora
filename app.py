@@ -8,6 +8,7 @@ from teams import Team
 from games import Game
 from users import User
 from user_manager import login_manager
+import enums
 
 app = Flask(__name__)
 
@@ -106,7 +107,7 @@ def game_page(gamenumber):
 @app.route("/scoutingForm")
 def createForm():
     if login_manager.current_user != None:
-        return render_template('scoutingForm.html')
+        return render_template('scoutingForm.html',quality=enums.quality,time=enums.time)
     else:
         return redirect('/login')
 
