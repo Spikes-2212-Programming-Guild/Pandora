@@ -7,6 +7,7 @@ from database import db_session, init_db
 from teams import Team
 from games import Game
 from users import User
+from performances import Results
 from user_manager import login_manager
 import enums
 
@@ -88,8 +89,8 @@ def users():
 
 @app.route("/team/<teamnumber>")
 def team_page(teamnumber):
-    team = Team.query.filter_by(number='teamnumber').first()
-    return render_template('team_page.html', team=team)
+    games = Results.query.filter_by(team=teamnumber)
+    return render_template('team_page.html', games=games)
 
 
 @app.route("/games")
@@ -104,7 +105,7 @@ def game_page(gamenumber):
     return render_template('game_page.html', game)
 
 
-@app.route("/scoutingForm")
+@app.route("/scoutingForm", methods=["GET","POST"])
 def createForm():
     if login_manager.current_user:
         return render_template('scoutingForm.html',quality=enums.quality,time=enums.time)
