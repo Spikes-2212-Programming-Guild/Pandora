@@ -1,2 +1,2 @@
-quality = ("none", "very bad", "bad", "fine", "good", "very good")
-time = ("long", "medium", "short", "none")
+quality = ("None", "Very Bad", "Bad", "Fine", "Good", "Very Good")
+time = ("None", "Long", "Medium", "Short")

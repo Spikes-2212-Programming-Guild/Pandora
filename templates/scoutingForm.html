@@ -14,12 +14,22 @@
 {% include 'util/menu.html' %}
 
 <body>
-<form class="navbar-form navbar-default" role="search">
+<script>
+    var fuelHigh=0;
+</script>
+<form id="scoutingForm" method="post" class="navbar-form navbar-default" role="search">
     <br/>
     <div class="form-group">
         <input type="hidden" id="userName" value="">
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
             <input type="text" class="form-control" placeholder="Team Number" id="teamNumber">
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
+            <input type="text" class="form-control" placeholder="Game" id="game">
         </div>
 
         <br/>
@@ -42,21 +52,59 @@
             </label>
         </div>
 
-        <br/>
 
         <div id="HighShooting" class="input-group input-group-lg input-group-middle" style="display:none">
+          <br/>
+          <br/>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title" style="text-align: center; font-size: 200%">High Shooting Quality</span>
+                  </h3>
+              </div>
+              <div class="panel-body">
+                <div class="btn-group" data-toggle="buttons">
+                  {%for enums in quality[1::]%}
+                  <div class="btn btn-group-justified btn-primary">
+                    <label>
+                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off">
+                        {{enums}}
+                    </label>
+                  </div>
+                    {%endfor%}
+                </div>
+              </div>
+            </div>
+            <br/>
 
-            <input type="text" class="form-control" placeholder="Team Number">
+
+            <div id="numberShootsHigh" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored High - <span
+                            id="fuelHigh"></span>
+                    </h3>
+                </div>
+                <div class="panel-body ">
+                    <div class="btn-group btn-group-justified " data-toggle="buttons">
+                        <label id="fuelHighInc" class="btn btn-primary btn-group ">
+                            +1
+                        </label>
+                        <label id="fuelHighDec" class="btn btn-primary btn-group">
+                            -1
+                        </label>
+                    </div>
+                </div>
+            </div>
 
         </div>
-        <br/>
-        <br/>
+
+      <br/>
+      <br/>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-primary btn-group active col-lg-6">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#lowShooting').hide()">
                 <input type="radio" name="didHigh" id="lowFalse" autocomplete="off" checked> Dosen't Shoots Low
             </label>
-            <label class="btn btn-primary btn-group col-lg-6">
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#lowShooting').show()">
                 <input type="radio" name="didHigh" id="lowTrue" autocomplete="off"> Shoots Low
             </label>
         </div>
@@ -64,6 +112,184 @@
         <br/>
         <br/>
 
+        <div id="lowShooting" class="input-group input-group-lg input-group-middle" style="display:none">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Low Shooting Quality</span>
+                  </h3>
+              </div>
+              <div class="panel-body">
+                <div class="btn-group" data-toggle="buttons">
+                  {%for enums in quality[1::]%}
+                  <div class="btn btn-group-justified btn-primary">
+                    <label>
+                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off" >
+                        {{enums}}
+                    </label>
+                  </div>
+                    {%endfor%}
+                </div>
+              </div>
+            </div>
+            <br/>
+            <br/>
+
+            <div id="numberShootsLow" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span id="fuelLow"></span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="fuelLowInc" class="btn btn-primary btn-group ">
+                            +1
+                        </label>
+                        <label id="fuelLowDec" class="btn btn-primary btn-group">
+                            -1
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#puttingGears').hide()">
+                <input type="radio" name="didGear" id="gearFalse" autocomplete="off" checked> Dosen't Put Gears
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').show()">
+                <input type="radio" name="didGear" id="gearTrue" autocomplete="off"> Puts Gears
+            </label>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="puttingGears" class="input-group input-group-lg input-group-middle" style="display:none">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Quality</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                  <div class="btn-group" data-toggle="buttons">
+                    {%for enums in quality[1::]%}
+                    <div class="btn btn-group-justified btn-primary">
+                      <label>
+                          <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off" >
+                          {{enums}}
+                      </label>
+                    </div>
+                      {%endfor%}
+                  </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div id="gearsInputed" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Scored - <span id="gears"></span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="gearInc" class="btn btn-primary btn-group ">
+                            +1
+                        </label>
+                        <label id="gearDec" class="btn btn-primary btn-group">
+                            -1
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#hangs').hide()">
+                <input type="radio" name="didHang" id="hangsFalse" autocomplete="off" checked> Dosen't Hang
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
+                <input type="radio" name="didHang" id="hangsTrue" autocomplete="off"> Hangs
+            </label>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="hangs" style="display:none">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Quality</span>
+                  </h3>
+              </div>
+              <div class="panel-body">
+                <div class="btn-group" data-toggle="buttons">
+                  {%for enums in time[1::]%}
+                  <div class="btn btn-group-justified btn-primary">
+                    <label>
+                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off" >
+                        {{enums}}
+                    </label>
+                  </div>
+                    {%endfor%}
+                </div>
+              </div>
+          </div>
+          <br/>
+          <br/>
+        </div>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#deffenciveRobot').hide()">
+                <input type="radio" name="didDefffende" id="deffenceFalse" autocomplete="off" checked> Dosen't Defened
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
+                <input type="radio" name="didDeffende" id="deffenceTrue" autocomplete="off"> Defends
+            </label>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="deffenciveRobot" style="display:none">
+          <div class="panel panel-default">
+              <div class="panel-heading">
+                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Deffence Quality</span>
+                  </h3>
+              </div>
+              <div class="panel-body">
+                <div class="btn-group" data-toggle="buttons">
+                  {%for enums in quality[1::]%}
+                  <div class="btn btn-group-justified btn-primary">
+                    <label>
+                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off">
+                        {{enums}}
+                    </label>
+                  </div>
+                    {%endfor%}
+                </div>
+              </div>
+          </div>
+          <br/>
+          <br/>
+        </div>
+
+        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
+            <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
+            <textarea id="Comment" form="scoutingForm" class="form-control" rows="30"></textarea>
+        </div>
+
+        <br/>
+        <br/>
+
+        <input type="submit" name="submit">
+
+        <br/>
+        <br/>
 
     </div>
     <br/>
@@ -71,6 +297,120 @@
 </form>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="static/js/bootstrap.min.js"></script>
+<script>
+    (function() {
+        $(function () {
+            fuelHighInit();
+            fuelLowInit();
+            gearsInit();
+        })
+
+        function fuelHighInit() {
+            var fuelHigh = 0;
+            $('#fuelHigh').html(fuelHigh);
+
+            $('#fuelHighInc').click(function() {
+                fuelHigh++;
+                if($('#fuelHighInc').hasClass("btn-danger")){
+                $('#numberShootsHigh').removeClass("panel-danger");
+                $('#numberShootsHigh').addClass("panel-default");
+                $('#fuelHighDec').removeClass("btn-danger");
+                $('#fuelHighInc').removeClass("btn-danger");
+                $('#fuelHighDec').addClass("btn-primary");
+                $('#fuelHighInc').addClass("btn-primary");
+                }
+                $('#fuelHigh').html(fuelHigh);
+            });
+            $('#fuelHighDec').click(function() {
+                if(fuelHigh>0){
+                        fuelHigh--;
+                }else{
+                $('#numberShootsHigh').addClass("panel-danger");
+                $('#numberShootsHigh').removeClass("panel-default");
+                $('#fuelHighDec').addClass("btn-danger");
+                $('#fuelHighInc').addClass("btn-danger");
+                $('#fuelHighDec').removeClass("btn-primary");
+                $('#fuelHighInc').removeClass("btn-primary");
+                }
+                $('#fuelHigh').html(fuelHigh);
+            });
+            }
+            function fuelLowInit() {
+            var fuelLow = 0;
+            $('#fuelLow').html(fuelLow);
+
+            $('#fuelLowInc').click(function() {
+                    fuelLow++;
+                if($('#fuelLowInc').hasClass("btn-danger")){
+                $('#numberShootsLow').removeClass("panel-danger");
+                $('#numberShootsLow').addClass("panel-default");
+                $('#fuelLowDec').removeClass("btn-danger");
+                $('#fuelLowInc').removeClass("btn-danger");
+                $('#fuelLowDec').addClass("btn-primary");
+                $('#fuelLowInc').addClass("btn-primary");
+                }
+                $('#fuelLow').html(fuelLow);
+            });
+            $('#fuelLowDec').click(function() {
+                if(fuelLow>0){
+                        fuelLow--;
+                }else{
+                $('#numberShootsLow').addClass("panel-danger");
+                $('#numberShootsLow').removeClass("panel-default");
+                $('#fuelLowDec').addClass("btn-danger");
+                $('#fuelLowInc').addClass("btn-danger");
+                $('#fuelLowDec').removeClass("btn-primary");
+                $('#fuelLowInc').removeClass("btn-primary");
+                }
+                $('#fuelLow').html(fuelLow);
+            });
+            }
+
+            function gearsInit() {
+            var gears = 0;
+            $('#gears').html(gears);
+
+            $('#gearInc').click(function() {
+                    gears++;
+                if($('#gearInc').hasClass("btn-danger")){
+                $('#gearsInputed').removeClass("panel-danger");
+                $('#gearsInputed').addClass("panel-default");
+                $('#gearInc').removeClass("btn-danger");
+                $('#gearDec').removeClass("btn-danger");
+                $('#gearInc').addClass("btn-primary");
+                $('#gearDec').addClass("btn-primary");
+                }
+                $('#gears').html(gears);
+            });
+            $('#gearDec').click(function() {
+                if(gears>0){
+                        gears--;
+                }else{
+                $('#gearsInputed').addClass("panel-danger");
+                $('#gearsInputed').removeClass("panel-default");
+                $('#gearDec').addClass("btn-danger");
+                $('#gearInc').addClass("btn-danger");
+                $('#gearDec').removeClass("btn-primary");
+                $('#gearInc').removeClass("btn-primary");
+                }
+                $('#gears').html(gears);
+            });
+            }
+
+        //function varInit() {
+        //    var memory = {};
+
+        //    $('[data-var][data-action="incr"]').click(function ($event) {
+        //        var $target = $($event.target);
+
+        //        memory[$target.attr('data-var')]++;
+
+        //    }
+
+        //}
+    })()
+
+</script>
 
 </body>
 </html>
