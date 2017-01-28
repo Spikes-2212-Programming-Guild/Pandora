@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect, url_for, request
-from flask_login import LoginManager, login_required
+# from flask_login import LoginManager, login_required, current_user
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
@@ -7,12 +7,15 @@ from database import db_session, init_db
 from teams import Team
 from games import Game
 from users import User
+from user_manager import login_manager
 
 app = Flask(__name__)
 
-login_manager = LoginManager()
-login_manager.init_app(app)
-login_manager.login_view = "login"
+login_manager = login_manager()
+
+
+# login_manager.init_app(app)
+# login_manager.login_view = "login"
 
 
 @app.teardown_appcontext
@@ -20,15 +23,21 @@ def shutdown_session(exception=None):
     db_session.remove()
 
 
-@login_manager.user_loader
+# @login_manager.user_loader
 def load_user(user_id):
-    return User.get(user_id)
+    login_manager.login(User.query.filter(User.id == user_id).first().username)
 
 
 @app.route("/")
-@login_required
+# @login_required
 def index():
-    return render_template('index.html', name="Admin")
+    return render_template('index.html', user=login_manager)
+
+
+@app.route("/logout")
+def logout():
+    login_manager.logout()
+    return redirect("/login")
 
 
 # route for handling the login page logic
@@ -36,23 +45,30 @@ def index():
 def login():
     error = None
     if request.method == 'POST':
-        print request.form.get("formtype")
         if request.form["formtype"] == 'login':
-            print"login"
+            username = request.form.get("username")
+            user = db_session.query(User).filter(User.username == username,
+                                                 User.password == request.form.get("password")).first()
+            if user:
+                load_user(user.id)
+                return (redirect('/'))
+            else:
+                error = "username does not match password"
         else:
-            error=signup()
+            error = signup()
     return render_template('login.html', error=error)
 
 
 def signup():
     usr = User(request.form['username'], request.form['password'], request.form['email'])
-    error= None
+    error = None
     try:
         db_session.add(usr)
         db_session.flush()
     except:
-        error= "username is already in use, try another one"
+        error = "username is already in use, try another one"
     print User.query.all()
+    load_user(usr.id)
     return error
 
 
@@ -83,15 +99,21 @@ def games():
 
 @app.route("/game/<gamenumber>")
 def game_page(gamenumber):
-    game = Game.query.filter_by(number='gamenumber').first()
+    game = Game.query.filter_by(number=gamenumber).first()
     return render_template('game_page.html', game)
+
 
 @app.route("/scoutingForm")
 def createForm():
-    return render_template('scoutingForm.html')
+    if login_manager.current_user != None:
+        return render_template('scoutingForm.html')
+    else:
+        return redirect('/login')
+
 
 if __name__ == "__main__":
     # set the secret key.  keep this really secret:
     app.secret_key = 'Spikes2212Spikes2212'
+    login_manager.logout()
     init_db()
     app.run(debug=True)

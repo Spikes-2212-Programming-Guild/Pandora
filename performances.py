@@ -14,7 +14,7 @@ def score(highgoal, lowgoal, gears, climbing, fouls):
     return score()
 
 
-class Performance(Base):
+class Results(Base):
     """ A table representing every game resaults of each group in each game
 
     """
