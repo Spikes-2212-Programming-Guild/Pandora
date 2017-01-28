@@ -8,10 +8,11 @@ def score(highgoal, lowgoal, gears, climbing, fouls):
     gear_ammount = [2, 6, 12]
     #don't ask questions, you will not hear lies
     #TODO make cleaner
-    score = (gear_ammount.index(min(gear_ammount, key=lambda x: abs(x - gears))) + 1 if min(gear_ammount,key=lambda x: abs(x - gears)) < gears else 2) * 40
-    score += highgoal / 3 + lowgoal / 9 + (50 if climbing else 0)
+    value=gear_ammount.index(min(gear_ammount, key=lambda x: abs(x - gears)))
+    score = (value + 1 if value < gears else 2) * 40
+    score += highgoal / 3 + lowgoal / 9 + (50 if climbing==True else 0)
     score -= 5 * fouls
-    return score()
+    return score
 
 
 class Results(Base):
@@ -49,6 +50,8 @@ class Results(Base):
 
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
                  gears_efficiency, climbing_quality, defending_quality, climbed, defensive, comment):
+        self.team=team
+        self.number=number
         self.highgoal = highgoal
         self.lowgoal = lowgoal
         self.gears = gears
@@ -62,4 +65,4 @@ class Results(Base):
         self.climbed = climbed
         self.defensive_robot = defensive
         self.comment = comment
-        self.score = score(highgoal, lowgoal, gears, climbed, fouls)
+        self.score = score(highgoal=highgoal, lowgoal=lowgoal, gears=gears, climbing=climbed, fouls=fouls)

@@ -90,7 +90,7 @@ def users():
 @app.route("/team/<teamnumber>")
 def team_page(teamnumber):
     games = Results.query.filter_by(team=teamnumber)
-    return render_template('team_page.html', games=games)
+    return render_template('team2.html', games=games)
 
 
 @app.route("/games")
