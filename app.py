@@ -106,7 +106,7 @@ def game_page(gamenumber):
 
 
 @app.route("/scoutingForm", methods=["GET","POST"])
-def createForm():
+def scouting_form():
     if login_manager.current_user:
         return render_template('scoutingForm.html',quality=enums.quality,time=enums.time)
     else:
