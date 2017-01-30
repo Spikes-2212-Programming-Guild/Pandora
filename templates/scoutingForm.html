@@ -63,11 +63,11 @@
               </div>
               <div class="panel-body">
                 <div class="btn-group" data-toggle="buttons">
-                  {%for enums in quality[1::]%}
+                  {%for enum in quality[1::]%}
                   <div class="btn btn-group-justified btn-primary">
                     <label>
-                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enums}}" autocomplete="off">
-                        {{enums}}
+                        <input type="radio" name="qualityGears" value={{enums}} id="qualityGears{{enum}}" autocomplete="off">
+                        {{enum}}
                     </label>
                   </div>
                     {%endfor%}
