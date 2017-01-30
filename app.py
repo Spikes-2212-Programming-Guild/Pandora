@@ -110,7 +110,10 @@ def scouting_form():
     if request.method=='GET':
         return render_template('scoutingForm.html',quality=enums.quality,time=enums.time)
     else:
-        print request.form
+        for i in request.form:
+            print i
+        if request.form["High"]=='True':
+            print "didHigh"
         return redirect('/')
 
 

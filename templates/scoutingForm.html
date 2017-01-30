@@ -45,10 +45,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#HighShooting').hide()">
-                <input type="radio" name="didHigh" id="didHigh" value='False' autocomplete="off" checked> Dosen't Shoots High
+                <input type="radio" name="High" id="High" value='False' autocomplete="off" checked> Dosen't Shoots High
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').show()">
-                <input type="radio" name="didHigh" id="didHigh" value='True'autocomplete="off"> Shoots High
+                <input type="radio" name="High" id="High" value='True'autocomplete="off"> Shoots High
             </label>
         </div>
 
@@ -66,7 +66,7 @@
                   {%for enum in quality[1::]%}
                   <div class="btn btn-group-justified btn-primary">
                     <label>
-                        <input type="radio" name="qualityGears" value={{enum}} id="qualityGears" autocomplete="off">
+                        <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears" autocomplete="off">
                         {{enum}}
                     </label>
                   </div>
@@ -102,10 +102,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#lowShooting').hide()">
-                <input type="radio" name="didLow" id="didLow" autocomplete="off" checked value="False"> Dosen't Shoots Low
+                <input type="radio" name="Low" id="Low" autocomplete="off" checked value="False"> Dosen't Shoots Low
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#lowShooting').show()">
-                <input type="radio" name="didLow" id="didLow" autocomplete="off" Value="True"> Shoots Low
+                <input type="radio" name="Low" id="Low" autocomplete="off" Value="True"> Shoots Low
             </label>
         </div>
 
@@ -123,7 +123,7 @@
                   {%for enum in quality[1::]%}
                   <div class="btn btn-group-justified btn-primary">
                     <label>
-                        <input type="radio" name="qualityGears" value={{enum}} id="qualityGears" autocomplete="off" >
+                        <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears" autocomplete="off" >
                         {{enum}}
                     </label>
                   </div>
@@ -156,10 +156,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#puttingGears').hide()">
-                <input type="radio" name="didGear" id="gearFalse" autocomplete="off" checked> Dosen't Put Gears
+                <input type="radio" name="Gear" id="Gear" value="False" autocomplete="off" checked> Dosen't Put Gears
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').show()">
-                <input type="radio" name="didGear" id="gearTrue" autocomplete="off"> Puts Gears
+                <input type="radio" name="Gear" id="Gear" value="True" autocomplete="off"> Puts Gears
             </label>
         </div>
 
@@ -177,7 +177,7 @@
                     {%for enum in quality[1::]%}
                     <div class="btn btn-group-justified btn-primary">
                       <label>
-                          <input type="radio" name="qualityGears" value={{enum}} id="qualityGears" autocomplete="off" >
+                          <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears" autocomplete="off" >
                           {{enum}}
                       </label>
                     </div>
@@ -210,10 +210,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#hangs').hide()">
-                <input type="radio" name="didHang" id="hangsFalse" autocomplete="off" checked> Dosen't Climbs
+                <input type="radio" name="Hang" id="Hang" value="False"autocomplete="off" checked> Dosen't Climbs
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
-                <input type="radio" name="didHang" id="hangsTrue" autocomplete="off"> Climbs
+                <input type="radio" name="Hang" id="Hang" value="True" autocomplete="off"> Climbs
             </label>
         </div>
 
@@ -231,7 +231,7 @@
                   {%for enum in time[1::]%}
                   <div class="btn btn-group-justified btn-primary">
                     <label>
-                        <input type="radio" name="qualityGears" value={{enum}} id="climbingTime" autocomplete="off" >
+                        <input type="radio" name="qualityGears" value="{{enum}}" id="climbingTime" autocomplete="off" >
                         {{enum}}
                     </label>
                   </div>
@@ -245,10 +245,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#deffenciveRobot').hide()">
-                <input type="radio" name="didDefffende" id="deffenceFalse" autocomplete="off" checked> Dosen't Defened
+                <input type="radio" name="Defffende" id="Deffence" value="False" autocomplete="off" checked> Dosen't Defened
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
-                <input type="radio" name="didDeffende" id="deffenceTrue" autocomplete="off"> Defends
+                <input type="radio" name="Deffende" id="Deffence" value="True" autocomplete="off"> Defends
             </label>
         </div>
 
@@ -266,7 +266,7 @@
                   {%for enum in quality[1::]%}
                   <div class="btn btn-group-justified btn-primary">
                     <label>
-                        <input type="radio" name="qualityGears" value={{enum}} id="qualityDefence" autocomplete="off">
+                        <input type="radio" name="qualityGears" value="{{enum}}" id="qualityDefence" autocomplete="off">
                         {{enum}}
                     </label>
                   </div>
