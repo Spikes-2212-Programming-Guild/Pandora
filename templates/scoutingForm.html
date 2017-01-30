@@ -16,27 +16,28 @@
 <body>
 <script>
     var fuelHigh=0;
+
 </script>
-<form id="scoutingForm" method="post" action="" class="navbar-form navbar-default" role="search">
+<form id="scoutingForm" method="post" action="" class="navbar-form navbar-default">
     <br/>
     <div class="form-group">
-        <input type="hidden" id="userName" value="">
+        <input type="hidden" name="userName" id="userName" value="">
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
-            <input type="text" class="form-control" placeholder="Team Number" id="teamNumber">
+            <input type="text" class="form-control" placeholder="Team Number" name="teamNumber" id="teamNumber">
         </div>
 
         <br/>
         <br/>
 
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
-            <input type="text" class="form-control" placeholder="Game" id="game">
+            <input type="text" class="form-control" placeholder="Game" name="game" id="game">
         </div>
 
         <!--<br/>-->
         <!--<br/>-->
 
         <!--<div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">-->
-            <!--<input type="text" class="form-control" placeholder="Team Name" id="teamName">-->
+        <!--<input type="text" class="form-control" placeholder="Team Name" id="teamName">-->
         <!--</div>-->
 
         <br/>
@@ -48,31 +49,32 @@
                 <input type="radio" name="High" id="High" value='False' autocomplete="off" checked> Dosen't Shoots High
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').show()">
-                <input type="radio" name="High" id="High" value='True'autocomplete="off"> Shoots High
+                <input type="radio" name="High" id="High" value='True' autocomplete="off"> Shoots High
             </label>
         </div>
 
 
         <div id="HighShooting" class="input-group input-group-lg input-group-middle" style="display:none">
-          <br/>
-          <br/>
+            <br/>
+            <br/>
             <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h3 class="panel-title" style="text-align: center; font-size: 200%">High Shooting Quality</span>
-                  </h3>
-              </div>
-              <div class="panel-body">
-                <div class="btn-group" data-toggle="buttons">
-                  {%for enum in quality[1::]%}
-                  <div class="btn btn-group-justified btn-primary">
-                    <label>
-                        <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears" autocomplete="off">
-                        {{enum}}
-                    </label>
-                  </div>
-                    {%endfor%}
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">High Shooting Quality</span>
+                    </h3>
                 </div>
-              </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        <div class="btn btn-group-justified btn-primary">
+                            <label>
+                                <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
+                                       autocomplete="off">
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
             </div>
             <br/>
 
@@ -81,6 +83,7 @@
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored High - <span
                             id="fuelHigh"></span>
+                        <input type="hidden" name="scoreHigh" id="scoreHigh">
                     </h3>
                 </div>
                 <div class="panel-body ">
@@ -97,8 +100,8 @@
 
         </div>
 
-      <br/>
-      <br/>
+        <br/>
+        <br/>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#lowShooting').hide()">
@@ -113,30 +116,32 @@
         <br/>
 
         <div id="lowShooting" class="input-group input-group-lg input-group-middle" style="display:none">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Low Shooting Quality</span>
-                  </h3>
-              </div>
-              <div class="panel-body">
-                <div class="btn-group" data-toggle="buttons">
-                  {%for enum in quality[1::]%}
-                  <div class="btn btn-group-justified btn-primary">
-                    <label>
-                        <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears" autocomplete="off" >
-                        {{enum}}
-                    </label>
-                  </div>
-                    {%endfor%}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Low Shooting Quality</span>
+                    </h3>
                 </div>
-              </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        <div class="btn btn-group-justified btn-primary">
+                            <label>
+                                <input type="radio" name="qualityLow" value="{{enum}}" id="qualityLow"
+                                       autocomplete="off">
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
             </div>
             <br/>
             <br/>
 
             <div id="numberShootsLow" class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span id="fuelLow"></span>
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span
+                            id="fuelLow"></span>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -156,10 +161,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#puttingGears').hide()">
-                <input type="radio" name="Gear" id="Gear" value="False" autocomplete="off" checked> Dosen't Put Gears
+                <input type="radio" name="Gears" id="Gears" value="False" autocomplete="off" checked> Dosen't Put Gears
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').show()">
-                <input type="radio" name="Gear" id="Gear" value="True" autocomplete="off"> Puts Gears
+                <input type="radio" name="Gears" id="Gears" value="True" autocomplete="off"> Puts Gears
             </label>
         </div>
 
@@ -173,16 +178,17 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                  <div class="btn-group" data-toggle="buttons">
-                    {%for enum in quality[1::]%}
-                    <div class="btn btn-group-justified btn-primary">
-                      <label>
-                          <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears" autocomplete="off" >
-                          {{enum}}
-                      </label>
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        <div class="btn btn-group-justified btn-primary">
+                            <label>
+                                <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
+                                       autocomplete="off">
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
                     </div>
-                      {%endfor%}
-                  </div>
                 </div>
             </div>
 
@@ -190,7 +196,8 @@
 
             <div id="gearsInputed" class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Scored - <span id="gears"></span>
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Scored - <span
+                            id="gears"></span>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -210,10 +217,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#hangs').hide()">
-                <input type="radio" name="Hang" id="Hang" value="False"autocomplete="off" checked> Dosen't Climbs
+                <input type="radio" name="Climb" id="Climb" value="False" autocomplete="off" checked> Dosen't Climbs
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
-                <input type="radio" name="Hang" id="Hang" value="True" autocomplete="off"> Climbs
+                <input type="radio" name="Climb" id="Climb" value="True" autocomplete="off"> Climbs
             </label>
         </div>
 
@@ -221,34 +228,36 @@
         <br/>
 
         <div id="hangs" style="display:none">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Climbing Time</span>
-                  </h3>
-              </div>
-              <div class="panel-body">
-                <div class="btn-group" data-toggle="buttons">
-                  {%for enum in time[1::]%}
-                  <div class="btn btn-group-justified btn-primary">
-                    <label>
-                        <input type="radio" name="qualityGears" value="{{enum}}" id="climbingTime" autocomplete="off" >
-                        {{enum}}
-                    </label>
-                  </div>
-                    {%endfor%}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Climbing Time</span>
+                    </h3>
                 </div>
-              </div>
-          </div>
-          <br/>
-          <br/>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in time[1::]%}
+                        <div class="btn btn-group-justified btn-primary">
+                            <label>
+                                <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
+                                       autocomplete="off">
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
         </div>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#deffenciveRobot').hide()">
-                <input type="radio" name="Defffende" id="Deffence" value="False" autocomplete="off" checked> Dosen't Defened
+                <input type="radio" name="Deffence" id="Deffence" value="False" autocomplete="off" checked> Dosen't
+                Defened
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
-                <input type="radio" name="Deffende" id="Deffence" value="True" autocomplete="off"> Defends
+                <input type="radio" name="Deffence" id="Deffence" value="True" autocomplete="off"> Defends
             </label>
         </div>
 
@@ -256,31 +265,33 @@
         <br/>
 
         <div id="deffenciveRobot" style="display:none">
-          <div class="panel panel-default">
-              <div class="panel-heading">
-                  <h3 class="panel-title" style="text-align: center; font-size: 200%">Deffence Quality</span>
-                  </h3>
-              </div>
-              <div class="panel-body">
-                <div class="btn-group" data-toggle="buttons">
-                  {%for enum in quality[1::]%}
-                  <div class="btn btn-group-justified btn-primary">
-                    <label>
-                        <input type="radio" name="qualityGears" value="{{enum}}" id="qualityDefence" autocomplete="off">
-                        {{enum}}
-                    </label>
-                  </div>
-                    {%endfor%}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Deffence Quality</span>
+                    </h3>
                 </div>
-              </div>
-          </div>
-          <br/>
-          <br/>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        <div class="btn btn-group-justified btn-primary">
+                            <label>
+                                <input type="radio" name="qualityDeffence" value="{{enum}}" id="qualityDeffence"
+                                       autocomplete="off">
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
         </div>
 
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
             <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
-            <textarea id="Comment" form="scoutingForm" class="form-control" placeholder="Game Comments" rows="30"></textarea>
+            <textarea id="Comment" form="scoutingForm" class="form-control" placeholder="Game Comments"
+                      rows="30"></textarea>
         </div>
 
         <br/>
@@ -409,6 +420,7 @@
 
         //}
     })()
+
 
 </script>
 
