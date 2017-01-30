@@ -38,7 +38,7 @@
     <tbody>
     {% for team in teams %}
       <tr class="info">
-        <td>{{ team.number }}</td>
+        <td><a href='team/{{team.number}}'>{{ team.number }}</a></td>
         <td>{{ team.name }}</td>
       </tr>
       {% endfor %}

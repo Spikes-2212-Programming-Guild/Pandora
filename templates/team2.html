@@ -38,12 +38,14 @@
         <th class="success">hoppers</th>
         <th class="success">defence</th>
         <th class="success">climbing</th>
+        <th class="danger">fouls</th>
+        <th class="success">score</th>
     </tr>
     </thead>
     <tbody>
     {%for game in games%}
     <tr>
-    <td style="background-color:AliceBlue">{{game.number}}</td>
+        <a href="/game/{{game.number}}"><td style="background-color:AliceBlue">{{game.number}}</td></a>
     <td style="background-color:AliceBlue ">{{game.highgoal}}<br/>{{game.highgoal_efficiency}}</td>
     <td style="background-color:AliceBlue ">{{game.lowgoal}}<br/>{{game.lowgoal_efficiency}}</td>
     <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
@@ -56,8 +58,10 @@
         yes <br/> {{game.climbing_quality}}
         {%else%} no{%endif%}
     </td>
-        </tr>
+    <td class="danger">{{game.fouls}}</td>
+    <td class="success">{{game.score}}</td>
     {%endfor%}
+        </tr>
     </tbody>
 </table>
 </div>
