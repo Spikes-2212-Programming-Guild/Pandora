@@ -107,10 +107,12 @@ def game_page(gamenumber):
 
 @app.route("/scoutingForm", methods=["GET","POST"])
 def scouting_form():
-    if login_manager.current_user:
+    if request.method=='GET':
         return render_template('scoutingForm.html',quality=enums.quality,time=enums.time)
     else:
-        return redirect('/login')
+        print request.form
+        return redirect('/')
+
 
 
 if __name__ == "__main__":
