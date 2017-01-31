@@ -126,12 +126,12 @@ def scouting_form():
             values["Hoppers"] = request.form["Hoppers"]
             values["fouls"] = request.form["fouls"]
         except:
-            values["scoreHigh"] = 25
-            values["scoreLow"] = 50
-            values["scoreGears"] = 5
-            values["scoreHoppers"] = 1
+            values["scoreHigh"] = 0
+            values["scoreLow"] = 0
+            values["scoreGears"] = 0
+            values["scoreHoppers"] = 0
             values["Hoppers"] = enums.quality[0]
-            values["fouls"] = 2
+            values["fouls"] = 0
         finally:
             print values
             result = Results(number=request.form["game"], team=request.form["teamNumber"],

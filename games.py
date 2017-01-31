@@ -1,15 +1,19 @@
 #!py
 from sqlalchemy import Column, Integer, String, ForeignKey
-from database import Base,db_session
+from database import Base, db_session
 from teams import Team
 from performances import Results
+import numpy as np
 
 
 def update_game(gamenumber):
-    if len(db_session.query.filter(Results.number==gamenumber))<6:
+    teams = Results.team.query.filter(Results.number == gamenumber).all()
+    if len(teams) < 6 and np.uniqe(teams.values()).size != len(teams):
         raise Exception("not all the inormation exist,try later")
     else:
         print "FIXME: add code to update game"
+
+
 class Alliance():
     """
     Alliance object hold 3 teams
@@ -26,7 +30,6 @@ class Alliance():
 
     def __repr__(self):
         return "Alliance:<team1: %s, team2: %s, team3: %s >" % (self.team1, self.team2, self.team3)
-
 
 
 class Game(Base):
