@@ -19,6 +19,8 @@
 
 
 
+
+
 </script>
 <form id="scoutingForm" method="post" action="/scoutingForm" class="navbar-form navbar-default">
     <br/>
@@ -84,7 +86,7 @@
             <div id="numberShootsHigh" class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored High - <span
-                            id="fuelHigh"></span>
+                            id="fuelHigh"></span><input type="hidden" name="highFuelScoredSend" id="highFuelScoredSend">
                         <input type="hidden" name="scoreHigh" id="scoreHigh">
                     </h3>
                 </div>
@@ -149,7 +151,7 @@
             <div id="numberShootsLow" class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span
-                            id="fuelLow"></span>
+                            id="fuelLow"></span><input type="hidden" name="lowFuelScoredSend" id="lowFuelScoredSend">
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -211,7 +213,7 @@
             <div id="gearsInputed" class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Scored - <span
-                            id="gears"></span>
+                            id="gears"></span><input type="hidden" name="gearsScoredSend" id="gearsScoredSend">
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -308,6 +310,24 @@
             <br/>
         </div>
 
+        <div id="foulsDone" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 200%">Fouls Done - <span
+                        id="fouls"></span> <input type="hidden" name="foulsDone" id="foulSend">
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label id="foulInc" class="btn btn-primary btn-group ">
+                        +1
+                    </label>
+                    <label id="foulDec" class="btn btn-primary btn-group">
+                        -1
+                    </label>
+                </div>
+            </div>
+        </div>
+
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
             <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
             <textarea class="form-control" rows="5" id="comment" placeholder="Game Comments"></textarea>
@@ -333,11 +353,13 @@
             fuelHighInit();
             fuelLowInit();
             gearsInit();
+            foulsInit();
         })
 
         function fuelHighInit() {
             var fuelHigh = 0;
             $('#fuelHigh').html(fuelHigh);
+            $('#highFuelScoredSend').val(fuelHigh);
 
             $('#fuelHighInc').click(function() {
                 fuelHigh++;
@@ -354,6 +376,7 @@
                 $('#fuelHighInc10').addClass("btn-primary");
                 }
                 $('#fuelHigh').html(fuelHigh);
+                $('#highFuelScoredSend').val(fuelHigh);
             });
             $('#fuelHighInc10').click(function() {
                 fuelHigh+=10;
@@ -370,6 +393,7 @@
                 $('#fuelHighInc10').addClass("btn-primary");
                 }
                 $('#fuelHigh').html(fuelHigh);
+                $('#highFuelScoredSend').val(fuelHigh);
             });
             $('#fuelHighDec').click(function() {
                 if(fuelHigh>0){
@@ -387,6 +411,7 @@
                 $('#fuelHighInc10').removeClass("btn-primary");
                 }
                 $('#fuelHigh').html(fuelHigh);
+                $('#highFuelScoredSend').val(fuelHigh);
             });
             $('#fuelHighDec10').click(function() {
                 if(fuelHigh>9){
@@ -405,11 +430,13 @@
                 $('#fuelHighInc10').removeClass("btn-primary");
                 }
                 $('#fuelHigh').html(fuelHigh);
+                $('#highFuelScoredSend').val(fuelHigh);
             });
             }
             function fuelLowInit() {
             var fuelLow = 0;
             $('#fuelLow').html(fuelLow);
+            $('#lowFuelScoredSend').val(fuelLow);
 
             $('#fuelLowInc').click(function() {
                     fuelLow++;
@@ -426,6 +453,7 @@
                 $('#fuelLowInc10').addClass("btn-primary");
                 }
                 $('#fuelLow').html(fuelLow);
+                $('#lowFuelScoredSend').val(fuelLow);
             });
             $('#fuelLowInc10').click(function() {
                     fuelLow+=10;
@@ -442,6 +470,7 @@
                 $('#fuelLowInc10').addClass("btn-primary");
                 }
                 $('#fuelLow').html(fuelLow);
+                $('#lowFuelScoredSend').val(fuelLow);
             });
             $('#fuelLowDec').click(function() {
                 if(fuelLow>0){
@@ -458,6 +487,7 @@
                 $('#fuelLowDec10').removeClass("btn-primary");
                 $('#fuelLowInc10').removeClass("btn-primary");
                 }
+                $('#lowFuelScoredSend').val(fuelLow);
                 $('#fuelLow').html(fuelLow);
             });
 
@@ -478,12 +508,67 @@
                 $('#fuelLowInc10').removeClass("btn-primary");
                 }
                 $('#fuelLow').html(fuelLow);
+                $('#lowFuelScoredSend').val(fuelLow);
+
             });
+            }
+            function foulsInit(){
+            var fouls = 0;
+            $('#fouls').html(fouls);
+            $('#foul').val(fouls);
+
+            $('#foulInc').click(function(){
+                fouls++;
+                if($('#foulInc').hasClass("btn-danger")){
+                    $('#foulsDone').removeClass("panel-danger");
+                    $('#foulsDone').addClass("panel-default");
+                    $('#foulDec').removeClass("btn-danger");
+                    $('#foulInc').removeClass("btn-danger");
+                    $('#foulInc').addClass("btn-primary");
+                    $('#foulDec').addClass("btn-primary");
+                }
+                if(fouls>0){
+                    $('#foulsDone').removeClass("panel-default");
+                    $('#foulsDone').addClass("panel-warning");
+                    $('#foulDec').removeClass("btn-primary");
+                    $('#foulInc').removeClass("btn-primary");
+                    $('#foulInc').addClass("btn-warning");
+                    $('#foulDec').addClass("btn-warning");
+                }
+
+                $('#fouls').html(fouls);
+                $('#foul').val(fouls);
+            });
+
+            $('#foulDec').click(function() {
+                if(fouls>0){
+                    fouls--;
+                }else{
+                    $('#foulsDone').addClass("panel-danger");
+                    $('#foulsDone').removeClass("panel-default");
+                    $('#foulDec').addClass("btn-danger");
+                    $('#foulInc').addClass("btn-danger");
+                    $('#foulDec').removeClass("btn-primary");
+                    $('#foulInc').removeClass("btn-primary");
+                }
+                if(fouls == "0"){
+                    $('#foulsDone').removeClass("panel-warning");
+                    $('#foulsDone').addClass("panel-default");
+                    $('#foulDec').removeClass("btn-warning");
+                    $('#foulInc').removeClass("btn-warning");
+                    $('#foulInc').addClass("btn-primary");
+                    $('#foulDec').addClass("btn-primary");
+                }
+                $('#fouls').html(fouls);
+                $('#foul').val(fouls);
+            });
+
             }
 
             function gearsInit() {
             var gears = 0;
             $('#gears').html(gears);
+             $('#gearsScoredSend').val(gears);
 
             $('#gearInc').click(function() {
                     gears++;
@@ -500,6 +585,7 @@
                     $('#gearDec10').addClass("btn-primary");
                 }
                 $('#gears').html(gears);
+                 $('#gearsScoredSend').val(gears);
             });
             $('#gearDec').click(function() {
                 if(gears>0){
@@ -517,6 +603,7 @@
                     $('#gearInc10').removeClass("btn-primary");
                 }
                 $('#gears').html(gears);
+                 $('#gearsScoredSend').val(gears);
             });
             $('#gearDec10').click(function() {
                 if(gears>9){
@@ -535,6 +622,7 @@
                     $('#gearInc10').removeClass("btn-primary");
                 }
                 $('#gears').html(gears);
+                $('#gearsScoredSend').val(gears);
             });
             $('#gearInc10').click(function() {
                     gears+=10;
@@ -551,6 +639,7 @@
                     $('#gearDec10').addClass("btn-primary");
                 }
                 $('#gears').html(gears);
+                 $('#gearsScoredSend').val(gears);
             });
 
             }
@@ -567,6 +656,8 @@
 
         //}
     })()
+
+
 
 
 
