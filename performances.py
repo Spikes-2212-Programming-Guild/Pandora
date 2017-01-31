@@ -7,12 +7,15 @@ import enums
 def score(highgoal, lowgoal, gears, climbing, fouls):
     gear_ammount = [2, 6, 12]
     #don't ask questions, you will not hear lies
-    #TODO make cleaner
+    print "score: \n"
     value=gear_ammount.index(min(gear_ammount, key=lambda x: abs(x - gears)))
     print value
-    score = (value + 1 if value < gears else 2) * 40
-    score += highgoal / 3 + lowgoal / 9 + (50 if climbing==True else 0)
+    score = (value + (1 if gear_ammount[value] > gears else 2)) * 40
+    print score
+    score += highgoal / 3 + lowgoal / 9 + (50 if climbing=='True' else 0)
+    print score
     score -= 5 * fouls
+    print score
     return score
 
 

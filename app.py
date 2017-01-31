@@ -124,7 +124,7 @@ def scouting_form():
         values["scoreGears"] = int(request.form["gearsScoredSend"]) if request.form["gearsScoredSend"] else 0
         # values["scoreHoppers"] = request.form["scoreHoppers"]
         # values["Hoppers"] = request.form["Hoppers"]
-        values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
+        values["fouls"] = int(request.form["foulsSend"]) if request.form["foulsSend"] else 0
         values["scoreHoppers"] = 0
         values["Hoppers"] = enums.quality[0]
         # except:
@@ -150,7 +150,7 @@ def scouting_form():
         except:
             print Game.query.filter(Game.number == request.form["game"]).all()
         db_session.add(result)
-        db_session.flush()
+        # db_session.flush()
     return redirect('/')
 
 
