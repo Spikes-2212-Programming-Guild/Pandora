@@ -7,11 +7,15 @@ import enums
 def score(highgoal, lowgoal, gears, climbing, fouls):
     gear_ammount = [2, 6, 12]
     #don't ask questions, you will not hear lies
-    #TODO make cleaner
+    print "score: \n"
     value=gear_ammount.index(min(gear_ammount, key=lambda x: abs(x - gears)))
-    score = (value + 1 if value < gears else 2) * 40
-    score += highgoal / 3 + lowgoal / 9 + (50 if climbing==True else 0)
+    print value
+    score = (value + (1 if gear_ammount[value] > gears else 2)) * 40
+    print score
+    score += highgoal / 3 + lowgoal / 9 + (50 if climbing=='True' else 0)
+    print score
     score -= 5 * fouls
+    print score
     return score
 
 
@@ -50,6 +54,25 @@ class Results(Base):
 
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
                  gears_efficiency, climbing_quality, defending_quality, climbed, defensive, comment):
+        """
+        :param number:
+        :type number: int
+        :param team:
+        :type team: int
+        :param highgoal:
+        :param lowgoal:
+        :param gears:
+        :param hoppers:
+        :param fouls:
+        :param highgoal_efficiancy:
+        :param hoppers_efficiency:
+        :param gears_efficiency:
+        :param climbing_quality:
+        :param defending_quality:
+        :param climbed:
+        :param defensive:
+        :param comment:
+        """
         self.team=team
         self.number=number
         self.highgoal = highgoal

@@ -5,7 +5,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from database import db_session, init_db
 from teams import Team
-from games import Game,update_game
+from games import Game, update_game
 from users import User
 from performances import Results
 from user_manager import login_manager
@@ -118,37 +118,40 @@ def scouting_form():
                 values[i] = request.form["quality" + i]
             elif request.form[i] == "False":
                 values[i] = enums.quality[0]
+        # try:
+        values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
+        values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
+        values["scoreGears"] = int(request.form["gearsScoredSend"]) if request.form["gearsScoredSend"] else 0
+        # values["scoreHoppers"] = request.form["scoreHoppers"]
+        # values["Hoppers"] = request.form["Hoppers"]
+        values["fouls"] = int(request.form["foulsSend"]) if request.form["foulsSend"] else 0
+        values["scoreHoppers"] = 0
+        values["Hoppers"] = enums.quality[0]
+        # except:
+        # values["scoreHigh"] = 0
+        # values["scoreLow"] = 0
+        # values["scoreGears"] = 0
+        # values["scoreHoppers"] = 0
+        # values["Hoppers"] = enums.quality[0]
+        # values["fouls"] = 0
+        pass
+        # finally:
+        print values
+        result = Results(number=request.form["game"], team=request.form["teamNumber"],
+                         highgoal=values["scoreHigh"],
+                         lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
+                         fouls=values["fouls"], highgoal_efficiancy=values["High"],
+                         hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
+                         climbing_quality=values["Climb"], defending_quality=values["Deffence"],
+                         climbed=request.form["Climb"], defensive=request.form["Deffence"],
+                         comment=request.form["comment"])
         try:
-            values["scoreHigh"] = request.form["scoreHigh"]
-            values["scoreLow"] = request.form["scoreLow"]
-            values["scoreGears"] = request.form["scoreGears"]
-            values["scoreHoppers"] = request.form["scoreHoppers"]
-            values["Hoppers"] = request.form["Hoppers"]
-            values["fouls"] = request.form["fouls"]
+            update_game(request.form["game"])
         except:
-            values["scoreHigh"] = 25
-            values["scoreLow"] = 50
-            values["scoreGears"] = 5
-            values["scoreHoppers"] = 1
-            values["Hoppers"] = enums.quality[0]
-            values["fouls"] = 2
-        finally:
-            print values
-            result = Results(number=request.form["game"], team=request.form["teamNumber"],
-                             highgoal=values["scoreHigh"],
-                             lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
-                             fouls=values["fouls"], highgoal_efficiancy=values["High"],
-                             hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
-                             climbing_quality=values["Climb"], defending_quality=values["Deffence"],
-                             climbed=request.form["Climb"], defensive=request.form["Deffence"],
-                             comment=request.form["Comment"])
-            try:
-                update_game(request.form["game"])
-            except:
-                print Game.query.filter(Game.number==request.form["game"]).all()
-            db_session.add(result)
-            db_session.flush()
-        return redirect('/')
+            print Game.query.filter(Game.number == request.form["game"]).all()
+        db_session.add(result)
+        # db_session.flush()
+    return redirect('/')
 
 
 if __name__ == "__main__":
