@@ -5,7 +5,7 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from database import db_session, init_db
 from teams import Team
-from games import Game
+from games import Game,update_game
 from users import User
 from performances import Results
 from user_manager import login_manager
@@ -105,22 +105,50 @@ def game_page(gamenumber):
     return render_template('game_page.html', game)
 
 
-@app.route("/scoutingForm", methods=["GET","POST"])
+@app.route("/scoutingForm", methods=["GET", "POST"])
 def scouting_form():
-    if request.method=='GET':
-        return render_template('scoutingForm.html',quality=enums.quality,time=enums.time)
+    if request.method == 'GET':
+        return render_template('scoutingForm.html', quality=enums.quality, time=enums.time)
     else:
-        values={}
+        values = {}
         for i in request.form:
-            print "%s: %s"%(i,request.form[i])
-            if request.form[i]=="True":
-                print "quality"+i
-                values[i]=request.form["quality"+i]
-            elif request.form[i]=="False":
-                values[i]=enums.quality[0]
-        print values
+            print "%s: %s" % (i, request.form[i])
+            if request.form[i] == "True":
+                print "quality" + i
+                values[i] = request.form["quality" + i]
+            elif request.form[i] == "False":
+                values[i] = enums.quality[0]
+        try:
+            values["scoreHigh"] = request.form["scoreHigh"]
+            values["scoreLow"] = request.form["scoreLow"]
+            values["scoreGears"] = request.form["scoreGears"]
+            values["scoreHoppers"] = request.form["scoreHoppers"]
+            values["Hoppers"] = request.form["Hoppers"]
+            values["fouls"] = request.form["fouls"]
+        except:
+            values["scoreHigh"] = 25
+            values["scoreLow"] = 50
+            values["scoreGears"] = 5
+            values["scoreHoppers"] = 1
+            values["Hoppers"] = enums.quality[0]
+            values["fouls"] = 2
+        finally:
+            print values
+            result = Results(number=request.form["game"], team=request.form["teamNumber"],
+                             highgoal=values["scoreHigh"],
+                             lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
+                             fouls=values["fouls"], highgoal_efficiancy=values["High"],
+                             hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
+                             climbing_quality=values["Climb"], defending_quality=values["Deffence"],
+                             climbed=request.form["Climb"], defensive=request.form["Deffence"],
+                             comment=request.form["Comment"])
+            try:
+                update_game(request.form["game"])
+            except:
+                print Game.query.filter(Game.number==request.form["game"]).all()
+            db_session.add(result)
+            db_session.flush()
         return redirect('/')
-
 
 
 if __name__ == "__main__":
