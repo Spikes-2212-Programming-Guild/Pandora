@@ -17,6 +17,8 @@
 <script>
     var fuelHigh=0;
 
+
+
 </script>
 <form id="scoutingForm" method="post" action="" class="navbar-form navbar-default">
     <br/>
@@ -202,11 +204,17 @@
                 </div>
                 <div class="panel-body">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="gearInc10" class="btn btn-primary btn-group ">
+                            +10
+                        </label>
                         <label id="gearInc" class="btn btn-primary btn-group ">
                             +1
                         </label>
                         <label id="gearDec" class="btn btn-primary btn-group">
                             -1
+                        </label>
+                        <label id="gearDec10" class="btn btn-primary btn-group ">
+                            -10
                         </label>
                     </div>
                 </div>
@@ -253,11 +261,11 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#deffenciveRobot').hide()">
-                <input type="radio" name="Deffence" id="Deffence" value="False" autocomplete="off" checked> Dosen't
+                <input type="radio" name="Defence" id="Deffence" value="False" autocomplete="off" checked> Dosen't
                 Defened
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
-                <input type="radio" name="Deffence" id="Deffence" value="True" autocomplete="off"> Defends
+                <input type="radio" name="Defence" id="Deffence" value="True" autocomplete="off"> Defends
             </label>
         </div>
 
@@ -267,7 +275,7 @@
         <div id="deffenciveRobot" style="display:none">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Deffence Quality</span>
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Defence Quality</span>
                     </h3>
                 </div>
                 <div class="panel-body">
@@ -384,28 +392,71 @@
             $('#gearInc').click(function() {
                     gears++;
                 if($('#gearInc').hasClass("btn-danger")){
-                $('#gearsInputed').removeClass("panel-danger");
-                $('#gearsInputed').addClass("panel-default");
-                $('#gearInc').removeClass("btn-danger");
-                $('#gearDec').removeClass("btn-danger");
-                $('#gearInc').addClass("btn-primary");
-                $('#gearDec').addClass("btn-primary");
+                    $('#gearsInputed').removeClass("panel-danger");
+                    $('#gearsInputed').addClass("panel-default");
+                    $('#gearInc').removeClass("btn-danger");
+                    $('#gearDec').removeClass("btn-danger");
+                    $('#gearInc').addClass("btn-primary");
+                    $('#gearDec').addClass("btn-primary");
+                    $('#gearInc10').removeClass("btn-danger");
+                    $('#gearDec10').removeClass("btn-danger");
+                    $('#gearInc10').addClass("btn-primary");
+                    $('#gearDec10').addClass("btn-primary");
                 }
                 $('#gears').html(gears);
             });
             $('#gearDec').click(function() {
                 if(gears>0){
-                        gears--;
+                    gears--;
                 }else{
-                $('#gearsInputed').addClass("panel-danger");
-                $('#gearsInputed').removeClass("panel-default");
-                $('#gearDec').addClass("btn-danger");
-                $('#gearInc').addClass("btn-danger");
-                $('#gearDec').removeClass("btn-primary");
-                $('#gearInc').removeClass("btn-primary");
+                    $('#gearsInputed').addClass("panel-danger");
+                    $('#gearsInputed').removeClass("panel-default");
+                    $('#gearDec').addClass("btn-danger");
+                    $('#gearInc').addClass("btn-danger");
+                    $('#gearDec').removeClass("btn-primary");
+                    $('#gearInc').removeClass("btn-primary");
+                    $('#gearDec10').addClass("btn-danger");
+                    $('#gearInc10').addClass("btn-danger");
+                    $('#gearDec10').removeClass("btn-primary");
+                    $('#gearInc10').removeClass("btn-primary");
                 }
                 $('#gears').html(gears);
             });
+            $('#gearDec10').click(function() {
+                if(gears>9){
+                    gears-=10;
+                }else{
+                    gears=0;
+                    $('#gearsInputed').addClass("panel-danger");
+                    $('#gearsInputed').removeClass("panel-default");
+                    $('#gearDec').addClass("btn-danger");
+                    $('#gearInc').addClass("btn-danger");
+                    $('#gearDec').removeClass("btn-primary");
+                    $('#gearInc').removeClass("btn-primary");
+                    $('#gearDec10').addClass("btn-danger");
+                    $('#gearInc10').addClass("btn-danger");
+                    $('#gearDec10').removeClass("btn-primary");
+                    $('#gearInc10').removeClass("btn-primary");
+                }
+                $('#gears').html(gears);
+            });
+            $('#gearInc10').click(function() {
+                    gears+=10;
+                if($('#gearInc').hasClass("btn-danger")){
+                    $('#gearsInputed').removeClass("panel-danger");
+                    $('#gearsInputed').addClass("panel-default");
+                    $('#gearInc').removeClass("btn-danger");
+                    $('#gearDec').removeClass("btn-danger");
+                    $('#gearInc').addClass("btn-primary");
+                    $('#gearDec').addClass("btn-primary");
+                    $('#gearInc10').removeClass("btn-danger");
+                    $('#gearDec10').removeClass("btn-danger");
+                    $('#gearInc10').addClass("btn-primary");
+                    $('#gearDec10').addClass("btn-primary");
+                }
+                $('#gears').html(gears);
+            });
+
             }
 
         //function varInit() {
@@ -420,6 +471,8 @@
 
         //}
     })()
+
+
 
 
 </script>
