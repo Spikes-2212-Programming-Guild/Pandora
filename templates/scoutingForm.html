@@ -14,15 +14,7 @@
 {% include 'util/menu.html' %}
 
 <body>
-<script>
-    var fuelHigh=0;
-
-
-
-
-
-</script>
-<form id="scoutingForm" method="post" action="" class="navbar-form navbar-default">
+<form id="scoutingForm" method="post" action="" class=" navbar-default">
     <br/>
     <div class="form-group">
         <input type="hidden" name="userName" id="userName" value="">
@@ -34,7 +26,7 @@
         <br/>
 
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
-            <input type="text" class="form-control" placeholder="Game" name="game" id="game">
+            <input type="number" class="form-control" placeholder="Game" name="game" id="game">
         </div>
 
         <!--<br/>-->
@@ -218,19 +210,13 @@
                 </div>
                 <div class="panel-body">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label id="gearInc10" class="btn btn-primary btn-group ">
-                            +10
-                        </label>
                         <label id="gearInc" class="btn btn-primary btn-group ">
                             +1
                         </label>
                         <label id="gearDec" class="btn btn-primary btn-group">
                             -1
                         </label>
-                        <label id="gearDec10" class="btn btn-primary btn-group ">
-                            -10
-                        </label>
-                    </div>
+                </div>
                 </div>
             </div>
             <br/>
@@ -263,6 +249,15 @@
                                 <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
                                        autocomplete="off">
                                 {{enum}}
+                                {%if enum == "long"%}
+                                30-23
+                                {%endif%}
+                                {%if enum=="medium"%}
+                                23-15
+                                {%endif%}
+                                {%if enum=="short"%}
+                                15-0
+                                {%endif%}
                             </label>
                         </div>
                         {%endfor%}
@@ -328,6 +323,30 @@
             </div>
         </div>
 
+        <br/>
+        <br/>
+
+        <div id="hoppersPanel" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 200%">Hoppers Used - <span
+                        id="hoppers"></span> <input type="hidden" name="hoppersUsed" id="hoppersUsed">
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label id="hopperInc" class="btn btn-primary btn-group ">
+                        +1
+                    </label>
+                    <label id="hopperDec" class="btn btn-primary btn-group">
+                         -1
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
             <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
             <textarea class="form-control" form="scoutingForm" rows="5" name="comment" id="comment" placeholder="Game Comments"></textarea>
@@ -354,6 +373,7 @@
             fuelLowInit();
             gearsInit();
             foulsInit();
+            hopperInit();
         })
 
         function fuelHighInit() {
@@ -458,7 +478,7 @@
             $('#fuelLowInc10').click(function() {
                     fuelLow+=10;
                 if($('#fuelLowInc').hasClass("btn-danger")){
-                $('#numberShootsLow').removeClass("panel-danger");
+                $('#numberShootsLow').removefoulsClass("panel-danger");
                 $('#numberShootsLow').addClass("panel-default");
                 $('#fuelLowDec').removeClass("btn-danger");
                 $('#fuelLowInc').removeClass("btn-danger");
@@ -579,10 +599,6 @@
                     $('#gearDec').removeClass("btn-danger");
                     $('#gearInc').addClass("btn-primary");
                     $('#gearDec').addClass("btn-primary");
-                    $('#gearInc10').removeClass("btn-danger");
-                    $('#gearDec10').removeClass("btn-danger");
-                    $('#gearInc10').addClass("btn-primary");
-                    $('#gearDec10').addClass("btn-primary");
                 }
                 $('#gears').html(gears);
                  $('#gearsScoredSend').val(gears);
@@ -597,52 +613,49 @@
                     $('#gearInc').addClass("btn-danger");
                     $('#gearDec').removeClass("btn-primary");
                     $('#gearInc').removeClass("btn-primary");
-                    $('#gearDec10').addClass("btn-danger");
-                    $('#gearInc10').addClass("btn-danger");
-                    $('#gearDec10').removeClass("btn-primary");
-                    $('#gearInc10').removeClass("btn-primary");
                 }
                 $('#gears').html(gears);
                  $('#gearsScoredSend').val(gears);
             });
-            $('#gearDec10').click(function() {
-                if(gears>9){
-                    gears-=10;
+            }
+
+            function hopperInit(){
+            var hoppers = 0;
+            $('#hoppers').html(hoppers);
+            $('#hoppersUsed').val(hoppers);
+
+            $('#hopperInc').click(function(){
+                hoppers++;
+                if($('#hopperInc').hasClass("btn-danger")){
+                    $('#hoppersPanel').removeClass("panel-danger");
+                    $('#hoppersPanel').addClass("panel-default");
+                    $('#hopperDec').removeClass("btn-danger");
+                    $('#hopperInc').removeClass("btn-danger");
+                    $('#hopperInc').addClass("btn-primary");
+                    $('#hopperDec').addClass("btn-primary");
+                }
+
+                $('#hoppers').html(hoppers);
+                $('#hoppersUsed').val(hoppers);
+            });
+
+            $('#hopperDec').click(function() {
+                if(hoppers>0){
+                    hoppers--;
                 }else{
-                    gears=0;
-                    $('#gearsInputed').addClass("panel-danger");
-                    $('#gearsInputed').removeClass("panel-default");
-                    $('#gearDec').addClass("btn-danger");
-                    $('#gearInc').addClass("btn-danger");
-                    $('#gearDec').removeClass("btn-primary");
-                    $('#gearInc').removeClass("btn-primary");
-                    $('#gearDec10').addClass("btn-danger");
-                    $('#gearInc10').addClass("btn-danger");
-                    $('#gearDec10').removeClass("btn-primary");
-                    $('#gearInc10').removeClass("btn-primary");
+                    $('#hoppersPanel').addClass("panel-danger");
+                    $('#hoppersPanel').removeClass("panel-default");
+                    $('#hopperDec').addClass("btn-danger");
+                    $('#hopperInc').addClass("btn-danger");
+                    $('#hopperDec').removeClass("btn-primary");
+                    $('#hopperInc').removeClass("btn-primary");
                 }
-                $('#gears').html(gears);
-                $('#gearsScoredSend').val(gears);
-            });
-            $('#gearInc10').click(function() {
-                    gears+=10;
-                if($('#gearInc').hasClass("btn-danger")){
-                    $('#gearsInputed').removeClass("panel-danger");
-                    $('#gearsInputed').addClass("panel-default");
-                    $('#gearInc').removeClass("btn-danger");
-                    $('#gearDec').removeClass("btn-danger");
-                    $('#gearInc').addClass("btn-primary");
-                    $('#gearDec').addClass("btn-primary");
-                    $('#gearInc10').removeClass("btn-danger");
-                    $('#gearDec10').removeClass("btn-danger");
-                    $('#gearInc10').addClass("btn-primary");
-                    $('#gearDec10').addClass("btn-primary");
-                }
-                $('#gears').html(gears);
-                 $('#gearsScoredSend').val(gears);
+                $('#hoppers').html(hoppers);
+                $('#hoppersUsed').val(hoppers);
             });
 
             }
+
 
         //function varInit() {
         //    var memory = {};
