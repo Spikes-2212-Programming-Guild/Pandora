@@ -136,7 +136,8 @@ def scouting_form():
         # values["fouls"] = 0
         pass
         # finally:
-        print values
+        for i in values:
+            print values[i]
         result = Results(number=request.form["game"], team=request.form["teamNumber"],
                          highgoal=values["scoreHigh"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
@@ -147,7 +148,7 @@ def scouting_form():
                          comment=request.form["comment"])
         try:
             update_game(request.form["game"])
-        except:
+        finally:
             print Game.query.filter(Game.number == request.form["game"]).all()
         db_session.add(result)
         # db_session.flush()
