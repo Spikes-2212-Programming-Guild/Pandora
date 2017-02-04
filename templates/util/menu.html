@@ -17,7 +17,7 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <form class="navbar-form navbar-left">
                 <div class="form-group">
-                    <input id="teamNumber" type="text" class="form-control" placeholder="Team number">
+                    <input id="searchTeamNumber" type="text" class="form-control" placeholder="Team number">
                 </div>
                 <button id="search" type="button" class="btn btn-default">Search!</button>
             </form>
@@ -38,7 +38,7 @@
 <script type="text/javascript">
 		(function (){
 			$('#search').click(function (){
-			window.location.href = "/team/" + $('#teamNumber').val();
+			window.location.href = "/team/" + $('#searchTeamNumber').val();
 			});
 		})();
 
