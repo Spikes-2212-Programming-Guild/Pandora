@@ -16,6 +16,8 @@ def score(highgoal, lowgoal, gears, climbing, fouls):
     print score
     score -= 5 * fouls
     print score
+    if score < 0:
+        score = 0
     return score
 
 
@@ -26,7 +28,7 @@ class Results(Base):
     __tablename__ = 'results'
 
     # id fields
-    index= Column(Integer,primary_key=True,autoincrement=True)
+    index = Column(Integer,primary_key=True,autoincrement=True)
     number = Column(Integer, ForeignKey("games.number"))
     team = Column(Integer, ForeignKey("teams.number"))
 
