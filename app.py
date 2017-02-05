@@ -1,6 +1,7 @@
-from flask import Flask, render_template, redirect, url_for, request
+from flask import Flask, render_template, redirect, url_for, request, json
 # from flask_login import LoginManager, login_required, current_user
 from sqlalchemy import create_engine
+from sqlalchemy import func, update
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from database import db_session, init_db
@@ -87,10 +88,74 @@ def users():
     return render_template("users.html", users=users)
 
 
-@app.route("/team/<teamnumber>")
+@app.route("/team/<teamnumber>", methods=["GET", "POST"])
 def team_page(teamnumber):
+    cur_team = Team.query.filter_by(number=teamnumber).first()
+    if request.method == "POST":
+        comment = ""
+        try:
+            comment = request.form["conclusion"]
+        except:
+            comment = ""
+        finally:
+            print comment
+            db_session.query(Team).filter(Team.number == teamnumber).update({"conclusion": comment},
+                                                                            synchronize_session='evaluate')
+            db_session.flush()
+            print cur_team.conclusion
+            print Team.query.all()
+    all_team_games = Results.query.filter_by(team=teamnumber)
+    all_games = Results.query.all()
+    team_average = {}
+    high_average = 0
+    low_average = 0
+    gears_average = 0
+    hoppers_average = 0
+    fouls = 0
+    score = 0
+    count = 0
+    for games in all_team_games:
+        high_average += games.highgoal
+        low_average += games.lowgoal
+        gears_average += games.gears
+        hoppers_average += games.hoppers
+        score += games.score
+        fouls += games.fouls
+        count += 1
+    if count != 0:
+        team_average["HighShooting"] = high_average / count
+        team_average["LowShooting"] = low_average / count
+        team_average["Gears"] = gears_average / count
+        team_average["Hoppers"] = hoppers_average / count
+        team_average["Score"] = score / count
+        team_average["Fouls"] = fouls / count
+
+    all_average = {}
+    high_average = 0
+    low_average = 0
+    gears_average = 0
+    hoppers_average = 0
+    fouls = 0
+    score = 0
+    count = 0
+    for games in all_games:
+        high_average += games.highgoal
+        low_average += games.lowgoal
+        gears_average += games.gears
+        hoppers_average += games.hoppers
+        score += games.score
+        fouls += games.fouls
+        count += 1
+    if count != 0:
+        all_average["HighShooting"] = high_average / count
+        all_average["LowShooting"] = low_average / count
+        all_average["Gears"] = gears_average / count
+        all_average["Hoppers"] = hoppers_average / count
+        all_average["Score"] = score / count
+        all_average["Fouls"] = fouls / count
     games = Results.query.filter_by(team=teamnumber)
-    return render_template('team2.html', games=games)
+    return render_template('team2.html', status=login_manager.status, games=games,
+                           team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber)
 
 
 @app.route("/games")
@@ -99,34 +164,99 @@ def games():
     return render_template('games.html', games=games)
 
 
-@app.route("/game/<gamenumber>")
-def game_page(gamenumber):
-    game = Game.query.filter_by(number=gamenumber).first()
-    return render_template('game_page.html', game)
+@app.route("/game/<teamnumber>/<gamenumber>")
+def game_page(gamenumber, teamnumber):
+    game = Results.query.filter_by(number=gamenumber, team=teamnumber).first()
+    all_team_games = Results.query.filter_by(team=teamnumber)
+    all_games = Results.query.all()
+    if all_team_games != None:
+        team_average = {}
+        high_average = 0
+        low_average = 0
+        gears_average = 0
+        hoppers_average = 0
+        fouls = 0
+        score = 0
+        count = 0
+        for games in all_team_games:
+            high_average += games.highgoal
+            low_average += games.lowgoal
+            gears_average += games.gears
+            hoppers_average += games.hoppers
+            score += games.score
+            fouls += games.fouls
+            count += 1
+        if count != 0:
+            team_average["HighShooting"] = high_average / count
+            team_average["LowShooting"] = low_average / count
+            team_average["Gears"] = gears_average / count
+            team_average["Hoppers"] = hoppers_average / count
+            team_average["Score"] = score / count
+            team_average["Fouls"] = fouls / count
+
+        all_average = {}
+        high_average = 0
+        low_average = 0
+        gears_average = 0
+        hoppers_average = 0
+        fouls = 0
+        score = 0
+        count = 0
+        for games in all_games:
+            high_average += games.highgoal
+            low_average += games.lowgoal
+            gears_average += games.gears
+            hoppers_average += games.hoppers
+            score += games.score
+            fouls += games.fouls
+            count += 1
+        if count != 0:
+            all_average["HighShooting"] = high_average / count
+            all_average["LowShooting"] = low_average / count
+            all_average["Gears"] = gears_average / count
+            all_average["Hoppers"] = hoppers_average / count
+            all_average["Score"] = score / count
+            all_average["Fouls"] = fouls / count
+    return render_template('game_page.html', game=game, team_average=team_average, all_average=all_average)
+
+
+@app.route("/newTeam", methods=["GET", "POST"])
+def add_team():
+    if request.method == 'POST':
+        db_session.add(Team(request.form["number"], request.form["name"]))
+        db_session.flush()
+        return redirect("/teams")
+    return render_template("/addTeam.html")
+
+
+@app.route("/checkIfTeamAndGameExists", methods=["POST"])
+def check_if_happened():
+    match_exists = Results.query.filter_by(team=request.form["team_number"], number=request.form["match_number"]).first()
+    return json.dumps(match_exists is not None)
+
+
+@app.route("/showDb")
+def show_db():
+    game = Results.query.all()
+    return render_template('show_db.html', games=game)
 
 
 @app.route("/scoutingForm", methods=["GET", "POST"])
 def scouting_form():
     if request.method == 'GET':
         return render_template('scoutingForm.html', quality=enums.quality, time=enums.time)
-    else:
+    elif request.form["override"] == "False":
         values = {}
-        for i in request.form:
-            print "%s: %s" % (i, request.form[i])
-            if request.form[i] == "True":
-                print "quality" + i
-                values[i] = request.form["quality" + i]
-            elif request.form[i] == "False":
-                values[i] = enums.quality[0]
+
         # try:
         values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
         values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
         values["scoreGears"] = int(request.form["gearsScoredSend"]) if request.form["gearsScoredSend"] else 0
         # values["scoreHoppers"] = request.form["scoreHoppers"]
         # values["Hoppers"] = request.form["Hoppers"]
-        values["fouls"] = int(request.form["foulsSend"]) if request.form["foulsSend"] else 0
-        values["scoreHoppers"] = 0
-        values["Hoppers"] = enums.quality[0]
+        values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
+        values["scoreHoppers"] = int(request.form["hoppersUsed"]) if request.form["hoppersUsed"] else 0
+        values["Hoppers"] = request.form["hopperCatchingQuality"] if values["scoreHoppers"] > 0 else enums.quality[0]
         # except:
         # values["scoreHigh"] = 0
         # values["scoreLow"] = 0
@@ -134,25 +264,100 @@ def scouting_form():
         # values["scoreHoppers"] = 0
         # values["Hoppers"] = enums.quality[0]
         # values["fouls"] = 0
-        pass
         # finally:
-        for i in values:
-            print values[i]
-        result = Results(number=request.form["game"], team=request.form["teamNumber"],
+        if request.form["Defence"] == "False":
+            values["qualityDefence"] = "none"
+        else:
+            values["qualityDefence"] = request.form["qualityDefence"]
+        if request.form["High"] == "False":
+            values["scoreHigh"] = 0
+            values["High"] = "none"
+        else:
+            values["High"] = request.form["qualityHigh"]
+        if request.form["Low"] == "False":
+            values["scoreLow"] = 0
+        if request.form["Gears"] == "False":
+            values["scoreGears"] = 0
+            values["Gears"] = "none"
+        else:
+            values["Gears"] = request.form["qualityGears"]
+        if request.form["Climb"] == "False":
+            values["Climb"] = "none"
+        else:
+            values["Climb"] = request.form["qualityClimbing"]
+        result = Results(number=request.form["matchNumber"], team=request.form["teamNumber"],
                          highgoal=values["scoreHigh"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
-                         climbing_quality=values["Climb"], defending_quality=values["Deffence"],
-                         climbed=request.form["Climb"], defensive=request.form["Deffence"],
+                         climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
+                         climbed=request.form["Climb"], defensive=request.form["Defence"],
                          comment=request.form["comment"])
-        try:
-            update_game(request.form["game"])
-        finally:
-            print Game.query.filter(Game.number == request.form["game"]).all()
+        # try:
+        #     update_game(request.form["game"])
+        # finally:
+        #     print Game.query.filter(Game.number == request.form["game"]).all()
         db_session.add(result)
-        # db_session.flush()
-    return redirect('/')
+        db_session.flush()
+        return redirect('/')
+    elif request.form["override"] == "True":
+        overRide = db_session.query(Results).filter_by(team=request.form["teamNumber"], number=request.form["matchNumber"]).first()
+        db_session.delete(overRide)
+        db_session.flush()
+        values = {}
+
+        # try:
+        values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
+        values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
+        values["scoreGears"] = int(request.form["gearsScoredSend"]) if request.form["gearsScoredSend"] else 0
+        # values["scoreHoppers"] = request.form["scoreHoppers"]
+        # values["Hoppers"] = request.form["Hoppers"]
+        values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
+        values["scoreHoppers"] = int(request.form["hoppersUsed"]) if request.form["hoppersUsed"] else 0
+        values["Hoppers"] = request.form["hopperCatchingQuality"] if values["scoreHoppers"] > 0 else enums.quality[0]
+        # except:
+        # values["scoreHigh"] = 0
+        # values["scoreLow"] = 0
+        # values["scoreGears"] = 0
+        # values["scoreHoppers"] = 0
+        # values["Hoppers"] = enums.quality[0]
+        # values["fouls"] = 0
+        # finally:
+        if request.form["Defence"] == "False":
+            values["qualityDefence"] = "none"
+        else:
+            values["qualityDefence"] = request.form["qualityDefence"]
+        if request.form["High"] == "False":
+            values["scoreHigh"] = 0
+            values["High"] = "none"
+        else:
+            values["High"] = request.form["qualityHigh"]
+        if request.form["Low"] == "False":
+            values["scoreLow"] = 0
+        if request.form["Gears"] == "False":
+            values["scoreGears"] = 0
+            values["Gears"] = "none"
+        else:
+            values["Gears"] = request.form["qualityGears"]
+        if request.form["Climb"] == "False":
+            values["Climb"] = "none"
+        else:
+            values["Climb"] = request.form["qualityClimbing"]
+        result = Results(number=request.form["matchNumber"], team=request.form["teamNumber"],
+                         highgoal=values["scoreHigh"],
+                         lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
+                         fouls=values["fouls"], highgoal_efficiancy=values["High"],
+                         hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
+                         climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
+                         climbed=request.form["Climb"], defensive=request.form["Defence"],
+                         comment=request.form["comment"])
+        # try:
+        #     update_game(request.form["game"])
+        # finally:
+        #     print Game.query.filter(Game.number == request.form["game"]).all()
+        db_session.add(result)
+        db_session.flush()
+        return redirect('/')
 
 
 if __name__ == "__main__":
@@ -160,4 +365,4 @@ if __name__ == "__main__":
     app.secret_key = 'Spikes2212Spikes2212'
     login_manager.logout()
     init_db()
-    app.run(debug=True)
+    app.run(host="0.0.0.0", debug=True)

@@ -13,10 +13,10 @@ class Team(Base):
 
     number = Column(Integer, primary_key=True, autoincrement=False)
     name = Column(String(50))
-    
-    def __init__(self, number, name):
+    conclusion=Column(String(5000))
+    def __init__(self, number, name,conclusion=""):
         self.number = number
         self.name = name
-        
+        self.conclusion=conclusion
     def __repr__(self):
         return "< %s, %s>"%(self.name,self.number)

@@ -6,15 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="static/css/bootstrap.min.css" rel="stylesheet">
     <link href="static/css/general.css" rel="stylesheet">
-
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/ScoutingForm.js"></script>
     <title>Pandora - Scouting Form</title>
 </head>
 {% include 'util/menu.html' %}
 
 <body>
-<form id="scoutingForm" method="post" action="" class=" navbar-default">
+<form id="scoutingForm" method="post" action="/scoutingForm" class=" navbar-default">
+    <input type="hidden" name="override" id="override" value="False">
     <br/>
     <div class="form-group">
         <input type="hidden" name="userName" id="userName" value="">
@@ -26,19 +29,11 @@
         <br/>
 
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
-            <input type="number" class="form-control" placeholder="Game" name="game" id="game">
+            <input type="number" class="form-control" placeholder="Game" name="matchNumber" id="matchNumber">
         </div>
 
-        <!--<br/>-->
-        <!--<br/>-->
-
-        <!--<div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">-->
-        <!--<input type="text" class="form-control" placeholder="Team Name" id="teamName">-->
-        <!--</div>-->
-
         <br/>
         <br/>
-
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#HighShooting').hide()">
@@ -61,10 +56,19 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
                         <div class="btn btn-group-justified btn-primary">
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
                             <label>
-                                <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
-                                       autocomplete="off">
+                                {%if enum == "fine"%}
+                                    <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
+                                           autocomplete="off">
+                                    {%endif%}
                                 {{enum}}
                             </label>
                         </div>
@@ -118,29 +122,7 @@
         <br/>
 
         <div id="lowShooting" class="input-group input-group-lg input-group-middle" style="display:none">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Low Shooting Quality</span>
-                    </h3>
-                </div>
-                <div class="panel-body">
-                    <div class="btn-group" data-toggle="buttons">
-                        {%for enum in quality[1::]%}
-                        <div class="btn btn-group-justified btn-primary">
-                            <label>
-                                <input type="radio" name="qualityLow" value="{{enum}}" id="qualityLow"
-                                       autocomplete="off">
-                                {{enum}}
-                            </label>
-                        </div>
-                        {%endfor%}
-                    </div>
-                </div>
-            </div>
-            <br/>
-            <br/>
-
-            <div id="numberShootsLow" class="panel panel-default">
+                  <div id="numberShootsLow" class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span
                             id="fuelLow"></span><input type="hidden" name="lowFuelScoredSend" id="lowFuelScoredSend">
@@ -188,12 +170,21 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
                         <div class="btn btn-group-justified btn-primary">
-                            <label>
-                                <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
-                                       autocomplete="off">
-                                {{enum}}
-                            </label>
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
+                                <label>
+                                    {%if enum == "fine"%}
+                                    <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
+                                           autocomplete="off">
+                                    {%endif%}
+                                    {{enum}}
+                                </label>
                         </div>
                         {%endfor%}
                     </div>
@@ -216,7 +207,7 @@
                         <label id="gearDec" class="btn btn-primary btn-group">
                             -1
                         </label>
-                </div>
+                    </div>
                 </div>
             </div>
             <br/>
@@ -244,10 +235,19 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in time[1::]%}
+                        {%if enum!="medium"%}
                         <div class="btn btn-group-justified btn-primary">
+                        {%else%}
+                        <div class="btn btn-group-justified btn-primary active">
+                            {%endif%}
                             <label>
+                                {%if enum!="medium"%}
                                 <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
                                        autocomplete="off">
+                                {%else%}
+                                <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
+                                       autocomplete="off" checked>
+                                {%endif%}
                                 {{enum}}
                                 {%if enum == "long"%}
                                 30-23
@@ -270,11 +270,11 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#deffenciveRobot').hide()">
-                <input type="radio" name="Defence" id="Deffence" value="False" autocomplete="off" checked> Dosen't
-                Defened
+                <input type="radio" name="Defence" id="Defence" value="False" autocomplete="off" checked> Dosen't
+                Defeneds
             </label>
             <label class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
-                <input type="radio" name="Defence" id="Deffence" value="True" autocomplete="off"> Defends
+                <input type="radio" name="Defence" id="Defence" value="True" autocomplete="off"> Defends
             </label>
         </div>
 
@@ -290,10 +290,19 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
                         <div class="btn btn-group-justified btn-primary">
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
                             <label>
-                                <input type="radio" name="qualityDeffence" value="{{enum}}" id="qualityDeffence"
-                                       autocomplete="off">
+                                {%if enum == "fine"%}
+                                    <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
+                                           autocomplete="off">
+                                    {%endif%}
                                 {{enum}}
                             </label>
                         </div>
@@ -338,8 +347,42 @@
                         +1
                     </label>
                     <label id="hopperDec" class="btn btn-primary btn-group">
-                         -1
+                        -1
                     </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="hoppersQuality" style="display:none">
+            <br/>
+            <br/>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Hopper Ball Catching
+                        Quality</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
+                        <div class="btn btn-group-justified btn-primary">
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
+                            <label>
+                                {%if enum == "fine"%}
+                                    <input type="radio" name="hopperCatchingQuality" value="{{enum}}" id="hopperCatchingQuality"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="hopperCatchingQuality" value="{{enum}}" id="hopperCatchingQuality"
+                                           autocomplete="off">
+                                    {%endif%}
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
                 </div>
             </div>
         </div>
@@ -347,15 +390,12 @@
         <br/>
         <br/>
 
-        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 input-group input-group-lg input-group-middle">
             <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
-            <textarea class="form-control" form="scoutingForm" rows="5" name="comment" id="comment" placeholder="Game Comments"></textarea>
+            <textarea class="form-control" style="text-align: right;" form="scoutingForm" rows="5" name="comment"
+                      id="comment"
+                      placeholder="הערות על המשחק"></textarea>
         </div>
-
-        <br/>
-        <br/>
-
-        <input type="submit" class="btn btn-primary btn-block" name="submit">
 
         <br/>
         <br/>
@@ -364,318 +404,34 @@
     <br/>
 
 </form>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="static/js/bootstrap.min.js"></script>
-<script>
-    (function() {
-        $(function () {
-            fuelHighInit();
-            fuelLowInit();
-            gearsInit();
-            foulsInit();
-            hopperInit();
-        })
 
-        function fuelHighInit() {
-            var fuelHigh = 0;
-            $('#fuelHigh').html(fuelHigh);
-            $('#highFuelScoredSend').val(fuelHigh);
+<form id="hiddenSubmit" class="navbar-default">
+    <input id="deRealSubmit" type="button" class="btn btn-primary btn-block" value="Submit" name="Submit">
+    <br/>
+    <br/>
+</form>
 
-            $('#fuelHighInc').click(function() {
-                fuelHigh++;
-                if($('#fuelHighInc').hasClass("btn-danger")){
-                $('#numberShootsHigh').removeClass("panel-danger");
-                $('#numberShootsHigh').addClass("panel-default");
-                $('#fuelHighDec').removeClass("btn-danger");
-                $('#fuelHighInc').removeClass("btn-danger");
-                $('#fuelHighDec').addClass("btn-primary");
-                $('#fuelHighInc').addClass("btn-primary");
-                $('#fuelHighDec10').removeClass("btn-danger");
-                $('#fuelHighInc10').removeClass("btn-danger");
-                $('#fuelHighDec10').addClass("btn-primary");
-                $('#fuelHighInc10').addClass("btn-primary");
-                }
-                $('#fuelHigh').html(fuelHigh);
-                $('#highFuelScoredSend').val(fuelHigh);
-            });
-            $('#fuelHighInc10').click(function() {
-                fuelHigh+=10;
-                if($('#fuelHighInc').hasClass("btn-danger")){
-                $('#numberShootsHigh').removeClass("panel-danger");
-                $('#numberShootsHigh').addClass("panel-default");
-                $('#fuelHighDec').removeClass("btn-danger");
-                $('#fuelHighInc').removeClass("btn-danger");
-                $('#fuelHighDec').addClass("btn-primary");
-                $('#fuelHighInc').addClass("btn-primary");
-                $('#fuelHighDec10').removeClass("btn-danger");
-                $('#fuelHighInc10').removeClass("btn-danger");
-                $('#fuelHighDec10').addClass("btn-primary");
-                $('#fuelHighInc10').addClass("btn-primary");
-                }
-                $('#fuelHigh').html(fuelHigh);
-                $('#highFuelScoredSend').val(fuelHigh);
-            });
-            $('#fuelHighDec').click(function() {
-                if(fuelHigh>0){
-                        fuelHigh--;
-                }else{
-                $('#numberShootsHigh').addClass("panel-danger");
-                $('#numberShootsHigh').removeClass("panel-default");
-                $('#fuelHighDec').addClass("btn-danger");
-                $('#fuelHighInc').addClass("btn-danger");
-                $('#fuelHighDec').removeClass("btn-primary");
-                $('#fuelHighInc').removeClass("btn-primary");
-                $('#fuelHighDec10').addClass("btn-danger");
-                $('#fuelHighInc10').addClass("btn-danger");
-                $('#fuelHighDec10').removeClass("btn-primary");
-                $('#fuelHighInc10').removeClass("btn-primary");
-                }
-                $('#fuelHigh').html(fuelHigh);
-                $('#highFuelScoredSend').val(fuelHigh);
-            });
-            $('#fuelHighDec10').click(function() {
-                if(fuelHigh>9){
-                        fuelHigh-=10;
-                }else{
-                fuelHigh=0;
-                $('#numberShootsHigh').addClass("panel-danger");
-                $('#numberShootsHigh').removeClass("panel-default");
-                $('#fuelHighDec').addClass("btn-danger");
-                $('#fuelHighInc').addClass("btn-danger");
-                $('#fuelHighDec').removeClass("btn-primary");
-                $('#fuelHighInc').removeClass("btn-primary");
-                $('#fuelHighDec10').addClass("btn-danger");
-                $('#fuelHighInc10').addClass("btn-danger");
-                $('#fuelHighDec10').removeClass("btn-primary");
-                $('#fuelHighInc10').removeClass("btn-primary");
-                }
-                $('#fuelHigh').html(fuelHigh);
-                $('#highFuelScoredSend').val(fuelHigh);
-            });
-            }
-            function fuelLowInit() {
-            var fuelLow = 0;
-            $('#fuelLow').html(fuelLow);
-            $('#lowFuelScoredSend').val(fuelLow);
+<br/>
+<br/>
 
-            $('#fuelLowInc').click(function() {
-                    fuelLow++;
-                if($('#fuelLowInc').hasClass("btn-danger")){
-                $('#numberShootsLow').removeClass("panel-danger");
-                $('#numberShootsLow').addClass("panel-default");
-                $('#fuelLowDec').removeClass("btn-danger");
-                $('#fuelLowInc').removeClass("btn-danger");
-                $('#fuelLowDec').addClass("btn-primary");
-                $('#fuelLowInc').addClass("btn-primary");
-                $('#fuelLowDec10').removeClass("btn-danger");
-                $('#fuelLowInc10').removeClass("btn-danger");
-                $('#fuelLowDec10').addClass("btn-primary");
-                $('#fuelLowInc10').addClass("btn-primary");
-                }
-                $('#fuelLow').html(fuelLow);
-                $('#lowFuelScoredSend').val(fuelLow);
-            });
-            $('#fuelLowInc10').click(function() {
-                    fuelLow+=10;
-                if($('#fuelLowInc').hasClass("btn-danger")){
-                $('#numberShootsLow').removefoulsClass("panel-danger");
-                $('#numberShootsLow').addClass("panel-default");
-                $('#fuelLowDec').removeClass("btn-danger");
-                $('#fuelLowInc').removeClass("btn-danger");
-                $('#fuelLowDec').addClass("btn-primary");
-                $('#fuelLowInc').addClass("btn-primary");
-                $('#fuelLowDec10').removeClass("btn-danger");
-                $('#fuelLowInc10').removeClass("btn-danger");
-                $('#fuelLowDec10').addClass("btn-primary");
-                $('#fuelLowInc10').addClass("btn-primary");
-                }
-                $('#fuelLow').html(fuelLow);
-                $('#lowFuelScoredSend').val(fuelLow);
-            });
-            $('#fuelLowDec').click(function() {
-                if(fuelLow>0){
-                        fuelLow--;
-                }else{
-                $('#numberShootsLow').addClass("panel-danger");
-                $('#numberShootsLow').removeClass("panel-default");
-                $('#fuelLowDec').addClass("btn-danger");
-                $('#fuelLowInc').addClass("btn-danger");
-                $('#fuelLowDec').removeClass("btn-primary");
-                $('#fuelLowInc').removeClass("btn-primary");
-                $('#fuelLowDec10').addClass("btn-danger");
-                $('#fuelLowInc10').addClass("btn-danger");
-                $('#fuelLowDec10').removeClass("btn-primary");
-                $('#fuelLowInc10').removeClass("btn-primary");
-                }
-                $('#lowFuelScoredSend').val(fuelLow);
-                $('#fuelLow').html(fuelLow);
-            });
-
-            $('#fuelLowDec10').click(function() {
-                if(fuelLow>9){
-                        fuelLow-=10;
-                }else{
-                    fuelLow=0;
-                $('#numberShootsLow').addClass("panel-danger");
-                $('#numberShootsLow').removeClass("panel-default");
-                $('#fuelLowDec').addClass("btn-danger");
-                $('#fuelLowInc').addClass("btn-danger");
-                $('#fuelLowDec').removeClass("btn-primary");
-                $('#fuelLowInc').removeClass("btn-primary");
-                $('#fuelLowDec10').addClass("btn-danger");
-                $('#fuelLowInc10').addClass("btn-danger");
-                $('#fuelLowDec10').removeClass("btn-primary");
-                $('#fuelLowInc10').removeClass("btn-primary");
-                }
-                $('#fuelLow').html(fuelLow);
-                $('#lowFuelScoredSend').val(fuelLow);
-
-            });
-            }
-            function foulsInit(){
-            var fouls = 0;
-            $('#fouls').html(fouls);
-            $('#foulSend').val(fouls);
-
-            $('#foulInc').click(function(){
-                fouls++;
-                if($('#foulInc').hasClass("btn-danger")){
-                    $('#foulsDone').removeClass("panel-danger");
-                    $('#foulsDone').addClass("panel-default");
-                    $('#foulDec').removeClass("btn-danger");
-                    $('#foulInc').removeClass("btn-danger");
-                    $('#foulInc').addClass("btn-primary");
-                    $('#foulDec').addClass("btn-primary");
-                }
-                if(fouls>0){
-                    $('#foulsDone').removeClass("panel-default");
-                    $('#foulsDone').addClass("panel-warning");
-                    $('#foulDec').removeClass("btn-primary");
-                    $('#foulInc').removeClass("btn-primary");
-                    $('#foulInc').addClass("btn-warning");
-                    $('#foulDec').addClass("btn-warning");
-                }
-
-                $('#fouls').html(fouls);
-                $('#foulSend').val(fouls);
-            });
-
-            $('#foulDec').click(function() {
-                if(fouls>0){
-                    fouls--;
-                }else{
-                    $('#foulsDone').addClass("panel-danger");
-                    $('#foulsDone').removeClass("panel-default");
-                    $('#foulDec').addClass("btn-danger");
-                    $('#foulInc').addClass("btn-danger");
-                    $('#foulDec').removeClass("btn-primary");
-                    $('#foulInc').removeClass("btn-primary");
-                }
-                if(fouls == "0"){
-                    $('#foulsDone').removeClass("panel-warning");
-                    $('#foulsDone').addClass("panel-default");
-                    $('#foulDec').removeClass("btn-warning");
-                    $('#foulInc').removeClass("btn-warning");
-                    $('#foulInc').addClass("btn-primary");
-                    $('#foulDec').addClass("btn-primary");
-                }
-                $('#fouls').html(fouls);
-                $('#foulSend').val(fouls);
-            });
-
-            }
-
-            function gearsInit() {
-            var gears = 0;
-            $('#gears').html(gears);
-             $('#gearsScoredSend').val(gears);
-
-            $('#gearInc').click(function() {
-                    gears++;
-                if($('#gearInc').hasClass("btn-danger")){
-                    $('#gearsInputed').removeClass("panel-danger");
-                    $('#gearsInputed').addClass("panel-default");
-                    $('#gearInc').removeClass("btn-danger");
-                    $('#gearDec').removeClass("btn-danger");
-                    $('#gearInc').addClass("btn-primary");
-                    $('#gearDec').addClass("btn-primary");
-                }
-                $('#gears').html(gears);
-                 $('#gearsScoredSend').val(gears);
-            });
-            $('#gearDec').click(function() {
-                if(gears>0){
-                    gears--;
-                }else{
-                    $('#gearsInputed').addClass("panel-danger");
-                    $('#gearsInputed').removeClass("panel-default");
-                    $('#gearDec').addClass("btn-danger");
-                    $('#gearInc').addClass("btn-danger");
-                    $('#gearDec').removeClass("btn-primary");
-                    $('#gearInc').removeClass("btn-primary");
-                }
-                $('#gears').html(gears);
-                 $('#gearsScoredSend').val(gears);
-            });
-            }
-
-            function hopperInit(){
-            var hoppers = 0;
-            $('#hoppers').html(hoppers);
-            $('#hoppersUsed').val(hoppers);
-
-            $('#hopperInc').click(function(){
-                hoppers++;
-                if($('#hopperInc').hasClass("btn-danger")){
-                    $('#hoppersPanel').removeClass("panel-danger");
-                    $('#hoppersPanel').addClass("panel-default");
-                    $('#hopperDec').removeClass("btn-danger");
-                    $('#hopperInc').removeClass("btn-danger");
-                    $('#hopperInc').addClass("btn-primary");
-                    $('#hopperDec').addClass("btn-primary");
-                }
-
-                $('#hoppers').html(hoppers);
-                $('#hoppersUsed').val(hoppers);
-            });
-
-            $('#hopperDec').click(function() {
-                if(hoppers>0){
-                    hoppers--;
-                }else{
-                    $('#hoppersPanel').addClass("panel-danger");
-                    $('#hoppersPanel').removeClass("panel-default");
-                    $('#hopperDec').addClass("btn-danger");
-                    $('#hopperInc').addClass("btn-danger");
-                    $('#hopperDec').removeClass("btn-primary");
-                    $('#hopperInc').removeClass("btn-primary");
-                }
-                $('#hoppers').html(hoppers);
-                $('#hoppersUsed').val(hoppers);
-            });
-
-            }
-
-
-        //function varInit() {
-        //    var memory = {};
-
-        //    $('[data-var][data-action="incr"]').click(function ($event) {
-        //        var $target = $($event.target);
-
-        //        memory[$target.attr('data-var')]++;
-
-        //    }
-
-        //}
-    })()
-
-
-
-
-
-
-</script>
-
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Game and Team exist</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This Team and Game exist Are YOU SURE you want to override the last saved game?!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
+        <button id="overrideButton" type="button" class="btn btn-primary">Override</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
