@@ -95,16 +95,12 @@ def team_page(teamnumber):
         comment = ""
         try:
             comment = request.form["conclusion"]
-        except:
-            comment = ""
-        finally:
-            print comment
             db_session.query(Team).filter(Team.number == teamnumber).update({"conclusion": comment},
                                                                             synchronize_session='evaluate')
             db_session.flush()
-            print cur_team.conclusion
-            print Team.query.all()
-    all_team_games = Results.query.filter_by(team=teamnumber)
+        except:
+            pass
+    all_team_games = Results.query.filter_by(team=teamnumber).order_by(Results.number)
     all_games = Results.query.all()
     team_average = {}
     high_average = 0
@@ -153,8 +149,7 @@ def team_page(teamnumber):
         all_average["Hoppers"] = hoppers_average / count
         all_average["Score"] = score / count
         all_average["Fouls"] = fouls / count
-    games = Results.query.filter_by(team=teamnumber)
-    return render_template('team2.html', status=login_manager.status, games=games,
+    return render_template('team2.html', status=login_manager.status, games=all_team_games,
                            team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber)
 
 
@@ -240,7 +235,6 @@ def show_db():
     game = Results.query.all()
     return render_template('show_db.html', games=game)
 
-
 @app.route("/scoutingForm", methods=["GET", "POST"])
 def scouting_form():
     if request.method == 'GET':
@@ -257,14 +251,6 @@ def scouting_form():
         values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
         values["scoreHoppers"] = int(request.form["hoppersUsed"]) if request.form["hoppersUsed"] else 0
         values["Hoppers"] = request.form["hopperCatchingQuality"] if values["scoreHoppers"] > 0 else enums.quality[0]
-        # except:
-        # values["scoreHigh"] = 0
-        # values["scoreLow"] = 0
-        # values["scoreGears"] = 0
-        # values["scoreHoppers"] = 0
-        # values["Hoppers"] = enums.quality[0]
-        # values["fouls"] = 0
-        # finally:
         if request.form["Defence"] == "False":
             values["qualityDefence"] = "none"
         else:
