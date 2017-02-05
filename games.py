@@ -1,6 +1,17 @@
 #!py
 from sqlalchemy import Column, Integer, String, ForeignKey
-from database import Base
+from database import Base, db_session
+from teams import Team
+from performances import Results
+import numpy as np
+
+
+def update_game(gamenumber):
+    teams = Results.team.query.filter(Results.number == gamenumber).all()
+    if len(teams) < 6 and np.uniqe(teams.values()).size != len(teams):
+        raise Exception("not all the inormation exist,try later")
+    else:
+        print "FIXME: add code to update game"
 
 
 class Alliance():

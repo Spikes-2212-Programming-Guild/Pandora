@@ -7,21 +7,28 @@ import enums
 def score(highgoal, lowgoal, gears, climbing, fouls):
     gear_ammount = [2, 6, 12]
     #don't ask questions, you will not hear lies
-    #TODO make cleaner
-    score = (gear_ammount.index(min(gear_ammount, key=lambda x: abs(x - gears))) + 1 if min(gear_ammount,key=lambda x: abs(x - gears)) < gears else 2) * 40
-    score += highgoal / 3 + lowgoal / 9 + (50 if climbing else 0)
+    print "score: \n"
+    value=gear_ammount.index(min(gear_ammount, key=lambda x: abs(x - gears)))
+    print value
+    score = (value + (1 if gear_ammount[value] > gears else 2)) * 40
+    print score
+    score += highgoal / 3 + lowgoal / 9 + (50 if climbing=='True' else 0)
+    print score
     score -= 5 * fouls
-    return score()
+    print score
+    if score < 0:
+        score = 0
+    return score
 
 
-class Performance(Base):
+class Results(Base):
     """ A table representing every game resaults of each group in each game
 
     """
     __tablename__ = 'results'
 
     # id fields
-    index= Column(Integer,primary_key=True,autoincrement=True)
+    index = Column(Integer,primary_key=True,autoincrement=True)
     number = Column(Integer, ForeignKey("games.number"))
     team = Column(Integer, ForeignKey("teams.number"))
 
@@ -49,6 +56,27 @@ class Performance(Base):
 
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
                  gears_efficiency, climbing_quality, defending_quality, climbed, defensive, comment):
+        """
+        :param number:
+        :type number: int
+        :param team:
+        :type team: int
+        :param highgoal:
+        :param lowgoal:
+        :param gears:
+        :param hoppers:
+        :param fouls:
+        :param highgoal_efficiancy:
+        :param hoppers_efficiency:
+        :param gears_efficiency:
+        :param climbing_quality:
+        :param defending_quality:
+        :param climbed:
+        :param defensive:
+        :param comment:
+        """
+        self.team=team
+        self.number=number
         self.highgoal = highgoal
         self.lowgoal = lowgoal
         self.gears = gears
@@ -62,4 +90,4 @@ class Performance(Base):
         self.climbed = climbed
         self.defensive_robot = defensive
         self.comment = comment
-        self.score = score(highgoal, lowgoal, gears, climbed, fouls)
+        self.score = score(highgoal=highgoal, lowgoal=lowgoal, gears=gears, climbing=climbed, fouls=fouls)

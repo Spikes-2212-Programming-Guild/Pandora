@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/general.css" rel="stylesheet">
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="static/js/bootstrap.min.js"></script>
+    <script src="static/js/ScoutingForm.js"></script>
+    <title>Pandora - Scouting Form</title>
+</head>
+{% include 'util/menu.html' %}
+
+<body>
+<form id="scoutingForm" method="post" action="/scoutingForm" class=" navbar-default">
+    <input type="hidden" name="override" id="override" value="False">
+    <br/>
+    <div class="form-group">
+        <input type="hidden" name="userName" id="userName" value="">
+        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
+            <input type="number" class="form-control" placeholder="Team Number" name="teamNumber" id="teamNumber" required>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
+            <input type="number" class="form-control" placeholder="Game" name="matchNumber" id="matchNumber" required>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#HighShooting').hide()">
+                <input type="radio" name="High" id="High" value='False' autocomplete="off" checked> Dosen't Shoots High
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').show()">
+                <input type="radio" name="High" id="High" value='True' autocomplete="off"> Shoots High
+            </label>
+        </div>
+
+
+        <div id="HighShooting" class="input-group input-group-lg input-group-middle" style="display:none">
+            <br/>
+            <br/>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">High Shooting Quality</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
+                        <div class="btn btn-group-justified btn-primary">
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
+                            <label>
+                                {%if enum == "fine"%}
+                                    <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
+                                           autocomplete="off">
+                                    {%endif%}
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <br/>
+
+
+            <div id="numberShootsHigh" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored High - <span
+                            id="fuelHigh"></span><input type="hidden" name="highFuelScoredSend" id="highFuelScoredSend">
+                        <input type="hidden" name="scoreHigh" id="scoreHigh">
+                    </h3>
+                </div>
+                <div class="panel-body ">
+                    <div class="btn-group btn-group-justified " data-toggle="buttons">
+                        <label id="fuelHighInc10" class="btn btn-primary btn-group ">
+                            +10
+                        </label>
+                        <label id="fuelHighInc" class="btn btn-primary btn-group ">
+                            +1
+                        </label>
+                        <label id="fuelHighDec" class="btn btn-primary btn-group">
+                            -1
+                        </label>
+                        <label id="fuelHighDec10" class="btn btn-primary btn-group">
+                            -10
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#lowShooting').hide()">
+                <input type="radio" name="Low" id="Low" autocomplete="off" checked value="False"> Dosen't Shoots Low
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#lowShooting').show()">
+                <input type="radio" name="Low" id="Low" autocomplete="off" Value="True"> Shoots Low
+            </label>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="lowShooting" class="input-group input-group-lg input-group-middle" style="display:none">
+                  <div id="numberShootsLow" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span
+                            id="fuelLow"></span><input type="hidden" name="lowFuelScoredSend" id="lowFuelScoredSend">
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="fuelLowInc10" class="btn btn-primary btn-group ">
+                            +10
+                        </label>
+                        <label id="fuelLowInc" class="btn btn-primary btn-group ">
+                            +1
+                        </label>
+                        <label id="fuelLowDec" class="btn btn-primary btn-group">
+                            -1
+                        </label>
+                        <label id="fuelLowDec10" class="btn btn-primary btn-group">
+                            -10
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#puttingGears').hide()">
+                <input type="radio" name="Gears" id="Gears" value="False" autocomplete="off" checked> Dosen't Put Gears
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').show()">
+                <input type="radio" name="Gears" id="Gears" value="True" autocomplete="off"> Puts Gears
+            </label>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="puttingGears" class="input-group input-group-lg input-group-middle" style="display:none">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Quality</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
+                        <div class="btn btn-group-justified btn-primary">
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
+                                <label>
+                                    {%if enum == "fine"%}
+                                    <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
+                                           autocomplete="off">
+                                    {%endif%}
+                                    {{enum}}
+                                </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+
+            <br/>
+
+            <div id="gearsInputed" class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Scored - <span
+                            id="gears"></span><input type="hidden" name="gearsScoredSend" id="gearsScoredSend">
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="gearInc" class="btn btn-primary btn-group ">
+                            +1
+                        </label>
+                        <label id="gearDec" class="btn btn-primary btn-group">
+                            -1
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#hangs').hide()">
+                <input type="radio" name="Climb" id="Climb" value="False" autocomplete="off" checked> Dosen't Climbs
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
+                <input type="radio" name="Climb" id="Climb" value="True" autocomplete="off"> Climbs
+            </label>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="hangs" style="display:none">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Climbing Time</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in time[1::]%}
+                        {%if enum!="medium"%}
+                        <div class="btn btn-group-justified btn-primary">
+                        {%else%}
+                        <div class="btn btn-group-justified btn-primary active">
+                            {%endif%}
+                            <label>
+                                {%if enum!="medium"%}
+                                <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
+                                       autocomplete="off">
+                                {%else%}
+                                <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
+                                       autocomplete="off" checked>
+                                {%endif%}
+                                {{enum}}
+                                {%if enum == "long"%}
+                                30-23
+                                {%endif%}
+                                {%if enum=="medium"%}
+                                23-15
+                                {%endif%}
+                                {%if enum=="short"%}
+                                15-0
+                                {%endif%}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#deffenciveRobot').hide()">
+                <input type="radio" name="Defence" id="Defence" value="False" autocomplete="off" checked> Dosen't
+                Defeneds
+            </label>
+            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
+                <input type="radio" name="Defence" id="Defence" value="True" autocomplete="off"> Defends
+            </label>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="deffenciveRobot" style="display:none">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Defence Quality</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
+                        <div class="btn btn-group-justified btn-primary">
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
+                            <label>
+                                {%if enum == "fine"%}
+                                    <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
+                                           autocomplete="off">
+                                    {%endif%}
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+            <br/>
+            <br/>
+        </div>
+
+        <div id="foulsDone" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 200%">Fouls Done - <span
+                        id="fouls"></span> <input type="hidden" name="foulsDone" id="foulSend">
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label id="foulInc" class="btn btn-primary btn-group ">
+                        +1
+                    </label>
+                    <label id="foulDec" class="btn btn-primary btn-group">
+                        -1
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div id="hoppersPanel" class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 200%">Hoppers Used - <span
+                        id="hoppers"></span> <input type="hidden" name="hoppersUsed" id="hoppersUsed">
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label id="hopperInc" class="btn btn-primary btn-group ">
+                        +1
+                    </label>
+                    <label id="hopperDec" class="btn btn-primary btn-group">
+                        -1
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div id="hoppersQuality" style="display:none">
+            <br/>
+            <br/>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title" style="text-align: center; font-size: 200%">Hopper Ball Catching
+                        Quality</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="btn-group" data-toggle="buttons">
+                        {%for enum in quality[1::]%}
+                        {%if enum != "fine"%}
+                        <div class="btn btn-group-justified btn-primary">
+                            {%else%}
+                            <div class=" btn btn-group-justified btn-primary active ">
+                                {%endif%}
+                            <label>
+                                {%if enum == "fine"%}
+                                    <input type="radio" name="hopperCatchingQuality" value="{{enum}}" id="hopperCatchingQuality"
+                                           autocomplete="off" checked>
+                                    {%else%}
+                                    <input type="radio" name="hopperCatchingQuality" value="{{enum}}" id="hopperCatchingQuality"
+                                           autocomplete="off">
+                                    {%endif%}
+                                {{enum}}
+                            </label>
+                        </div>
+                        {%endfor%}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <br/>
+        <br/>
+
+        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 input-group input-group-lg input-group-middle">
+            <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
+            <textarea class="form-control" style="text-align: right;" form="scoutingForm" rows="5" name="comment"
+                      id="comment"
+                      placeholder="הערות על המשחק"></textarea>
+        </div>
+
+        <br/>
+        <br/>
+
+    </div>
+    <br/>
+
+</form>
+
+<form id="hiddenSubmit" class="navbar-default">
+    <input id="deRealSubmit" type="button" class="btn btn-primary btn-block" value="Submit" name="Submit" required>
+    <br/>
+    <br/>
+</form>
+
+<br/>
+<br/>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Game and Team exist</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        This Team and Game exist Are YOU SURE you want to override the last saved game?!
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
+        <button id="overrideButton" type="button" class="btn btn-primary">Override</button>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

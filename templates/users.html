@@ -8,10 +8,10 @@
     <title>Pandora - index</title>
 
     <!-- Bootstrap -->
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
-	
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+
 	<!-- general CSS -->
-	<link href="/static/css/general.css" rel="stylesheet">
+	<link href="static/css/general.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -21,35 +21,27 @@
     <![endif]-->
   </head>
   <body>
-	
+
 {% include 'util/menu.html' %}
-	
+
 <br />
 <br />
 <br />
-        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-8 col-md-offset-2">  
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-8 col-md-offset-2">
   <table class="table table-hover">
     <thead>
       <tr class="success">
-        <th class="success">Game Number</th>
-        <th class="danger">Red 1</th>
-        <th class="danger">Red 2</th>
-        <th class="danger">Red 3</th>
-        <th class="info">Blue 1</th>
-        <th class="info">Blue 2</th>
-        <th class="info">Blue 3</th>
+        <th class="success">username</th>
+        <th class="success">mail</th>
+        <th class="success">password</th>
       </tr>
     </thead>
     <tbody>
-    {% for game in games %}
+    {% for user in users %}
       <tr class="success">
-        <td class="success"><a href="/game/{{ game.number }}">{{ game.number}}</a></td>
-        <td class="danger"><a href="/team/{{ game.red1}}">{{ game.red1}}</a></td>
-        <td class="danger"><a href="/team/{{ game.red2}}">{{ game.red2}}</a></td>
-        <td class="danger"><a href="/team/{{ game.red3}}">{{ game.red3}}</a></td>
-        <td class="info"><a href="/team/{{ game.blue1}}">{{ game.blue1}}</a></td>
-        <td class="info"><a href="/team/{{ game.blue2}}">{{ game.blue2}}</a></td>
-        <td class="info"><a href="/team/{{ game.blue3}}">{{ game.blue3}}</a></td>
+        <td class="success">{{ user.username}}</td>
+        <td class="success">{{ user.email}}</td>
+        <td class="success">{{ user.password}}</td>
       </tr>
       {% endfor %}
     </tbody>
