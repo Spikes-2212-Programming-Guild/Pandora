@@ -114,7 +114,7 @@
         </tr>
         <tr>
             <td style="background-color:AliceBlue">All Averages</td>
-            <td style="background-color:AliceBlue ">{{all_average.HighShooting}}</td>
+            <td value="{{all_average.HighShooting}}"style="background-color:AliceBlue ">{{all_average.HighShooting}}</td>
             <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
             <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
             <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
@@ -128,7 +128,7 @@
             <td style="background-color:AliceBlue"><a href="/game/{{game.team}}/{{game.number}}">{{game.number}}</a>
             </td>
 
-            <td style="background-color:AliceBlue ">{{game.highgoal}}<br/>{{game.highgoal_efficiency}}</td>
+            <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}</td>
             <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
             <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
             <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>
@@ -148,7 +148,7 @@
         </tbody>
     </table>
 </div>
-
+<script src="/static/js/teamPage.js"></script>
 <!--<script>-->
 <!--var scores = document.getElementById('scores').getContext('2d');-->
 <!--var info =  {-->
