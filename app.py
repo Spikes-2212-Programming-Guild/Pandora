@@ -121,53 +121,8 @@ def game_page(gamenumber, teamnumber):
     all_team_games = Results.query.filter_by(team=teamnumber)
     all_games = Results.query.all()
     if all_team_games != None:
-        team_average = {}
-        high_average = 0
-        low_average = 0
-        gears_average = 0
-        hoppers_average = 0
-        fouls = 0
-        score = 0
-        count = 0
-        for games in all_team_games:
-            high_average += games.highgoal
-            low_average += games.lowgoal
-            gears_average += games.gears
-            hoppers_average += games.hoppers
-            score += games.score
-            fouls += games.fouls
-            count += 1
-        if count != 0:
-            team_average["HighShooting"] = high_average / count
-            team_average["LowShooting"] = low_average / count
-            team_average["Gears"] = gears_average / count
-            team_average["Hoppers"] = hoppers_average / count
-            team_average["Score"] = score / count
-            team_average["Fouls"] = fouls / count
-
-        all_average = {}
-        high_average = 0
-        low_average = 0
-        gears_average = 0
-        hoppers_average = 0
-        fouls = 0
-        score = 0
-        count = 0
-        for games in all_games:
-            high_average += games.highgoal
-            low_average += games.lowgoal
-            gears_average += games.gears
-            hoppers_average += games.hoppers
-            score += games.score
-            fouls += games.fouls
-            count += 1
-        if count != 0:
-            all_average["HighShooting"] = high_average / count
-            all_average["LowShooting"] = low_average / count
-            all_average["Gears"] = gears_average / count
-            all_average["Hoppers"] = hoppers_average / count
-            all_average["Score"] = score / count
-            all_average["Fouls"] = fouls / count
+        team_average = averages(all_team_games)
+    all_average = averages(all_games)
     return render_template('game_page.html', game=game, team_average=team_average, all_average=all_average)
 
 
