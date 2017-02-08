@@ -20,10 +20,10 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <script src="/static/js/canvasjs.min.js"></script>
     <![endif]-->
-<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="static/js/bootstrap.min.js"></script>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 
   window.onload = function () {
@@ -57,8 +57,9 @@
 
     chart.render();
   }
-  </script>
-  <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+
+    </script>
+    <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
 
@@ -78,7 +79,7 @@
 <br/>
 <br/>
 <div id="chartContainer" style="height: 300px; width: 100%;">
-    </div>
+</div>
 <br/>
 <br/>
 <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-8 col-md-offset-2">
@@ -99,12 +100,35 @@
         </tr>
         </thead>
         <tbody>
+
+        <tr>
+            <td style="background-color:AliceBlue">Team Averages</td>
+            <td style="background-color:AliceBlue ">{{team_average.HighShooting}}</td>
+            <td style="background-color:AliceBlue ">{{team_average.LowShooting}}</td>
+            <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
+            <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
+            <td style="background-color:AliceBlue "></td>
+            <td style="background-color:AliceBlue "></td>
+            <td class="danger">{{team_average.Fouls}}</td>
+            <td class="success">{{team_average.Score}}</td>
+        </tr>
+        <tr>
+            <td style="background-color:AliceBlue">All Averages</td>
+            <td value="{{all_average.HighShooting}}"style="background-color:AliceBlue ">{{all_average.HighShooting}}</td>
+            <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
+            <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
+            <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
+            <td style="background-color:AliceBlue "></td>
+            <td style="background-color:AliceBlue "></td>
+            <td class="danger">{{all_average.Fouls}}</td>
+            <td class="success">{{all_average.Score}}</td>
+        </tr>
         {%for game in games%}
         <tr>
             <td style="background-color:AliceBlue"><a href="/game/{{game.team}}/{{game.number}}">{{game.number}}</a>
             </td>
 
-            <td style="background-color:AliceBlue ">{{game.highgoal}}<br/>{{game.highgoal_efficiency}}</td>
+            <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}</td>
             <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
             <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
             <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>
@@ -121,45 +145,23 @@
             <td class="info">{{game.comment}}</td>
             {%endfor%}
         </tr>
-        <tr>
-            <td style="background-color:AliceBlue">Team Averages</td>
-            <td style="background-color:AliceBlue ">{{team_average.HighShooting}}</td>
-            <td style="background-color:AliceBlue ">{{team_average.LowShooting}}</td>
-            <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
-            <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
-            <td style="background-color:AliceBlue "></td>
-            <td style="background-color:AliceBlue "></td>
-            <td class="danger">{{team_average.Fouls}}</td>
-            <td class="success">{{team_average.Score}}</td>
-        </tr>
-        <tr>
-            <td style="background-color:AliceBlue">All Averages</td>
-            <td style="background-color:AliceBlue ">{{all_average.HighShooting}}</td>
-            <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
-            <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
-            <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
-            <td style="background-color:AliceBlue "></td>
-            <td style="background-color:AliceBlue "></td>
-            <td class="danger">{{all_average.Fouls}}</td>
-            <td class="success">{{all_average.Score}}</td>
-        </tr>
         </tbody>
     </table>
 </div>
-
+<script src="/static/js/teamPage.js"></script>
 <!--<script>-->
-    <!--var scores = document.getElementById('scores').getContext('2d');-->
-    <!--var info =  {-->
-	<!--labels : [1,2,3],-->
-	<!--datasets : [-->
-		<!--{-->
-			<!--fillColor : "rgba(172,194,132,0.4)",-->
-			<!--strokeColor : "#ACC26D",-->
-			<!--pointColor : "#fff",-->
-			<!--pointStrokeColor : "#9DB86D",-->
-			<!--data : {2,4,6}-->
-			<!--}-->
-    <!--new Chart(scores).Line(info);-->
+<!--var scores = document.getElementById('scores').getContext('2d');-->
+<!--var info =  {-->
+<!--labels : [1,2,3],-->
+<!--datasets : [-->
+<!--{-->
+<!--fillColor : "rgba(172,194,132,0.4)",-->
+<!--strokeColor : "#ACC26D",-->
+<!--pointColor : "#fff",-->
+<!--pointStrokeColor : "#9DB86D",-->
+<!--data : {2,4,6}-->
+<!--}-->
+<!--new Chart(scores).Line(info);-->
 
 
 <!--</script>-->
