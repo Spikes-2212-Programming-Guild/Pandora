@@ -36,11 +36,11 @@
         <br/>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#HighShooting').hide()">
-                <input type="radio" name="High" id="High" value='False' autocomplete="off" checked> Dosen't Shoots High
+            <label id="doesHighFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').hide()">
+                <input type="radio" name="High" id="High" value="False" autocomplete="off"> Dosen't Shoots High
             </label>
-            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').show()">
-                <input type="radio" name="High" id="High" value='True' autocomplete="off"> Shoots High
+            <label id="doesHighTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').show()">
+                <input type="radio" name="High" id="High" value="True" autocomplete="off"> Shoots High
             </label>
         </div>
 
@@ -56,19 +56,10 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        {%if enum != "fine"%}
-                        <div class="btn btn-group-justified btn-primary">
-                            {%else%}
-                            <div class=" btn btn-group-justified btn-primary active ">
-                                {%endif%}
+                        <div name="qualityHigh-{{enum}}" class="btn btn-group-justified btn-primary">
                             <label>
-                                {%if enum == "fine"%}
-                                    <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
-                                           autocomplete="off" checked>
-                                    {%else%}
                                     <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
                                            autocomplete="off">
-                                    {%endif%}
                                 {{enum}}
                             </label>
                         </div>
@@ -110,10 +101,10 @@
         <br/>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#lowShooting').hide()">
-                <input type="radio" name="Low" id="Low" autocomplete="off" checked value="False"> Dosen't Shoots Low
+            <label id="doesLowFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#lowShooting').hide()">
+                <input type="radio" name="Low" id="Low" autocomplete="off" value="False"> Dosen't Shoots Low
             </label>
-            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#lowShooting').show()">
+            <label id="doesLowTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#lowShooting').show()">
                 <input type="radio" name="Low" id="Low" autocomplete="off" Value="True"> Shoots Low
             </label>
         </div>
@@ -150,10 +141,10 @@
         </div>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#puttingGears').hide()">
-                <input type="radio" name="Gears" id="Gears" value="False" autocomplete="off" checked> Dosen't Put Gears
+            <label id="doesGearFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').hide()">
+                <input type="radio" name="Gears" id="Gears" value="False" autocomplete="off"> Dosen't Put Gears
             </label>
-            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').show()">
+            <label id="doesGearTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').show()">
                 <input type="radio" name="Gears" id="Gears" value="True" autocomplete="off"> Puts Gears
             </label>
         </div>
@@ -170,19 +161,10 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        {%if enum != "fine"%}
-                        <div class="btn btn-group-justified btn-primary">
-                            {%else%}
-                            <div class=" btn btn-group-justified btn-primary active ">
-                                {%endif%}
+                        <div name="qualityGear-{{enum}}" class="btn btn-group-justified btn-primary">
                                 <label>
-                                    {%if enum == "fine"%}
-                                    <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
-                                           autocomplete="off" checked>
-                                    {%else%}
                                     <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
                                            autocomplete="off">
-                                    {%endif%}
                                     {{enum}}
                                 </label>
                         </div>
@@ -215,10 +197,10 @@
         </div>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#hangs').hide()">
-                <input type="radio" name="Climb" id="Climb" value="False" autocomplete="off" checked> Dosen't Climbs
+            <label id="doesClimbFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').hide()">
+                <input type="radio" name="Climb" id="Climb" value="False" autocomplete="off"> Dosen't Climbs
             </label>
-            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
+            <label id="doesClimbTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
                 <input type="radio" name="Climb" id="Climb" value="True" autocomplete="off"> Climbs
             </label>
         </div>
@@ -269,11 +251,11 @@
         </div>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label class="btn btn-primary btn-group active col-lg-6" onclick="$('#deffenciveRobot').hide()">
-                <input type="radio" name="Defence" id="Defence" value="False" autocomplete="off" checked> Dosen't
+            <label id="doesDefenceFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').hide()">
+                <input type="radio" name="Defence" id="Defence" value="False" autocomplete="off"> Dosen't
                 Defeneds
             </label>
-            <label class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
+            <label id="doesDefenceTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
                 <input type="radio" name="Defence" id="Defence" value="True" autocomplete="off"> Defends
             </label>
         </div>
@@ -290,19 +272,10 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        {%if enum != "fine"%}
-                        <div class="btn btn-group-justified btn-primary">
-                            {%else%}
-                            <div class=" btn btn-group-justified btn-primary active ">
-                                {%endif%}
+                        <div name="qualityDefence-{{enum}}" class="btn btn-group-justified btn-primary">
                             <label>
-                                {%if enum == "fine"%}
-                                    <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
-                                           autocomplete="off" checked>
-                                    {%else%}
                                     <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
                                            autocomplete="off">
-                                    {%endif%}
                                 {{enum}}
                             </label>
                         </div>
@@ -414,11 +387,11 @@
 <br/>
 <br/>
 
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="overrideModal" tabindex="-1" role="dialog" aria-labelledby="overrideModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Game and Team exist</h5>
+        <h5 class="modal-title" id="overrideModalLabel">Game and Team exist</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -433,5 +406,47 @@
     </div>
   </div>
 </div>
+
+<div class="modal fade" id="requiredModal" tabindex="-1" role="dialog" aria-labelledby="requiredModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requiredModalLabel">Didn't fill in Required</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        You didn't Fill in Team Number, Match Number or Comment Hoppers Defence Climb Gears Low High Fouls
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="showStuffModal" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="showModalLabel">Form:</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <span id="stuffSpan"></span>
+      </div>
+      <div class="modal-footer">
+        <button id="submitButton" type="button" class="btn btn-secondary">Submit</button>
+        <button id="dontSubmitButton" type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+</script>
 </body>
 </html>
