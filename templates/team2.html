@@ -27,9 +27,16 @@
     <script type="text/javascript">
 
   window.onload = function () {
-
+    var height=320;
+    if (window.innerWidth<500){
+        height=window.innerWidth/2;
+    }
+    var low=200, high=100, gears=12;
     var chart = new CanvasJS.Chart("chartContainer",
     {
+      height: height,
+      width: 1.6180339887498948482*height,
+
       title:{
         text: "High Shooting Team : "+{{team_number}}
       },
@@ -45,18 +52,51 @@
       data: [
 
       {
-        type: "column",
+        type: "bar",
+        legendText: "all averages",
         dataPoints: [
-        {%for game in games%}
-        {y: {{game.highgoal}}, label: "Game "+{{game.number}}},
-        {%endfor%}
+        {y: {{all_average.LowShooting}}/low *100, label: "low"},
+        {y:{{all_average.HighShooting}}/high *100, label: "high"},
+        {y: {{all_average.Gears}}/gears *100, label : "gears"}
+        ]
+      },
+      {
+        type: "bar",
+        legendText: "team averages",
+        dataPoints: [
+        {y: {{team_average.LowShooting}}/low *100, label: "low"},
+        {y:{{team_average.HighShooting}}/high *100, label: "high"},
+        {y: {{team_average.Gears}}/gears *100, label : "gears"}
+        ]
+      },
+      {
+        type: "bar",
+        legendText: "best",
+        dataPoints: [
+        {y: {{best.low}}/low *100, label: "low"},
+        {y:{{best.high}}/high *100, label: "high"},
+        {y: {{best.gears}}/gears *100, label : "gears"}
+        ]
+      },
+      {
+        type: "bar",
+        legendText: "worst",
+        dataPoints: [
+        {y: {{worst.low}}/low *100, label: "low"},
+        {y:{{worst.high}}/high *100, label: "high"},
+        {y: {{worst.gears}}/gears *100, label : "gears"}
         ]
       }
       ]
+
     });
 
     chart.render();
+    $("chartContainer").attr('align', 'center')
   }
+
+
+
 
     </script>
     <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -69,12 +109,12 @@
 {%if status== 'admin'%}
 <form id="conclusionForm" method="post" action="">
     <div style="background-color:white"> conclusion:
-        <textarea id="conclusion" name="conclusion" form="conclusionForm" style="height:300; width:1500">{{team.conclusion}}</textarea>
+        <textarea align="center" id="conclusion" name="conclusion" form="conclusionForm" style="height:300; width:1500">{{team.conclusion}}</textarea>
     </div>
     <input type="submit" value="Update">
 </form>
 {%else%}
-<div style="background-color:white">summery: {{team.conclusion}}</div>
+<div style="background-color:white" align="center">summery: {{team.conclusion}}</div>
 {%endif%}
 <br/>
 <br/>
@@ -83,8 +123,7 @@
 <br/>
 <br/>
 <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-8 col-md-offset-2">
-    <canvas id="scores" width="100" height="100"></canvas>
-    <table class="table table-hover">
+    <table class="table table-hover" align="center">
         <thead>
         <tr class="success">
             <th class="success">game</th>
@@ -114,7 +153,8 @@
         </tr>
         <tr>
             <td style="background-color:AliceBlue">All Averages</td>
-            <td value="{{all_average.HighShooting}}"style="background-color:AliceBlue ">{{all_average.HighShooting}}</td>
+            <td value="{{all_average.HighShooting}}" style="background-color:AliceBlue ">{{all_average.HighShooting}}
+            </td>
             <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
             <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
             <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
@@ -125,10 +165,11 @@
         </tr>
         {%for game in games%}
         <tr>
-            <td style="background-color:AliceBlue"><a hre   f="/game/{{game.team}}/{{game.number}}">{{game.number}}</a>
+            <td style="background-color:AliceBlue"><a hre f="/game/{{game.team}}/{{game.number}}">{{game.number}}</a>
             </td>
 
-            <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}</td>
+            <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}
+            </td>
             <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
             <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
             <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>

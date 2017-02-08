@@ -11,7 +11,7 @@ from users import User
 from performances import Results
 from user_manager import login_manager
 import enums
-from statistics import averages
+from statistics import averages,best_game,worst_game
 
 app = Flask(__name__)
 
@@ -106,7 +106,7 @@ def team_page(teamnumber):
     team_average = averages(all_team_games)
     all_average = averages(all_games)
     return render_template('team2.html', status=login_manager.status, games=all_team_games,
-                           team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber)
+                           team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber, best=best_game(all_team_games),worst=worst_game(all_team_games))
 
 
 @app.route("/games")
