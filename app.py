@@ -11,6 +11,7 @@ from users import User
 from performances import Results
 from user_manager import login_manager
 import enums
+from statistics import averages
 
 app = Flask(__name__)
 
@@ -95,66 +96,16 @@ def team_page(teamnumber):
         comment = ""
         try:
             comment = request.form["conclusion"]
-        except:
-            comment = ""
-        finally:
-            print comment
             db_session.query(Team).filter(Team.number == teamnumber).update({"conclusion": comment},
                                                                             synchronize_session='evaluate')
             db_session.flush()
-            print cur_team.conclusion
-            print Team.query.all()
-    all_team_games = Results.query.filter_by(team=teamnumber)
+        except:
+            pass
+    all_team_games = Results.query.filter_by(team=teamnumber).order_by(Results.number)
     all_games = Results.query.all()
-    team_average = {}
-    high_average = 0
-    low_average = 0
-    gears_average = 0
-    hoppers_average = 0
-    fouls = 0
-    score = 0
-    count = 0
-    for games in all_team_games:
-        high_average += games.highgoal
-        low_average += games.lowgoal
-        gears_average += games.gears
-        hoppers_average += games.hoppers
-        score += games.score
-        fouls += games.fouls
-        count += 1
-    if count != 0:
-        team_average["HighShooting"] = high_average / count
-        team_average["LowShooting"] = low_average / count
-        team_average["Gears"] = gears_average / count
-        team_average["Hoppers"] = hoppers_average / count
-        team_average["Score"] = score / count
-        team_average["Fouls"] = fouls / count
-
-    all_average = {}
-    high_average = 0
-    low_average = 0
-    gears_average = 0
-    hoppers_average = 0
-    fouls = 0
-    score = 0
-    count = 0
-    for games in all_games:
-        high_average += games.highgoal
-        low_average += games.lowgoal
-        gears_average += games.gears
-        hoppers_average += games.hoppers
-        score += games.score
-        fouls += games.fouls
-        count += 1
-    if count != 0:
-        all_average["HighShooting"] = high_average / count
-        all_average["LowShooting"] = low_average / count
-        all_average["Gears"] = gears_average / count
-        all_average["Hoppers"] = hoppers_average / count
-        all_average["Score"] = score / count
-        all_average["Fouls"] = fouls / count
-    games = Results.query.filter_by(team=teamnumber)
-    return render_template('team2.html', status=login_manager.status, games=games,
+    team_average = averages(all_team_games)
+    all_average = averages(all_games)
+    return render_template('team2.html', status=login_manager.status, games=all_team_games,
                            team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber)
 
 
@@ -170,53 +121,8 @@ def game_page(gamenumber, teamnumber):
     all_team_games = Results.query.filter_by(team=teamnumber)
     all_games = Results.query.all()
     if all_team_games != None:
-        team_average = {}
-        high_average = 0
-        low_average = 0
-        gears_average = 0
-        hoppers_average = 0
-        fouls = 0
-        score = 0
-        count = 0
-        for games in all_team_games:
-            high_average += games.highgoal
-            low_average += games.lowgoal
-            gears_average += games.gears
-            hoppers_average += games.hoppers
-            score += games.score
-            fouls += games.fouls
-            count += 1
-        if count != 0:
-            team_average["HighShooting"] = high_average / count
-            team_average["LowShooting"] = low_average / count
-            team_average["Gears"] = gears_average / count
-            team_average["Hoppers"] = hoppers_average / count
-            team_average["Score"] = score / count
-            team_average["Fouls"] = fouls / count
-
-        all_average = {}
-        high_average = 0
-        low_average = 0
-        gears_average = 0
-        hoppers_average = 0
-        fouls = 0
-        score = 0
-        count = 0
-        for games in all_games:
-            high_average += games.highgoal
-            low_average += games.lowgoal
-            gears_average += games.gears
-            hoppers_average += games.hoppers
-            score += games.score
-            fouls += games.fouls
-            count += 1
-        if count != 0:
-            all_average["HighShooting"] = high_average / count
-            all_average["LowShooting"] = low_average / count
-            all_average["Gears"] = gears_average / count
-            all_average["Hoppers"] = hoppers_average / count
-            all_average["Score"] = score / count
-            all_average["Fouls"] = fouls / count
+        team_average = averages(all_team_games)
+    all_average = averages(all_games)
     return render_template('game_page.html', game=game, team_average=team_average, all_average=all_average)
 
 
@@ -231,7 +137,8 @@ def add_team():
 
 @app.route("/checkIfTeamAndGameExists", methods=["POST"])
 def check_if_happened():
-    match_exists = Results.query.filter_by(team=request.form["team_number"], number=request.form["match_number"]).first()
+    match_exists = Results.query.filter_by(team=request.form["team_number"],
+                                           number=request.form["match_number"]).first()
     return json.dumps(match_exists is not None)
 
 
@@ -257,14 +164,6 @@ def scouting_form():
         values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
         values["scoreHoppers"] = int(request.form["hoppersUsed"]) if request.form["hoppersUsed"] else 0
         values["Hoppers"] = request.form["hopperCatchingQuality"] if values["scoreHoppers"] > 0 else enums.quality[0]
-        # except:
-        # values["scoreHigh"] = 0
-        # values["scoreLow"] = 0
-        # values["scoreGears"] = 0
-        # values["scoreHoppers"] = 0
-        # values["Hoppers"] = enums.quality[0]
-        # values["fouls"] = 0
-        # finally:
         if request.form["Defence"] == "False":
             values["qualityDefence"] = "none"
         else:
@@ -301,7 +200,8 @@ def scouting_form():
         db_session.flush()
         return redirect('/')
     elif request.form["override"] == "True":
-        overRide = db_session.query(Results).filter_by(team=request.form["teamNumber"], number=request.form["matchNumber"]).first()
+        overRide = db_session.query(Results).filter_by(team=request.form["teamNumber"],
+                                                       number=request.form["matchNumber"]).first()
         db_session.delete(overRide)
         db_session.flush()
         values = {}
