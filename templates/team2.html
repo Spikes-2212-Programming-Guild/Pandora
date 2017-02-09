@@ -25,20 +25,20 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="static/js/bootstrap.min.js"></script>
     <script type="text/javascript">
-
   window.onload = function () {
-    var height=320;
-    if (window.innerWidth<640){
-        height=window.innerWidth/2;
+    var epsilon=0.5;
+    var width=500;
+    if (window.innerWidth<width){
+        width=window.innerWidth;
     }
-    var low=200, high=100, gears=12;
+    var low=250, high=200, gears=8;
     var chart = new CanvasJS.Chart("chartContainer",
     {
-      height: height,
-      width: 1.6180339887498948482*height,
+      height: width/1.6180339887498948482,
+      width: width ,
 
       title:{
-        text: "High Shooting Team : "+{{team_number}}
+        text: "Team : "+{{team_number}}
       },
       animationEnabled: true,
       axisX: {
@@ -48,58 +48,66 @@
         verticalAlign: "bottom",
         horizontalAlign: "center"
       },
-      theme: "theme2",
+      theme: "theme0",
       data: [
 
       {
         type: "bar",
         legendText: "all averages",
         dataPoints: [
-        {y: {{all_average.LowShooting}}/low *100, label: "low"},
-        {y:{{all_average.HighShooting}}/high *100, label: "high"},
-        {y: {{all_average.Gears}}/gears *100, label : "gears"}
+        {y: ({{all_average.LowShooting}}/low *100)+epsilon, label: "low"},
+        {y:({{all_average.HighShooting}}/high *100)+epsilon, label: "high"},
+        {y: ({{all_average.Gears}}/gears *100)+epsilon, label : "gears"}
         ]
       },
       {
         type: "bar",
         legendText: "team averages",
         dataPoints: [
-        {y: {{team_average.LowShooting}}/low *100, label: "low"},
-        {y:{{team_average.HighShooting}}/high *100, label: "high"},
-        {y: {{team_average.Gears}}/gears *100, label : "gears"}
+        {y: ({{team_average.LowShooting}}/low *100)+epsilon, label: "low"},
+        {y:({{team_average.HighShooting}}/high *100)+epsilon, label: "high"},
+        {y: ({{team_average.Gears}}/gears *100)+epsilon, label : "gears"}
         ]
       },
       {
         type: "bar",
         legendText: "best",
         dataPoints: [
-        {y: {{best.low}}/low *100, label: "low"},
-        {y:{{best.high}}/high *100, label: "high"},
-        {y: {{best.gears}}/gears *100, label : "gears"}
+        {y: {{best.low}}/low *100+epsilon, label: "low"},
+        {y:{{best.high}}/high *100+epsilon, label: "high"},
+        {y: {{best.gears}}/gears *100+epsilon, label : "gears"}
         ]
       },
       {
         type: "bar",
         legendText: "worst",
         dataPoints: [
-        {y: {{worst.low}}/low *100, label: "low"},
-        {y:{{worst.high}}/high *100, label: "high"},
-        {y: {{worst.gears}}/gears *100, label : "gears"}
+        {y: {{worst.low}}/low *100+epsilon, label: "low"},
+        {y:{{worst.high}}/high *100+epsilon, label: "high"},
+        {y: {{worst.gears}}/gears *100+epsilon, label : "gears"}
         ]
       }
-      ]
+      ],
+      options:{
+          tooltip: {
+            callbacks: {
+                label: function(tooltipItem, data) {
+                    return data; }
+                        }
+                   }
+              }
 
     });
 
     chart.render();
-    $("chartContainer").attr('align', 'center')
+    $("#chartContainer").attr('align', 'center')
   }
 
 
 
 
     </script>
-    <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <script type="text/javascript" src="/static/js/canvasjs.min.js"></script>
 </head>
 <body>
 
