@@ -293,7 +293,7 @@
 
             }
             function canSubmit(){
-            if(!($('#teamNumber').val() == '' || $('#matchNumber').val() == '' || $('#comment').val() == '')){
+            if(lightUmUp()==0){
             $('#stuffSpan').html(
             "Team Number : "+$('#teamNumber').val()+"<br/>"+
             "Match Number : "+$('#matchNumber').val()+"<br/>"+
@@ -358,148 +358,204 @@
             }
             $('#showStuffModal').modal("show");
             }else{
-            lightUmUp();
+
+            $("#comment").on("input", () =>{
+            $('#comment').removeClass("btn-danger");
+            });
+
+            $("#matchNumber").on("input", () =>{
+            $('#matchNumber').removeClass("btn-danger");
+            });
+
+            $("#teamNumber").on("input", () =>{
+            $('#teamNumber').removeClass("btn-danger");
+            });
+
+            $('#doesHighFalse').click(function(){
+            $('#doesHighFalse').removeClass("btn-danger");
+            $('#doesHighTrue').removeClass("btn-danger");
+            $('#doesHighTrue').addClass("btn-primary");
+            $('#doesHighFalse').addClass("btn-primary");
+            });
+
+            $('#doesHighTrue').click(function(){
+            $('#doesHighFalse').removeClass("btn-danger");
+            $('#doesHighTrue').removeClass("btn-danger");
+            $('#doesHighTrue').addClass("btn-primary");
+            $('#doesHighFalse').addClass("btn-primary");
+            });
+
+
+            $('#doesLowFalse').click(function(){
+            $('#doesLowFalse').removeClass("btn-danger");
+            $('#doesLowTrue').removeClass("btn-danger");
+            $('#doesLowTrue').addClass("btn-primary");
+            $('#doesLowFalse').addClass("btn-primary");
+            });
+
+            $('#doesLowTrue').click(function(){
+            $('#doesLowFalse').removeClass("btn-danger");
+            $('#doesLowTrue').removeClass("btn-danger");
+            $('#doesLowTrue').addClass("btn-primary");
+            $('#doesLowFalse').addClass("btn-primary");
+            });
+
+
+            $('#doesGearFalse').click(function(){
+            $('#doesGearFalse').removeClass("btn-danger");
+            $('#doesGearTrue').removeClass("btn-danger");
+            $('#doesGearTrue').addClass("btn-primary");
+            $('#doesGearFalse').addClass("btn-primary");
+            });
+
+            $('#doesGearTrue').click(function(){
+            $('#doesGearFalse').removeClass("btn-danger");
+            $('#doesGearTrue').removeClass("btn-danger");
+            $('#doesGearTrue').addClass("btn-primary");
+            $('#doesGearFalse').addClass("btn-primary");
+            });
+
+            $('#doesClimbFalse').click(function(){
+            $('#doesClimbFalse').removeClass("btn-danger");
+            $('#doesClimbTrue').removeClass("btn-danger");
+            $('#doesClimbTrue').addClass("btn-primary");
+            $('#doesClimbFalse').addClass("btn-primary");
+            });
+
+            $('#doesClimbTrue').click(function(){
+            $('#doesClimbFalse').removeClass("btn-danger");
+            $('#doesClimbTrue').removeClass("btn-danger");
+            $('#doesClimbTrue').addClass("btn-primary");
+            $('#doesClimbFalse').addClass("btn-primary");
+            });
+
+            $('#doesDefenceTrue').click(function(){
+            $('#doesDefenceFalse').removeClass("btn-danger");
+            $('#doesDefenceTrue').removeClass("btn-danger");
+            $('#doesDefenceTrue').addClass("btn-primary");
+            $('#doesDefenceFalse').addClass("btn-primary");
+            });
+
+            $('#doesDefenceFalse').click(function(){
+            $('#doesDefenceFalse').removeClass("btn-danger");
+            $('#doesDefenceTrue').removeClass("btn-danger");
+            $('#doesDefenceTrue').addClass("btn-primary");
+            $('#doesDefenceFalse').addClass("btn-primary");
+            });
+
+            var ClimbingQual= $('div[name=timeClimb]');
+
+            for(var i=0;i<3;i++){
+                $(ClimbingQual[i]).click(function (){
+                    for(var z=0;z<3;z++){
+                        $(ClimbingQual[z]).addClass("btn-primary");
+                        $(ClimbingQual[z]).removeClass("btn-danger");
+                    }
+                });
+            }
+
+            var HighQual= $('div[name=qualitysHigh]');
+
+            for(var i=0;i<5;i++){
+                $(HighQual[i]).click(function (){
+                    for(var z=0;z<5;z++){
+                        $(HighQual[z]).addClass("btn-primary");
+                        $(HighQual[z]).removeClass("btn-danger");
+                    }
+                });
+            }
+
+            var GearQual= $('div[name=qualitysGear]');
+
+            for(var i=0;i<5;i++){
+                $(GearQual[i]).click(function (){
+                    for(var z=0;z<5;z++){
+                        $(GearQual[z]).addClass("btn-primary");
+                        $(GearQual[z]).removeClass("btn-danger");
+                    }
+                });
+            }
+
+            var DefenceQual= $('div[name=qualitysDefence]');
+
+            for(var i=0;i<5;i++){
+                $(DefenceQual[i]).click(function (){
+                    for(var z=0;z<5;z++){
+                        $(DefenceQual[z]).addClass("btn-primary");
+                        $(DefenceQual[z]).removeClass("btn-danger");
+                    }
+                });
+            }
+
+            var HopperQual= $('div[name=qualitysHopper]');
+
+            for(var i=0;i<5;i++){
+                $(HopperQual[i]).click(function (){
+                    for(var z=0;z<5;z++){
+                        $(HopperQual[z]).addClass("btn-primary");
+                        $(HopperQual[z]).removeClass("btn-danger");
+                    }
+                });
+            }
+
             $('#requiredModal').modal("show");
             }
             }
             function lightUmUp(){
+            var textInputs = ["comment","matchNumber","teamNumber"];
             var quality =["very bad", "bad", "fine", "good", "very good"];
             var checkList = ["Low","Climb","High","Gear","Defence"];
             var boolean = ["True", "False"];
-//            if($('input[name=High]:checked').val() == null){
-//            $('#doesHighFalse').removeClass("btn-primary");
-//            $('#doesHighTrue').removeClass("btn-primary");
-//            $('#doesHighTrue').addClass("btn-danger");
-//            $('#doesHighFalse').addClass("btn-danger");
-//            }
-//
-//            $('#doesHighFalse').click(function(){
-//            $('#doesHighFalse').removeClass("btn-danger");
-//            $('#doesHighTrue').removeClass("btn-danger");
-//            $('#doesHighTrue').addClass("btn-primary");
-//            $('#doesHighFalse').addClass("btn-primary");
-//            });
-//
-//            $('#doesHighTrue').click(function(){
-//            $('#doesHighFalse').removeClass("btn-danger");
-//            $('#doesHighTrue').removeClass("btn-danger");
-//            $('#doesHighTrue').addClass("btn-primary");
-//            $('#doesHighFalse').addClass("btn-primary");
-//            });
-//
-//            if($('input[name=Low]:checked').val() == null){
-//            $('#doesLowFalse').removeClass("btn-primary");
-//            $('#doesLowTrue').removeClass("btn-primary");
-//            $('#doesLowTrue').addClass("btn-danger");
-//            $('#doesLowFalse').addClass("btn-danger");
-//            }
-//
-//            $('#doesLowFalse').click(function(){
-//            $('#doesLowFalse').removeClass("btn-danger");
-//            $('#doesLowTrue').removeClass("btn-danger");
-//            $('#doesLowTrue').addClass("btn-primary");
-//            $('#doesLowFalse').addClass("btn-primary");
-//            });
-//
-//            $('#doesLowTrue').click(function(){
-//            $('#doesLowFalse').removeClass("btn-danger");
-//            $('#doesLowTrue').removeClass("btn-danger");
-//            $('#doesLowTrue').addClass("btn-primary");
-//            $('#doesLowFalse').addClass("btn-primary");
-//            });
-//
-//            if($('input[name=Gears]:checked').val() == null){
-//            $('#doesGearFalse').removeClass("btn-primary");
-//            $('#doesGearTrue').removeClass("btn-primary");
-//            $('#doesGearTrue').addClass("btn-danger");
-//            $('#doesGearFalse').addClass("btn-danger");
-//            }
-//
-//            $('#doesGearFalse').click(function(){
-//            $('#doesGearFalse').removeClass("btn-danger");
-//            $('#doesGearTrue').removeClass("btn-danger");
-//            $('#doesGearTrue').addClass("btn-primary");
-//            $('#doesGearFalse').addClass("btn-primary");
-//            });
-//
-//            $('#doesGearTrue').click(function(){
-//            $('#doesGearFalse').removeClass("btn-danger");
-//            $('#doesGearTrue').removeClass("btn-danger");
-//            $('#doesGearTrue').addClass("btn-primary");
-//            $('#doesGearFalse').addClass("btn-primary");
-//            });
-//
-//            if($('input[name=Climb]:checked').val() == null){
-//            $('#doesClimbFalse').removeClass("btn-primary");
-//            $('#doesClimbTrue').removeClass("btn-primary");
-//            $('#doesClimbTrue').addClass("btn-danger");
-//            $('#doesClimbFalse').addClass("btn-danger");
-//            }
-//
-//            $('#doesClimbFalse').click(function(){
-//            $('#doesClimbFalse').removeClass("btn-danger");
-//            $('#doesClimbTrue').removeClass("btn-danger");
-//            $('#doesClimbTrue').addClass("btn-primary");
-//            $('#doesClimbFalse').addClass("btn-primary");
-//            });
-//
-//            $('#doesClimbTrue').click(function(){
-//            $('#doesClimbFalse').removeClass("btn-danger");
-//            $('#doesClimbTrue').removeClass("btn-danger");
-//            $('#doesClimbTrue').addClass("btn-primary");
-//            $('#doesClimbFalse').addClass("btn-primary");
-//            });
+            var time = ["none", "long", "medium", "short"];
+            var count =0;
+
             for(var j=0;j<checkList.length;j++){
                 if($('input[name='+checkList[j]+']:checked').val() == null){
+                    count+=1;
                     for(var i=0;i<boolean.length;i++){
                     $('#does'+checkList[j]+boolean[i]+'').removeClass("btn-primary");
                     $('#does'+checkList[j]+boolean[i]+'').addClass("btn-danger");
-                    $('#does'+checkList[j]+boolean[i]+'').click(function(){
-                    });
                     }
                 }
             }
-//            if($('input[name=Defence]:checked').val() == null){
-//            $('#doesDefendFalse').removeClass("btn-primary");
-//            $('#doesDefendTrue').removeClass("btn-primary");
-//            $('#doesDefendTrue').addClass("btn-danger");
-//            $('#doesDefendFalse').addClass("btn-danger");
-//            }
-//
-
-
-//                $('#doesDefendTrue').click(function(){
-////            $('#doesDefendFalse').removeClass("btn-danger");
-////            $('#doesDefendTrue').removeClass("btn-danger");
-////            $('#doesDefendTrue').addClass("btn-primary");
-////            $('#doesDefendFalse').addClass("btn-primary");
-////            });
-
-//            $('#doesDefendTrue').click(function(){
-//            $('#doesDefendFalse').removeClass("btn-danger");
-//            $('#doesDefendTrue').removeClass("btn-danger");
-//            $('#doesDefendTrue').addClass("btn-primary");
-//            $('#doesDefendFalse').addClass("btn-primary");
-//            });
-//
-//            $('#doesDefendFalse').click(function(){
-//            $('#doesDefendFalse').removeClass("btn-danger");
-//            $('#doesDefendTrue').removeClass("btn-danger");
-//            $('#doesDefendTrue').addClass("btn-primary");
-//            $('#doesDefendFalse').addClass("btn-primary");
-//            });
-
-            for(var j=2;j<checkList.length;j++){
+            for(var i=0;i<textInputs.length;i++){
+                if($('#'+textInputs[i]+'').val() == ''){
+                    count+=1;
+                    $('#'+textInputs[i]+'').addClass("btn-danger");
+                }
+            }
+            for(var j=1;j<checkList.length;j++){
                 if($('input[name="'+checkList[j]+'"]:checked').val() == "True"){
                     if($('input[name="quality'+checkList[j]+'"]:checked').val() == null){
                         for(var i=0;i<quality.length;i++){
-                         var id = "quality"+checkList[j]+"-"+quality[i];
-                            $('div[name="'+id+'"]').addClass("btn-danger");
-                           $('div[name="'+id+'"]').removeClass("btn-primary");
+                             var id = "quality"+checkList[j]+"-"+quality[i];
+                             $('div[id="'+id+'"]').addClass("btn-danger");
+                             $('div[id="'+id+'"]').removeClass("btn-primary");
                       }
                     }
                }
+               if(checkList[j]=="Climb"){
+               if($('input[name="'+checkList[j]+'"]:checked').val() == "True"){
+                    if($('input[name="quality'+checkList[j]+'ing'+'"]:checked').val() == null){
+                        for(var i=0;i<time.length;i++){
+                             var id = "time"+checkList[j]+"-"+time[i];
+                             $('div[id="'+id+'"]').addClass("btn-danger");
+                             $('div[id="'+id+'"]').removeClass("btn-primary");
+                      }
+                    }
+               }
+               }
             }
+            if($('#hoppersUsed').val()>0){
+                if($('input[name=hopperCatchingQuality]:checked').val() == null){
+                        for(var i=0;i<quality.length;i++){
+                             var id = "qualityHopper-"+quality[i];
+                             $('div[id="'+id+'"]').addClass("btn-danger");
+                             $('div[id="'+id+'"]').removeClass("btn-primary");
+                      }
+                    }
+            }
+            return count;
             }
 
             function checkSubmittedForm(){
@@ -511,6 +567,7 @@
                 })
               .done(function( teamExists ) {
                 if(teamExists == "true"){
+                    canSubmit();
                     $('#overrideModal').modal('show');
                 }
                 else{
@@ -519,6 +576,9 @@
               });
             });
             $('#submitButton').click(function(){
+            if($('input[name=hopperCatchingQuality]:checked').val() == null){
+                $('input[value=fine,name=hopperCatchingQuality]').prop('checked', true);
+            }
             $('#scoutingForm').submit()
             });
             $('#overrideButton').click(function(){

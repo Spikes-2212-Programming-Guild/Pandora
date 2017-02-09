@@ -56,7 +56,7 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        <div name="qualityHigh-{{enum}}" class="btn btn-group-justified btn-primary">
+                        <div id="qualityHigh-{{enum}}" name="qualitysHigh" class="btn btn-group-justified btn-primary">
                             <label>
                                     <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
                                            autocomplete="off">
@@ -142,10 +142,10 @@
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label id="doesGearFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').hide()">
-                <input type="radio" name="Gears" id="Gears" value="False" autocomplete="off"> Dosen't Put Gears
+                <input type="radio" name="Gear" id="Gear" value="False" autocomplete="off"> Dosen't Put Gears
             </label>
             <label id="doesGearTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#puttingGears').show()">
-                <input type="radio" name="Gears" id="Gears" value="True" autocomplete="off"> Puts Gears
+                <input type="radio" name="Gear" id="Gear" value="True" autocomplete="off"> Puts Gears
             </label>
         </div>
 
@@ -161,9 +161,9 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        <div name="qualityGear-{{enum}}" class="btn btn-group-justified btn-primary">
+                        <div id="qualityGear-{{enum}}" name="qualitysGear" class="btn btn-group-justified btn-primary">
                                 <label>
-                                    <input type="radio" name="qualityGears" value="{{enum}}" id="qualityGears"
+                                    <input type="radio" name="qualityGear" value="{{enum}}" id="qualityGearF"
                                            autocomplete="off">
                                     {{enum}}
                                 </label>
@@ -217,19 +217,10 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in time[1::]%}
-                        {%if enum!="medium"%}
-                        <div class="btn btn-group-justified btn-primary">
-                        {%else%}
-                        <div class="btn btn-group-justified btn-primary active">
-                            {%endif%}
-                            <label>
-                                {%if enum!="medium"%}
+                        <div id="timeClimb-{{enum}}" name="timeClimb" class="btn btn-group-justified btn-primary">
+                            <label >
                                 <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
                                        autocomplete="off">
-                                {%else%}
-                                <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
-                                       autocomplete="off" checked>
-                                {%endif%}
                                 {{enum}}
                                 {%if enum == "long"%}
                                 30-23
@@ -272,7 +263,7 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        <div name="qualityDefence-{{enum}}" class="btn btn-group-justified btn-primary">
+                        <div id="qualityDefence-{{enum}}" name="qualitysDefence" class="btn btn-group-justified btn-primary">
                             <label>
                                     <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
                                            autocomplete="off">
@@ -338,19 +329,10 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        {%if enum != "fine"%}
-                        <div class="btn btn-group-justified btn-primary">
-                            {%else%}
-                            <div class=" btn btn-group-justified btn-primary active ">
-                                {%endif%}
+                        <div id="qualityHopper-{{enum}}" name="qualitysHopper" class="btn btn-group-justified btn-primary">
                             <label>
-                                {%if enum == "fine"%}
-                                    <input type="radio" name="hopperCatchingQuality" value="{{enum}}" id="hopperCatchingQuality"
-                                           autocomplete="off" checked>
-                                    {%else%}
                                     <input type="radio" name="hopperCatchingQuality" value="{{enum}}" id="hopperCatchingQuality"
                                            autocomplete="off">
-                                    {%endif%}
                                 {{enum}}
                             </label>
                         </div>

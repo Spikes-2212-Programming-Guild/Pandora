@@ -175,11 +175,11 @@ def scouting_form():
             values["High"] = request.form["qualityHigh"]
         if request.form["Low"] == "False":
             values["scoreLow"] = 0
-        if request.form["Gears"] == "False":
+        if request.form["Gear"] == "False":
             values["scoreGears"] = 0
             values["Gears"] = "none"
         else:
-            values["Gears"] = request.form["qualityGears"]
+            values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
             values["Climb"] = "none"
         else:
@@ -234,11 +234,11 @@ def scouting_form():
             values["High"] = request.form["qualityHigh"]
         if request.form["Low"] == "False":
             values["scoreLow"] = 0
-        if request.form["Gears"] == "False":
+        if request.form["Gear"] == "False":
             values["scoreGears"] = 0
             values["Gears"] = "none"
         else:
-            values["Gears"] = request.form["qualityGears"]
+            values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
             values["Climb"] = "none"
         else:
