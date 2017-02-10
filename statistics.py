@@ -25,6 +25,7 @@ def averages(games):
     return {"HighShooting":0,"LowShooting":0,"Gears":0,"Hoppers":0,"Score":0,"Fouls":0}
 
 
+
 def best_game(games):
     best={"high":0,"low":0,"gears":0}
     for game in games:

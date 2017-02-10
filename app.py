@@ -89,6 +89,7 @@ def users():
     return render_template("users.html", users=users)
 
 
+
 @app.route("/team/<teamnumber>", methods=["GET", "POST"])
 def team_page(teamnumber):
     cur_team = Team.query.filter_by(number=teamnumber).first()
@@ -105,8 +106,10 @@ def team_page(teamnumber):
     all_games = Results.query.all()
     team_average = averages(all_team_games)
     all_average = averages(all_games)
+    # best_defence =best_defence(games)
     return render_template('team2.html', status=login_manager.status, games=all_team_games,
-                           team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber, best=best_game(all_team_games),worst=worst_game(all_team_games))
+                           team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber,
+                           best=best_game(all_team_games), worst=worst_game(all_team_games))
 
 
 @app.route("/games")
@@ -265,4 +268,4 @@ if __name__ == "__main__":
     app.secret_key = 'Spikes2212Spikes2212'
     login_manager.logout()
     init_db()
-    app.run(host="0.0.0.0", debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)

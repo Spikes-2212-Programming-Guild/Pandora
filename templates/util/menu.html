@@ -15,20 +15,20 @@
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
+            <form id="searchTeamNumberForm" class="navbar-form navbar-left">
                 <div class="form-group">
                     <input id="searchTeamNumber" type="text" class="form-control" placeholder="Team number">
                 </div>
-                <button id="search" type="button" class="btn btn-default">Search!</button>
+                <input id="search" type="submit" class="btn btn-default" value="Search!">
             </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                       aria-expanded="false">Hello! <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/logout">Log out</a></li>
-                        <li><a href="/login">Log in</a></li>
-                    </ul>
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/scoutingForm">Scout!</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/teams">Teams</a>
                 </li>
             </ul>
         </div><!-- /.navbar-collapse -->
@@ -37,9 +37,10 @@
 
 <script type="text/javascript">
 		(function (){
-			$('#search').click(function (){
-			window.location.href = "/team/" + $('#searchTeamNumber').val();
-			});
+		    $('#searchTeamNumberForm').submit(function (){
+		    window.location.href = "/team/" + $('#searchTeamNumber').val();
+            event.preventDefault();
+		    });
 		})();
 
 </script>
