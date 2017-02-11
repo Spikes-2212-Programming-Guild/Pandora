@@ -4,21 +4,6 @@ from database import Base
 import enums
 
 
-def score(highgoal, lowgoal, gears, climbing, fouls):
-    gear_ammount = [2, 6, 12]
-    #don't ask questions, you will not hear lies
-    print "score: \n"
-    value=gear_ammount.index(min(gear_ammount, key=lambda x: abs(x - gears)))
-    print value
-    score = (value + (1 if gear_ammount[value] > gears else 2)) * 40
-    print score
-    score += highgoal / 3 + lowgoal / 9 + (50 if climbing=='True' else 0)
-    print score
-    score -= 5 * fouls
-    print score
-    if score < 0:
-        score = 0
-    return score
 
 
 class Results(Base):
@@ -52,7 +37,6 @@ class Results(Base):
 
     # conclusion fields
     comment = Column("comments", String(1050))
-    score = Column("score", Integer)
 
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
                  gears_efficiency, climbing_quality, defending_quality, climbed, defensive, comment):
@@ -73,7 +57,6 @@ class Results(Base):
         :param defending_quality:
         :param climbed:
         :param defensive:
-        :param comment:
         """
         self.team=team
         self.number=number
@@ -90,4 +73,3 @@ class Results(Base):
         self.climbed = climbed
         self.defensive_robot = defensive
         self.comment = comment
-        self.score = score(highgoal=highgoal, lowgoal=lowgoal, gears=gears, climbing=climbed, fouls=fouls)

@@ -12,6 +12,7 @@ from performances import Results
 from user_manager import login_manager
 import enums
 from statistics import averages,best_game,worst_game
+from best_stuff import best_defence,average_hopper
 
 app = Flask(__name__)
 
@@ -102,14 +103,20 @@ def team_page(teamnumber):
             db_session.flush()
         except:
             pass
-    all_team_games = Results.query.filter_by(team=teamnumber).order_by(Results.number)
+    all_team_games = Results.query.filter_by(team=teamnumber).order_by(Results.number).all()
     all_games = Results.query.all()
     team_average = averages(all_team_games)
     all_average = averages(all_games)
-    # best_defence =best_defence(games)
+    best_defences =best_defence(games=games)
+    average_hoppers=average_hopper(games=games)
+    if len(all_team_games) == 0:
+        doGamesExists="False"
+    else:
+        doGamesExists="True"
     return render_template('team2.html', status=login_manager.status, games=all_team_games,
                            team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber,
-                           best=best_game(all_team_games), worst=worst_game(all_team_games))
+                           best=best_game(all_team_games), worst=worst_game(all_team_games), doGamesExist=doGamesExists,
+                           best_defence=best_defences, average_hopper=average_hoppers)
 
 
 @app.route("/games")
@@ -132,9 +139,16 @@ def game_page(gamenumber, teamnumber):
 @app.route("/newTeam", methods=["GET", "POST"])
 def add_team():
     if request.method == 'POST':
+        if request.form["shouldOverrideTeam"] == "True":
+            override = db_session.query(Results).filter_by(number=request.form["number"]).first()
+            db_session.delete(override)
+            db_session.flush()
         db_session.add(Team(request.form["number"], request.form["name"]))
         db_session.flush()
-        return redirect("/teams")
+        if request.form["WereToRedirect"] == "ScoutingForm":
+            return redirect("/scoutingForm")
+        else:
+            return redirect("/teams")
     return render_template("/addTeam.html")
 
 
@@ -144,6 +158,10 @@ def check_if_happened():
                                            number=request.form["match_number"]).first()
     return json.dumps(match_exists is not None)
 
+@app.route("/checkIfTeamExists", methods=["POST"])
+def check_if_team_exists():
+    team_exists = Team.query.filter_by(number=request.form["team_number"]).first()
+    return json.dumps(team_exists is not None)
 
 @app.route("/showDb")
 def show_db():
@@ -185,7 +203,12 @@ def scouting_form():
             values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
             values["Climb"] = "none"
+            values["didClimb"] = "False"
+        elif request.form["Climb"] == "TrueFail":
+            values["Climb"] = "none"
+            values["didClimb"] = "True"
         else:
+            values["didClimb"] = "True"
             values["Climb"] = request.form["qualityClimbing"]
         result = Results(number=request.form["matchNumber"], team=request.form["teamNumber"],
                          highgoal=values["scoreHigh"],
@@ -193,7 +216,7 @@ def scouting_form():
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
-                         climbed=request.form["Climb"], defensive=request.form["Defence"],
+                         climbed=values["didClimb"], defensive=request.form["Defence"],
                          comment=request.form["comment"])
         # try:
         #     update_game(request.form["game"])
@@ -201,7 +224,7 @@ def scouting_form():
         #     print Game.query.filter(Game.number == request.form["game"]).all()
         db_session.add(result)
         db_session.flush()
-        return redirect('/')
+        return redirect('/scoutingForm')
     elif request.form["override"] == "True":
         overRide = db_session.query(Results).filter_by(team=request.form["teamNumber"],
                                                        number=request.form["matchNumber"]).first()
@@ -260,7 +283,7 @@ def scouting_form():
         #     print Game.query.filter(Game.number == request.form["game"]).all()
         db_session.add(result)
         db_session.flush()
-        return redirect('/')
+        return redirect('/scoutingForm')
 
 
 if __name__ == "__main__":

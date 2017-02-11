@@ -48,10 +48,9 @@
         <div id="HighShooting" class="input-group input-group-lg input-group-middle" style="display:none">
             <br/>
             <br/>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <h3 class="panel-title" style="text-align: center; font-size: 200%">High Shooting Quality</span>
-                    </h3>
+            <div class="panel panel-primary">
+                <div class="panel-heading" style="text-align: center; font-size: 200%" >
+                    High Shooting Quality
                 </div>
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
@@ -70,7 +69,7 @@
             <br/>
 
 
-            <div id="numberShootsHigh" class="panel panel-default">
+            <div id="numberShootsHigh" class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored High - <span
                             id="fuelHigh"></span><input type="hidden" name="highFuelScoredSend" id="highFuelScoredSend">
@@ -113,7 +112,7 @@
         <br/>
 
         <div id="lowShooting" class="input-group input-group-lg input-group-middle" style="display:none">
-                  <div id="numberShootsLow" class="panel panel-default">
+                  <div id="numberShootsLow" class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span
                             id="fuelLow"></span><input type="hidden" name="lowFuelScoredSend" id="lowFuelScoredSend">
@@ -153,7 +152,7 @@
         <br/>
 
         <div id="puttingGears" class="input-group input-group-lg input-group-middle" style="display:none">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Quality</span>
                     </h3>
@@ -175,7 +174,7 @@
 
             <br/>
 
-            <div id="gearsInputed" class="panel panel-default">
+            <div id="gearsInputed" class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Gear Scored - <span
                             id="gears"></span><input type="hidden" name="gearsScoredSend" id="gearsScoredSend">
@@ -197,10 +196,13 @@
         </div>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label id="doesClimbFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').hide()">
+            <label id="doesClimbFalse" class="btn btn-primary btn-group" onclick="$('#hangs').hide()">
                 <input type="radio" name="Climb" id="Climb" value="False" autocomplete="off"> Dosen't Climbs
             </label>
-            <label id="doesClimbTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#hangs').show()">
+            <label id="doesClimbFail" class="btn btn-primary btn-group" onclick="$('#hangs').hide()">
+                <input type="radio" name="Climb" id="Climb" value="TrueFail" autocomplete="off"> Failed To Climb
+            </label>
+            <label id="doesClimbTrue" class="btn btn-primary btn-group" onclick="$('#hangs').show()">
                 <input type="radio" name="Climb" id="Climb" value="True" autocomplete="off"> Climbs
             </label>
         </div>
@@ -209,7 +211,7 @@
         <br/>
 
         <div id="hangs" style="display:none">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Climbing Time</span>
                     </h3>
@@ -255,7 +257,7 @@
         <br/>
 
         <div id="deffenciveRobot" style="display:none">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Defence Quality</span>
                     </h3>
@@ -278,7 +280,7 @@
             <br/>
         </div>
 
-        <div id="foulsDone" class="panel panel-default">
+        <div id="foulsDone" class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title" style="text-align: center; font-size: 200%">Fouls Done - <span
                         id="fouls"></span> <input type="hidden" name="foulsDone" id="foulSend">
@@ -299,7 +301,7 @@
         <br/>
         <br/>
 
-        <div id="hoppersPanel" class="panel panel-default">
+        <div id="hoppersPanel" class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title" style="text-align: center; font-size: 200%">Hoppers Used - <span
                         id="hoppers"></span> <input type="hidden" name="hoppersUsed" id="hoppersUsed">
@@ -320,7 +322,7 @@
         <div id="hoppersQuality" style="display:none">
             <br/>
             <br/>
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Hopper Ball Catching
                         Quality</span>
@@ -408,6 +410,23 @@
   </div>
 </div>
 
+<div class="modal fade" id="teamNumberIncorrectModal" tabindex="-1" role="dialog" aria-labelledby="requiredNameModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="requiredNameModalLabel">Change team NUMBER!</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fix Some Stuff</button>
+          <a href="/newTeam"><label class="btn btn-primary">Add Team</label></a>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div class="modal fade" id="showStuffModal" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -417,16 +436,16 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-          <span id="stuffSpan"></span>
+      <div id="modalBody"class="modal-body">
       </div>
       <div class="modal-footer">
-        <button id="submitButton" type="button" class="btn btn-secondary">Submit</button>
         <button id="dontSubmitButton" type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
+          <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
       </div>
     </div>
   </div>
 </div>
+
 
 <script>
 </script>

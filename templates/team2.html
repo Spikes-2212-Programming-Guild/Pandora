@@ -18,20 +18,79 @@
     <!--[if lt IE 9]>
     <script src="/static/js/html5shiv.min.js"></script>
     <script src="/static/js/respond.min.js"></script>
-    <script src="/static/js/canvasjs.min.js"></script>
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="/static/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/bootstrap.min.js">
+        <script src="/static/js/canvasjs.min.js"></script>
+
+
+    <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
+    <style>
+        #chartContainerGears,#chartContainerHigh,#chartContainerLow{
+            height: 330px;
+            width: 100%;
+        }
+
+        @media screen and (max-height : 640px) {
+            #chartContainerGears,#chartContainerHigh,#chartContainerLow{
+                height: 330px;
+                width: 100%;
+            }
+        }
+
+
+    </style>
+
+</head>
+<body>
+<div id="summeryDiv">
+{% if doGamesExist == "True" %}
     <script type="text/javascript">
   window.onload = function () {
-    var height=320;
-    if (window.innerWidth<640){
-        height=window.innerWidth/2;
-    }
+    var height=300;
+
     var low=250, high=200, gears=8;
-    var chart = new CanvasJS.Chart("chartContainer",
+
+    var gearsChart = new CanvasJS.Chart("chartContainerGears",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Gear putting Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Gears"
+      },
+      axisY:{
+         maximum: 100
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 40,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {y: {{worst.gears}}/gears *100, label:"Worst"},
+        {y: {{best.gears}}/gears *100, label:"Best"},
+        {y: {{all_average.Gears}}/gears *100, label:"All A"},
+        {y: {{team_average.Gears}}/gears *100, label:"Team A"}
+        ]
+      }
+      ]});
+
+
+
+      var highChart = new CanvasJS.Chart("chartContainerHigh",
     {
       height: height,
       width: window.innerWidth,
@@ -41,67 +100,324 @@
       },
       animationEnabled: true,
       axisX: {
-        title: "Game"
+        title: "Balls Put High"
+      },
+      axisY:{
+         maximum: 100
       },
       legend: {
         verticalAlign: "bottom",
         horizontalAlign: "center"
       },
       theme: "theme2",
+      dataPointWidth: 40,
       data: [
 
       {
         type: "bar",
         legendText: "all averages",
         dataPoints: [
-        {y: {{all_average.LowShooting}}/low *100, label: "low"},
-        {y:{{all_average.HighShooting}}/high *100, label: "high"},
-        {y: {{all_average.Gears}}/gears *100, label : "gears"}
-        ]
-      },
-      {
-        type: "bar",
-        legendText: "team averages",
-        dataPoints: [
-        {y: {{team_average.LowShooting}}/low *100, label: "low"},
-        {y:{{team_average.HighShooting}}/high *100, label: "high"},
-        {y: {{team_average.Gears}}/gears *100, label : "gears"}
-        ]
-      },
-      {
-        type: "bar",
-        legendText: "best",
-        dataPoints: [
-        {y: {{best.low}}/low *100, label: "low"},
-        {y:{{best.high}}/high *100, label: "high"},
-        {y: {{best.gears}}/gears *100, label : "gears"}
-        ]
-      },
-      {
-        type: "bar",
-        legendText: "worst",
-        dataPoints: [
-        {y: {{worst.low}}/low *100, label: "low"},
-        {y:{{worst.high}}/high *100, label: "high"},
-        {y: {{worst.gears}}/gears *100, label : "gears"}
-        ]
-      }
-      ]
+        {y:{{worst.high}}/high *100,label:"Worst"},
+        {y:{{best.high}}/high *100,label:"Best"},
+        {y:{{all_average.HighShooting}}/high *100,label:"All A"},
+        {y:{{team_average.HighShooting}}/high *100,label:"Team A"}
 
-    });
+        ]
+        }
+      ]});
 
-    chart.render();
-    $("chartContainer").attr('align', 'center')
+      var lowChart = new CanvasJS.Chart("chartContainerLow",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Low Shooting Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Balls Put Low",
+      },
+      axisY:{
+         maximum: 100
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 40,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {y: {{worst.low}}/low *100, label:"Worst"},
+        {y: {{best.low}}/low *100, label:"Best"},
+        {y: {{all_average.LowShooting}}/low *100, label:"All A"},
+        {y: {{team_average.LowShooting}}/low *100, label:"Team A"}
+        ]
+        }
+      ]});
+
+    highChart.render();
+    gearsChart.render();
+    lowChart.render();
+    $("chartContainerGears").attr('align', 'center')
+    $("chartContainerLow").attr('align', 'center')
+    $("chartContainerHigh").attr('align', 'center')
+
+
+
+    var MissionOne = new CanvasJS.Chart("chartContainerMission1",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "High Shooting Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Balls Put High"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 20,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {%for game in games%}
+        {y:{{game.high}},label:"Game "+{{forloop.counter}}},
+        {%endfor%}
+        {y:{{team_average.HighShooting}},label:"Team Average"},
+        {y:{{all_average.HighShooting}},label:"All Average"}
+        ]
+        }
+      ]});
+
+      var MissionTwo = new CanvasJS.Chart("chartContainerMission2",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Low Shooting Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Balls Put Low"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 20,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {%for game in games%}
+        {y:{{game.low}},label:"Game "+{{forloop.counter}}},
+        {%endfor%}
+        {y:{{team_average.LowShooting}},label:"Team Average"},
+        {y:{{all_average.LowShooting}},label:"All Average"}
+        ]
+        }
+      ]});
+
+      var MissionThree = new CanvasJS.Chart("chartContainerMission3",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Gears Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Gears"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 20,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {%for game in games%}
+        {y:{{game.gears}},label:"Game "+{{forloop.counter}}},
+        {%endfor%}
+        {y:{{team_average.Gears}},label:"Team Average"},
+        {y:{{all_average.Gears}},label:"All Average"}
+        ]
+        }
+      ]});
+
+      var MissionFour = new CanvasJS.Chart("chartContainerMission4",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Did Hang Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Hanging"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 20,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {%for game in games%}
+        {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Game "+{{forloop.counter}}},
+        {%endfor%}
+        {y:0}
+        ]
+        }
+      ]});
+
+      var MissionFive = new CanvasJS.Chart("chartContainerMission5",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Fouls done Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Fouls"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 20,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {%for game in games%}
+        {y:{{game.fouls}},label:"Game "+{{forloop.counter}}},
+        {%endfor%}
+        {y:{{team_average.Fouls}},label:"Team Average"},
+        {y:{{all_average.Fouls}},label:"All Average"}
+        ]
+        }
+      ]});
+
+      var MissionSix = new CanvasJS.Chart("chartContainerMission6",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Did defence Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Defends"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 20,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {%for game in games%}
+        {y:{%if game.defensive == "True"%}1{%else%}0{%endif%},label:"Game "+{{forloop.counter}}},
+        {%endfor%}
+        {y:0}
+        ]
+        }
+      ]});
+
+      var MissionSeven = new CanvasJS.Chart("chartContainerMission7",
+    {
+      height: height,
+      width: window.innerWidth,
+
+      title:{
+        text: "Hoppers used Team : "+{{team_number}}
+      },
+      animationEnabled: true,
+      axisX: {
+        title: "Hoppers"
+      },
+      legend: {
+        verticalAlign: "bottom",
+        horizontalAlign: "center"
+      },
+      theme: "theme2",
+      dataPointWidth: 20,
+      data: [
+
+      {
+        type: "bar",
+        legendText: "all averages",
+        dataPoints: [
+        {%for game in games%}
+        {y:{{game.hoppers}},label:"Game "+{{forloop.counter}}},
+        {%endfor%}
+        {y:{{team_average.Hoppers}},label:"Team Average"},
+        {y:{{all_average.Hoppers}},label:"All Average"}
+        ]
+        }
+      ]});
+    MissionOne.render();
+    $("chartContainerMission1").attr('align', 'center')
+    MissionTwo.render();
+    $("chartContainerMission2").attr('align', 'center')
+    MissionThree.render();
+    $("chartContainerMission3").attr('align', 'center')
+    MissionFour.render();
+    $("chartContainerMission4").attr('align', 'center')
+    MissionFive.render();
+    $("chartContainerMission5").attr('align', 'center')
+    MissionSix.render();
+    $("chartContainerMission6").attr('align', 'center')
+    MissionSeven.render();
+    $("chartContainerMission7").attr('align', 'center')
   }
 
 
 
 
     </script>
-    <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
-</head>
-<body>
-
 {% include 'util/menu.html' %}
 <div style="text-align:center" class=" col-xs-offset-4 col-xs-4 col-lg-offset-4 col-lg-4 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 well well-sm">
     {{games[0].team}}
@@ -119,14 +435,18 @@
 {%else%}
 <div class="panel panel-default">
   <div class="panel-body">
-    Summery
+    Head Comment
   </div>
   <div class="panel-footer">{{team.conclusion}}</div>
 </div>
 {%endif%}
 
 <br/>
-<div id="chartContainer" style="height: 200px; width: 100%;">
+<div id="chartContainerGears">
+</div>
+<div id="chartContainerHigh">
+</div>
+<div id="chartContainerLow">
 </div>
 
 <div class="panel panel-default">
@@ -138,78 +458,120 @@
         <li class="list-group-item">Does Climb? : <span id="paramDoesClimb">{%for game in games%}{%if game.climbing_quality != "none"%}climbs{%endif%}{%endfor%}</span></li>
         <li class="list-group-item">Times failed climbing :<span id="paramFailedToClimb">{%for game in games%}{%if game.climbing_quality == "none" and game.climbed=="True"%}<script>failedToClimb+=1;</script>{%endif%}{%endfor%}{{timesFailedClimbing}}<script>$('#paramFailedToClimb').html(failedToClimb);</script></span></li>
         <li class="list-group-item">Average fouls : {{team_average.Fouls}}</li>
-        <li class="list-group-item">Defence max : </li>
-        <li class="list-group-item">Vestibulum at eros</li>
+        <li class="list-group-item">Defence max : {{best_defence}}</li>
+        <li class="list-group-item">Average hoppers quality : {{average_hopper}}</li>
+        <li class="list-group-item">Average hoppers used : {{team_average.Hoppers}}</li>
     </ul>
+</div>
 </div>
 <br/>
 <br/>
-<div id="loginbox" style="margin-top:50px;" class="mainbox col-md-8 col-md-offset-2">
-    <table class="table table-hover" align="center">
-        <thead>
-        <tr class="success">
-            <th class="success">game</th>
-            <th class="success">high goal</th>
-            <th class="success">low goal</th>
-            <th class="success">gears</th>
-            <th class="success">hoppers</th>
-            <th class="success">defence</th>
-            <th class="success">climbing</th>
-            <th class="danger">fouls</th>
-            <th class="success">score</th>
-            <th class="info">comment</th>
-        </tr>
-        </thead>
-        <tbody>
+<div id="chartContainerMission1" aria-hidden="true">
+</div>
+<div id="chartContainerMission2" aria-hidden="true">
+</div>
+<div id="chartContainerMission3" aria-hidden="true">
+</div>
+<div id="chartContainerMission4" aria-hidden="true">
+</div>
+<div id="chartContainerMission5" aria-hidden="true">
+</div>
+<div id="chartContainerMission6" aria-hidden="true">
+</div>
+<div id="chartContainerMission7" aria-hidden="true">
+</div>
+<div class="btn-toolbar" role="toolbar" aria-label="...">
+    <div class="btn-group" name="specificMission" id="Mission 1" value="Mission 1" role="group" aria-label="Mission 1"></div>
+    <div class="btn-group" name="specificMission" id="Mission 2" value="Mission 2" role="group" aria-label="Mission 2"></div>
+    <div class="btn-group" name="specificMission" id="Mission 3" value="Mission 3" role="group" aria-label="Mission 3"></div>
+    <div class="btn-group" name="specificMission" id="Mission 4" value="Mission 4" role="group" aria-label="Mission 4"></div>
+    <div class="btn-group" name="specificMission" id="Mission 5" value="Mission 5" role="group" aria-label="Mission 5"></div>
+    <div class="btn-group" name="specificMission" id="Mission 6" value="Mission 6" role="group" aria-label="Mission 6"></div>
+    <div class="btn-group" name="specificMission" id="Mission 7" value="Mission 7" role="group" aria-label="Mission 7"></div>
+    <div class="btn-group" name="specificMission" id="Summery" value="Summery" role="group" aria-label="Summery"></div>
+</div>
+<div>
+    <label  class="btn btn-primary btn-group" href="#myModal" data-toggle="modal">Games</label>
+</div>
+<div class="modal fade" id="myModal">
+<div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 class="modal-title">Table By Games on Team - {{games[0].team}}</h3>
+        </div>
+        <div class="modal-body">
+            <table class="table table-hover" align="center">
+            <thead>
+            <tr class="success">
+                <th class="success">game</th>
+                <th class="success">high goal</th>
+                <th class="success">low goal</th>
+                <th class="success">gears</th>
+                <th class="success">hoppers</th>
+                <th class="success">defence</th>
+                <th class="success">climbing</th>
+                <th class="danger">fouls</th>
+                <th class="info">comment</th>
+            </tr>
+            </thead>
+            <tbody>
 
-        <tr>
-            <td style="background-color:AliceBlue">Team Averages</td>
-            <td style="background-color:AliceBlue ">{{team_average.HighShooting}}</td>
-            <td style="background-color:AliceBlue ">{{team_average.LowShooting}}</td>
-            <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
-            <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
-            <td style="background-color:AliceBlue "></td>
-            <td style="background-color:AliceBlue "></td>
-            <td class="danger">{{team_average.Fouls}}</td>
-            <td class="success">{{team_average.Score}}</td>
-        </tr>
-        <tr>
-            <td style="background-color:AliceBlue">All Averages</td>
-            <td value="{{all_average.HighShooting}}" style="background-color:AliceBlue ">{{all_average.HighShooting}}
-            </td>
-            <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
-            <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
-            <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
-            <td style="background-color:AliceBlue "></td>
-            <td style="background-color:AliceBlue "></td>
-            <td class="danger">{{all_average.Fouls}}</td>
-            <td class="success">{{all_average.Score}}</td>
-        </tr>
-        {%for game in games%}
-        <tr>
-            <td style="background-color:AliceBlue"><a hre f="/game/{{game.team}}/{{game.number}}">{{game.number}}</a>
-            </td>
+            <tr>
+                <td style="background-color:AliceBlue">Team Averages</td>
+                <td style="background-color:AliceBlue ">{{team_average.HighShooting}}</td>
+                <td style="background-color:AliceBlue ">{{team_average.LowShooting}}</td>
+                <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
+                <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
+                <td style="background-color:AliceBlue "></td>
+                <td style="background-color:AliceBlue "></td>
+                <td class="danger">{{team_average.Fouls}}</td>
+            </tr>
+            <tr>
+                <td style="background-color:AliceBlue">All Averages</td>
+                <td value="{{all_average.HighShooting}}" style="background-color:AliceBlue ">{{all_average.HighShooting}}
+                </td>
+                <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
+                <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
+                <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
+                <td style="background-color:AliceBlue "></td>
+                <td style="background-color:AliceBlue "></td>
+                <td class="danger">{{all_average.Fouls}}</td>
+            </tr>
+            {%for game in games%}
+            <tr>
+                <td style="background-color:AliceBlue"><a hre f="/game/{{game.team}}/{{game.number}}">{{game.number}}</a>
+                </td>
 
-            <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}
-            </td>
-            <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
-            <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
-            <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>
-            <td style="background-color:AliceBlue ">{%if game.defending_quality != "none" %}
-                yes <br/> {{game.defending_quality}}
-                {%else%} no {%endif%}
-            </td>
-            <td style="background-color:AliceBlue ">{%if game.climbing_quality != "none" %}
-                yes <br/> {{game.climbing_quality}}
-                {%else%} no{%endif%}
-            </td>
-            <td class="danger">{{game.fouls}}</td>
-            <td class="success">{{game.score}}</td>
-            <td class="info">{{game.comment}}</td>
-            {%endfor%}
-        </tr>
-        </tbody>
-    </table>
+                <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}
+                </td>
+                <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
+                <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
+                <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>
+                <td style="background-color:AliceBlue ">{%if game.defending_quality != "none" %}
+                    yes <br/> {{game.defending_quality}}
+                    {%else%} no {%endif%}
+                </td>
+                <td style="background-color:AliceBlue ">{%if game.climbing_quality != "none" %}
+                    yes <br/> {{game.climbing_quality}}
+                    {%else%} no{%endif%}
+                </td>
+                <td class="danger">{{game.fouls}}</td>
+                <td class="info">{{game.comment}}</td>
+                {%endfor%}
+            </tr>
+            </tbody>
+        </table>
+          <div class="form-group">
+            <div class="clearfix"></div>
+          </div>
+		</div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+
+      </div>
+    </div>
 </div>
 <script src="/static/js/teamPage.js"></script>
 <script>
@@ -220,6 +582,8 @@
         function checkClimb(){
             if($('#paramDoesClimb').text()==""){
                 $('#paramDoesClimb').html("doesnt climb");
+            }else if($('#paramDoesClimb').text()!="climbs"){
+                $('#paramDoesClimb').html("climbs");
             }
         }
 
@@ -241,5 +605,86 @@
 
 
 <!--</script>-->
+{%else%}
+
+<div class="modal fade" id="noGamesIn" tabindex="-1" role="dialog" aria-labelledby="noGamesLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="noGamesLabel">No Games On Team</h5>
+      </div>
+      <div class="modal-footer">
+          <button type="button" id="goToTeams" class="btn btn-secondary"><a href="/teams">Return to Teams</a></button>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+    (function (){
+        $(function (){
+            $('#noGamesIn').modal('show');
+        })
+
+        function specificListener(){
+            $('#Mission 1').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('hide');
+                //wanted to do it with for but there is a problem in the showing in the i because of stupied js
+                $('#chartContainerMission1').div('show');
+            });
+            $('#Mission 2').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('hide');
+                $('#chartContainerMission2').div('show');
+            });
+            $('#Mission 3').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('hide');
+                $('#chartContainerMission3').div('show');
+            });
+            $('#Mission 4').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('hide');
+                $('#chartContainerMission4').div('show');
+            });
+            $('#Mission 5').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('hide');
+                $('#chartContainerMission5').div('show');
+            });
+            $('#Mission 6').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('hide');
+                $('#chartContainerMission6').div('show');
+            });
+            $('#Mission 7').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('hide');
+                $('#chartContainerMission7').div('show');
+            });
+            $('#Summery').click(Function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').div('hide');
+                }
+                $('#summeryDiv').div('show');
+            });
+        }
+    })()
+</script>
+{%endif%}
 </body>
 </html>

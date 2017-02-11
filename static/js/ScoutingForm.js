@@ -6,9 +6,9 @@
             foulsInit();
             hopperInit();
             checkSubmittedForm();
+            rightTeamNumber();
 
         })
-
         function fuelHighInit() {
             var fuelHigh = 0;
             $('#fuelHigh').html(fuelHigh);
@@ -290,11 +290,25 @@
                 $('#hoppers').html(hoppers);
                 $('#hoppersUsed').val(hoppers);
             });
-
             }
+
+            function rightTeamNumber(){
+            $('#teamNumber').blur(function (){
+              $.ajax({
+              method: "POST",
+              url: "/checkIfTeamExists",
+              data: { team_number: $('#teamNumber').val()}
+                })
+              .done(function( teamExists ) {
+                if(teamExists == "false"){
+                $('#teamNumberIncorrectModal').modal('show');
+                }
+              })});
+            }
+
             function canSubmit(){
             if(lightUmUp()==0){
-            $('#stuffSpan').html(
+            $('#modalBody').html(
             "Team Number : "+$('#teamNumber').val()+"<br/>"+
             "Match Number : "+$('#matchNumber').val()+"<br/>"+
             "High : "+$('input[name=High]:checked').val()+"<br/>"+
@@ -306,12 +320,12 @@
             "<div id=lowShootingStuff>"+
             "Fuel Low : "+$('#lowFuelScoredSend').val()+"<br/>"+
             "</div>"+
-            "Gears : "+$('input[name=Gears]:checked').val()+"<br/>"+
+            "Gears : "+$('input[name=Gear]:checked').val()+"<br/>"+
             "<div id=gearsStuff>"+
             "Gears Quality : "+$('input[name=qualityGears]:checked').val()+"<br/>"+
             "Gears Placed : "+$('#gearsScoredSend').val()+"<br/>"+
             "</div>"+
-            "Climbs : "+$('input[name=Climb]:checked').val()+"<br/>"+
+            "<div id=ClimbedDivStuff>Climbs : "+$('input[name=Climb]:checked').val()+"</div>"+
             "<div id=climbingStuff>"+
             "Climbing Time : "+$('input[name=qualityClimbing]:checked').val()+"<br/>"+
             "</div>"+
@@ -336,12 +350,14 @@
             }else{
             $('#lowShootingStuff').show();
             }
-            if($('input[name=Gears]:checked').val() == "False"){
+            if($('input[name=Gear]:checked').val() == "False"){
             $('#gearsStuff').hide();
             }else{
             $('#gearsStuff').show();
             }
             if($('input[name=Climb]:checked').val() == "False"){
+            $('#climbingStuff').hide();
+            }else if($('input[name=Climb]:checked').val() == "TrueFail"){
             $('#climbingStuff').hide();
             }else{
             $('#climbingStuff').show();
@@ -351,12 +367,15 @@
             }else{
             $('#defenceStuff').show();
             }
-            if($('#hoppersUsed').val() < 0){
+            if($('#hoppersUsed').val() == 0){
             $('#hopperStuff').hide();
             }else{
             $('#hopperStuff').show();
             }
-            $('#showStuffModal').modal("show");
+            if($('input[name=Climb]:checked').val()=="TrueFail"){
+            $('#ClimbedDivStuff').html("Climbs : Failed");
+            }
+            $('#showStuffModal').modal('show');
             }else{
 
             $("#comment").on("input", () =>{
@@ -420,6 +439,17 @@
             $('#doesClimbTrue').removeClass("btn-danger");
             $('#doesClimbTrue').addClass("btn-primary");
             $('#doesClimbFalse').addClass("btn-primary");
+            $('#doesClimbFail').removeClass("btn-danger");
+            $('#doesClimbFail').addClass("btn-primary");
+            });
+
+            $('#doesClimbFail').click(function(){
+            $('#doesClimbFalse').removeClass("btn-danger");
+            $('#doesClimbTrue').removeClass("btn-danger");
+            $('#doesClimbTrue').addClass("btn-primary");
+            $('#doesClimbFalse').addClass("btn-primary");
+            $('#doesClimbFail').removeClass("btn-danger");
+            $('#doesClimbFail').addClass("btn-primary");
             });
 
             $('#doesClimbTrue').click(function(){
@@ -427,6 +457,8 @@
             $('#doesClimbTrue').removeClass("btn-danger");
             $('#doesClimbTrue').addClass("btn-primary");
             $('#doesClimbFalse').addClass("btn-primary");
+            $('#doesClimbFail').removeClass("btn-danger");
+            $('#doesClimbFail').addClass("btn-primary");
             });
 
             $('#doesDefenceTrue').click(function(){
@@ -512,6 +544,10 @@
             for(var j=0;j<checkList.length;j++){
                 if($('input[name='+checkList[j]+']:checked').val() == null){
                     count+=1;
+                    if(checkList[j]=="Climb"){
+                        $('#does'+checkList[j]+'Fail').removeClass("btn-primary");
+                        $('#does'+checkList[j]+'Fail').addClass("btn-danger");
+                    }
                     for(var i=0;i<boolean.length;i++){
                     $('#does'+checkList[j]+boolean[i]+'').removeClass("btn-primary");
                     $('#does'+checkList[j]+boolean[i]+'').addClass("btn-danger");
@@ -567,7 +603,6 @@
                 })
               .done(function( teamExists ) {
                 if(teamExists == "true"){
-                    canSubmit();
                     $('#overrideModal').modal('show');
                 }
                 else{
