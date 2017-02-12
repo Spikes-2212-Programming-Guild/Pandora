@@ -28,13 +28,13 @@
 
     <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
     <style>
-        #chartContainerGears,#chartContainerHigh,#chartContainerLow{
+        #chartContainerGears,#chartContainerHigh,#chartContainerLow,#chartContainerMission5,#chartContainerMission4,#chartContainerMission3,#chartContainerMission2,#chartContainerMission1,#chartContainerMission6,#chartContainerMission7{
             height: 330px;
             width: 100%;
         }
 
         @media screen and (max-height : 640px) {
-            #chartContainerGears,#chartContainerHigh,#chartContainerLow{
+            #chartContainerGears,#chartContainerHigh,#chartContainerLow,#chartContainerMission5,#chartContainerMission4,#chartContainerMission3,#chartContainerMission2,#chartContainerMission1,#chartContainerMission6,#chartContainerMission7{
                 height: 330px;
                 width: 100%;
             }
@@ -45,7 +45,6 @@
 
 </head>
 <body>
-<div id="summeryDiv">
 {% if doGamesExist == "True" %}
     <script type="text/javascript">
   window.onload = function () {
@@ -195,7 +194,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.high}},label:"Game "+{{forloop.counter}}},
+        {y:{{game.highgoal}},label:"Game "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.HighShooting}},label:"Team Average"},
         {y:{{all_average.HighShooting}},label:"All Average"}
@@ -228,7 +227,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.low}},label:"Game "+{{forloop.counter}}},
+        {y:{{game.lowgoal}},label:"Game "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.LowShooting}},label:"Team Average"},
         {y:{{all_average.LowShooting}},label:"All Average"}
@@ -261,7 +260,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.gears}},label:"Game "+{{forloop.counter}}},
+        {y:{{game.gears}},label:"Game "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Gears}},label:"Team Average"},
         {y:{{all_average.Gears}},label:"All Average"}
@@ -294,7 +293,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Game "+{{forloop.counter}}},
+        {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Game "+{{ loop.length }}},
         {%endfor%}
         {y:0}
         ]
@@ -326,7 +325,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.fouls}},label:"Game "+{{forloop.counter}}},
+        {y:{{game.fouls}},label:"Game "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Fouls}},label:"Team Average"},
         {y:{{all_average.Fouls}},label:"All Average"}
@@ -359,7 +358,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.defensive == "True"%}1{%else%}0{%endif%},label:"Game "+{{forloop.counter}}},
+        {y:{%if game.defensive == "True"%}1{%else%}0{%endif%},label:"Game "+{{ loop.length }}},
         {%endfor%}
         {y:0}
         ]
@@ -391,7 +390,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.hoppers}},label:"Game "+{{forloop.counter}}},
+        {y:{{game.hoppers}},label:"Game "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Hoppers}},label:"Team Average"},
         {y:{{all_average.Hoppers}},label:"All Average"}
@@ -440,6 +439,7 @@
   <div class="panel-footer">{{team.conclusion}}</div>
 </div>
 {%endif%}
+<div id="summeryDiv">
 
 <br/>
 <div id="chartContainerGears">
@@ -465,31 +465,32 @@
 </div>
 </div>
 <br/>
+
+<div id="chartContainerMission1" style="display:none">
+</div>
+<div id="chartContainerMission2" style="display:none">
+</div>
+<div id="chartContainerMission3" style="display:none">
+</div>
+<div id="chartContainerMission4" style="display:none">
+</div>
+<div id="chartContainerMission5" style="display:none">
+</div>
+<div id="chartContainerMission6" style="display:none">
+</div>
+<div id="chartContainerMission7" style="display:none">
+</div>
+<div class="btn-toolbar" role="toolbar">
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-1" value="Mission 1" role="group" aria-label="Mission 1">Mission 1</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-2" value="Mission 2" role="group" aria-label="Mission 2">Mission 2</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-3" value="Mission 3" role="group" aria-label="Mission 3">Mission 3</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-4" value="Mission 4" role="group" aria-label="Mission 4">Mission 4</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-5" value="Mission 5" role="group" aria-label="Mission 5">Mission 5</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-6" value="Mission 6" role="group" aria-label="Mission 6">Mission 6</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-7" value="Mission 7" role="group" aria-label="Mission 7">Mission 7</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Summery" value="Summery" role="group" aria-label="Summery">Summery</label>
+</div>
 <br/>
-<div id="chartContainerMission1" aria-hidden="true">
-</div>
-<div id="chartContainerMission2" aria-hidden="true">
-</div>
-<div id="chartContainerMission3" aria-hidden="true">
-</div>
-<div id="chartContainerMission4" aria-hidden="true">
-</div>
-<div id="chartContainerMission5" aria-hidden="true">
-</div>
-<div id="chartContainerMission6" aria-hidden="true">
-</div>
-<div id="chartContainerMission7" aria-hidden="true">
-</div>
-<div class="btn-toolbar" role="toolbar" aria-label="...">
-    <div class="btn-group" name="specificMission" id="Mission 1" value="Mission 1" role="group" aria-label="Mission 1"></div>
-    <div class="btn-group" name="specificMission" id="Mission 2" value="Mission 2" role="group" aria-label="Mission 2"></div>
-    <div class="btn-group" name="specificMission" id="Mission 3" value="Mission 3" role="group" aria-label="Mission 3"></div>
-    <div class="btn-group" name="specificMission" id="Mission 4" value="Mission 4" role="group" aria-label="Mission 4"></div>
-    <div class="btn-group" name="specificMission" id="Mission 5" value="Mission 5" role="group" aria-label="Mission 5"></div>
-    <div class="btn-group" name="specificMission" id="Mission 6" value="Mission 6" role="group" aria-label="Mission 6"></div>
-    <div class="btn-group" name="specificMission" id="Mission 7" value="Mission 7" role="group" aria-label="Mission 7"></div>
-    <div class="btn-group" name="specificMission" id="Summery" value="Summery" role="group" aria-label="Summery"></div>
-</div>
 <div>
     <label  class="btn btn-primary btn-group" href="#myModal" data-toggle="modal">Games</label>
 </div>
@@ -578,6 +579,7 @@
 (function() {
         $(function () {
         checkClimb();
+        specificListener();
         });
         function checkClimb(){
             if($('#paramDoesClimb').text()==""){
@@ -585,6 +587,65 @@
             }else if($('#paramDoesClimb').text()!="climbs"){
                 $('#paramDoesClimb').html("climbs");
             }
+        }
+
+        function specificListener(){
+            $('#Mission-1').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').hide();
+                //wanted to do it with for but there is a problem in the showing in the i because of stupied js
+                $('#chartContainerMission1').show();
+            });
+            $('#Mission-2').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').hide();
+                $('#chartContainerMission2').show();
+            });
+            $('#Mission-3').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').hide();
+                $('#chartContainerMission3').show();
+            });
+            $('#Mission-4').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').hide();
+                $('#chartContainerMission4').show();
+            });
+            $('#Mission-5').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').hide();
+                $('#chartContainerMission5').show();
+            });
+            $('#Mission-6').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').hide();
+                $('#chartContainerMission6').show();
+            });
+            $('#Mission-7').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').hide();
+                $('#chartContainerMission7').show();
+            });
+            $('#Summery').click(function (){
+                for(var j=1;j<8;j++){
+                    $('#chartContainerMission'+j+'').hide();
+                }
+                $('#summeryDiv').show();
+            });
         }
 
      })()
@@ -604,9 +665,17 @@
 <!--new Chart(scores).Line(info);-->
 
 
+
 <!--</script>-->
 {%else%}
 
+<script>
+    (function (){
+        $(function (){
+            $('#noGamesIn').modal('show');
+        })
+    })()
+</script>
 <div class="modal fade" id="noGamesIn" tabindex="-1" role="dialog" aria-labelledby="noGamesLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -619,72 +688,6 @@
     </div>
   </div>
 </div>
-<script>
-    (function (){
-        $(function (){
-            $('#noGamesIn').modal('show');
-        })
-
-        function specificListener(){
-            $('#Mission 1').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('hide');
-                //wanted to do it with for but there is a problem in the showing in the i because of stupied js
-                $('#chartContainerMission1').div('show');
-            });
-            $('#Mission 2').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('hide');
-                $('#chartContainerMission2').div('show');
-            });
-            $('#Mission 3').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('hide');
-                $('#chartContainerMission3').div('show');
-            });
-            $('#Mission 4').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('hide');
-                $('#chartContainerMission4').div('show');
-            });
-            $('#Mission 5').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('hide');
-                $('#chartContainerMission5').div('show');
-            });
-            $('#Mission 6').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('hide');
-                $('#chartContainerMission6').div('show');
-            });
-            $('#Mission 7').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('hide');
-                $('#chartContainerMission7').div('show');
-            });
-            $('#Summery').click(Function (){
-                for(var j=1;j<8;j++){
-                    $('#chartContainerMission'+j+'').div('hide');
-                }
-                $('#summeryDiv').div('show');
-            });
-        }
-    })()
-</script>
 {%endif%}
 </body>
 </html>

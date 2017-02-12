@@ -322,7 +322,7 @@
             "</div>"+
             "Gears : "+$('input[name=Gear]:checked').val()+"<br/>"+
             "<div id=gearsStuff>"+
-            "Gears Quality : "+$('input[name=qualityGears]:checked').val()+"<br/>"+
+            "Gears Quality : "+$('input[name=qualityGear]:checked').val()+"<br/>"+
             "Gears Placed : "+$('#gearsScoredSend').val()+"<br/>"+
             "</div>"+
             "<div id=ClimbedDivStuff>Climbs : "+$('input[name=Climb]:checked').val()+"</div>"+

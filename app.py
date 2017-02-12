@@ -107,8 +107,8 @@ def team_page(teamnumber):
     all_games = Results.query.all()
     team_average = averages(all_team_games)
     all_average = averages(all_games)
-    best_defences =best_defence(games=games)
-    average_hoppers=average_hopper(games=games)
+    best_defences = best_defence(games=all_team_games)
+    average_hoppers = average_hopper(games=all_team_games)
     if len(all_team_games) == 0:
         doGamesExists="False"
     else:

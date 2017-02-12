@@ -1,5 +1,5 @@
 body{
-    background: url('/static/img/background.jpg') no-repeat center center fixed;
+    background-color: #f8f8f8;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
