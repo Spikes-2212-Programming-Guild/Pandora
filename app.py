@@ -103,37 +103,37 @@ def team_page(teamnumber):
             db_session.flush()
         except:
             pass
-    all_team_games = Results.query.filter_by(team=teamnumber).order_by(Results.number).all()
-    all_games = Results.query.all()
-    team_average = averages(all_team_games)
-    all_average = averages(all_games)
-    best_defences = best_defence(games=all_team_games)
-    average_hoppers = average_hopper(games=all_team_games)
-    if len(all_team_games) == 0:
-        doGamesExists="False"
+    all_team_matches = Results.query.filter_by(team=teamnumber).order_by(Results.number).all()
+    all_matches = Results.query.all()
+    team_average = averages(all_team_matches)
+    all_average = averages(all_matches)
+    best_defences = best_defence(games=all_team_matches)
+    average_hoppers = average_hopper(games=all_team_matches)
+    if len(all_team_matches) == 0:
+        doMatchExists="False"
     else:
-        doGamesExists="True"
-    return render_template('team2.html', status=login_manager.status, games=all_team_games,
+        doMatchExists="True"
+    return render_template('team2.html', status=login_manager.status, games=all_team_matches,
                            team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber,
-                           best=best_game(all_team_games), worst=worst_game(all_team_games), doGamesExist=doGamesExists,
-                           best_defence=best_defences, average_hopper=average_hoppers)
+                           best=best_game(all_team_matches), worst=worst_game(all_team_matches),
+                           doGamesExist=doMatchExists, best_defence=best_defences, average_hopper=average_hoppers)
 
 
-@app.route("/games")
-def games():
-    games = Game.query.all()
-    return render_template('games.html', games=games)
-
-
-@app.route("/game/<teamnumber>/<gamenumber>")
-def game_page(gamenumber, teamnumber):
-    game = Results.query.filter_by(number=gamenumber, team=teamnumber).first()
-    all_team_games = Results.query.filter_by(team=teamnumber)
-    all_games = Results.query.all()
-    if all_team_games != None:
-        team_average = averages(all_team_games)
-    all_average = averages(all_games)
-    return render_template('game_page.html', game=game, team_average=team_average, all_average=all_average)
+# @app.route("/games")
+# def games():
+#     games = Game.query.all()
+#     return render_template('games.html', games=games)
+#
+#
+# @app.route("/game/<teamnumber>/<gamenumber>")
+# def game_page(gamenumber, teamnumber):
+#     game = Results.query.filter_by(number=gamenumber, team=teamnumber).first()
+#     all_team_games = Results.query.filter_by(team=teamnumber)
+#     all_games = Results.query.all()
+#     if all_team_games != None:
+#         team_average = averages(all_team_games)
+#     all_average = averages(all_games)
+#     return render_template('game_page.html', game=game, team_average=team_average, all_average=all_average)
 
 
 @app.route("/newTeam", methods=["GET", "POST"])
@@ -143,7 +143,7 @@ def add_team():
             override = db_session.query(Results).filter_by(number=request.form["number"]).first()
             db_session.delete(override)
             db_session.flush()
-        db_session.add(Team(request.form["number"], request.form["name"]))
+        db_session.add(Team(request.form["number"], request.form["name"], ""))
         db_session.flush()
         if request.form["WereToRedirect"] == "ScoutingForm":
             return redirect("/scoutingForm")
@@ -152,7 +152,7 @@ def add_team():
     return render_template("/addTeam.html")
 
 
-@app.route("/checkIfTeamAndGameExists", methods=["POST"])
+@app.route("/checkIfTeamAndMatchExists", methods=["POST"])
 def check_if_happened():
     match_exists = Results.query.filter_by(team=request.form["team_number"],
                                            number=request.form["match_number"]).first()
@@ -165,8 +165,8 @@ def check_if_team_exists():
 
 @app.route("/showDb")
 def show_db():
-    game = Results.query.all()
-    return render_template('show_db.html', games=game)
+    matches = Results.query.all()
+    return render_template('show_db.html', games=matches)
 
 
 @app.route("/scoutingForm", methods=["GET", "POST"])
@@ -218,10 +218,6 @@ def scouting_form():
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          climbed=values["didClimb"], defensive=request.form["Defence"],
                          comment=request.form["comment"])
-        # try:
-        #     update_game(request.form["game"])
-        # finally:
-        #     print Game.query.filter(Game.number == request.form["game"]).all()
         db_session.add(result)
         db_session.flush()
         return redirect('/scoutingForm')
@@ -277,10 +273,6 @@ def scouting_form():
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          climbed=request.form["Climb"], defensive=request.form["Defence"],
                          comment=request.form["comment"])
-        # try:
-        #     update_game(request.form["game"])
-        # finally:
-        #     print Game.query.filter(Game.number == request.form["game"]).all()
         db_session.add(result)
         db_session.flush()
         return redirect('/scoutingForm')

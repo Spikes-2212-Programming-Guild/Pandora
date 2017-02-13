@@ -541,6 +541,44 @@
             var time = ["none", "long", "medium", "short"];
             var count =0;
 
+            if($('#highFuelScoredSend').val()==0&&$('input[name=High]:checked').val()=="True"){
+                count++;
+                $('#numberShootsHigh').addClass("panel-danger");
+                $('#numberShootsHigh').removeClass("panel-default");
+                $('#fuelHighDec').addClass("btn-danger");
+                $('#fuelHighInc').addClass("btn-danger");
+                $('#fuelHighDec').removeClass("btn-primary");
+                $('#fuelHighInc').removeClass("btn-primary");
+                $('#fuelHighDec10').addClass("btn-danger");
+                $('#fuelHighInc10').addClass("btn-danger");
+                $('#fuelHighDec10').removeClass("btn-primary");
+                $('#fuelHighInc10').removeClass("btn-primary");
+            }
+
+            if($('#gearsScoredSend').val()==0&&$('input[name=Gear]:checked').val()=="True"){
+                count++;
+                $('#gearsInputed').addClass("panel-danger");
+                $('#gearsInputed').removeClass("panel-default");
+                $('#gearDec').addClass("btn-danger");
+                $('#gearInc').addClass("btn-danger");
+                $('#gearDec').removeClass("btn-primary");
+                $('#gearInc').removeClass("btn-primary");
+            }
+
+            if($('#lowFuelScoredSend').val()==0&&$('input[name=Low]:checked').val()=="True"){
+                count++;
+                $('#numberShootsLow').addClass("panel-danger");
+                $('#numberShootsLow').removeClass("panel-default");
+                $('#fuelLowDec').addClass("btn-danger");
+                $('#fuelLowInc').addClass("btn-danger");
+                $('#fuelLowDec').removeClass("btn-primary");
+                $('#fuelLowInc').removeClass("btn-primary");
+                $('#fuelLowDec10').addClass("btn-danger");
+                $('#fuelLowInc10').addClass("btn-danger");
+                $('#fuelLowDec10').removeClass("btn-primary");
+                $('#fuelLowInc10').removeClass("btn-primary");
+            }
+
             for(var j=0;j<checkList.length;j++){
                 if($('input[name='+checkList[j]+']:checked').val() == null){
                     count+=1;

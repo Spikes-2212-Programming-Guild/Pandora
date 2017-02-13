@@ -194,7 +194,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.highgoal}},label:"Game "+{{ loop.length }}},
+        {y:{{game.highgoal}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.HighShooting}},label:"Team Average"},
         {y:{{all_average.HighShooting}},label:"All Average"}
@@ -227,7 +227,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.lowgoal}},label:"Game "+{{ loop.length }}},
+        {y:{{game.lowgoal}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.LowShooting}},label:"Team Average"},
         {y:{{all_average.LowShooting}},label:"All Average"}
@@ -260,7 +260,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.gears}},label:"Game "+{{ loop.length }}},
+        {y:{{game.gears}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Gears}},label:"Team Average"},
         {y:{{all_average.Gears}},label:"All Average"}
@@ -293,7 +293,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Game "+{{ loop.length }}},
+        {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:0}
         ]
@@ -325,7 +325,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.fouls}},label:"Game "+{{ loop.length }}},
+        {y:{{game.fouls}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Fouls}},label:"Team Average"},
         {y:{{all_average.Fouls}},label:"All Average"}
@@ -358,7 +358,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.defensive == "True"%}1{%else%}0{%endif%},label:"Game "+{{ loop.length }}},
+        {y:{%if game.defensive == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:0}
         ]
@@ -390,7 +390,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.hoppers}},label:"Game "+{{ loop.length }}},
+        {y:{{game.hoppers}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Hoppers}},label:"Team Average"},
         {y:{{all_average.Hoppers}},label:"All Average"}
@@ -492,20 +492,20 @@
 </div>
 <br/>
 <div>
-    <label  class="btn btn-primary btn-group" href="#myModal" data-toggle="modal">Games</label>
+    <label  class="btn btn-primary btn-group" href="#myModal" data-toggle="modal">Matches</label>
 </div>
 <div class="modal fade" id="myModal">
 <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 class="modal-title">Table By Games on Team - {{games[0].team}}</h3>
+          <h3 class="modal-title">Table By Matches on Team - {{games[0].team}}</h3>
         </div>
         <div class="modal-body">
             <table class="table table-hover" align="center">
             <thead>
             <tr class="success">
-                <th class="success">game</th>
+                <th class="success">Match</th>
                 <th class="success">high goal</th>
                 <th class="success">low goal</th>
                 <th class="success">gears</th>
@@ -513,7 +513,9 @@
                 <th class="success">defence</th>
                 <th class="success">climbing</th>
                 <th class="danger">fouls</th>
-                <th class="info">comment</th>
+            </tr>
+            <tr class ="success">
+                <th class="info" colspan="8" rowspan="2">comment</th>
             </tr>
             </thead>
             <tbody>
@@ -541,8 +543,7 @@
             </tr>
             {%for game in games%}
             <tr>
-                <td style="background-color:AliceBlue"><a hre f="/game/{{game.team}}/{{game.number}}">{{game.number}}</a>
-                </td>
+                <td style="background-color:AliceBlue">{{game.number}}</td>
 
                 <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}
                 </td>
@@ -558,7 +559,9 @@
                     {%else%} no{%endif%}
                 </td>
                 <td class="danger">{{game.fouls}}</td>
-                <td class="info">{{game.comment}}</td>
+            </tr>
+            <tr>
+                <td class="info" colspan="8" rowspan="2" style="text-align:right">{{game.comment}}</td>
                 {%endfor%}
             </tr>
             </tbody>

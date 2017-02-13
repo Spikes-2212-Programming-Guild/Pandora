@@ -24,17 +24,10 @@
 {% include 'util/menu.html' %}
 <form class="form-horizontal" id="formAddTeam" role="form" method="post" action="">
     <input type="hidden" id="shouldOverrideTeam" name="shouldOverrideTeam" value="False">
-    <input class="form-control" type="text" placeholder="team number" id="number" name="number">
+    <input class="form-control" type="number" placeholder="team number" id="number" name="number">
     <input class="form-control" type="text" placeholder="name" id="name" name="name">
-    <div class="btn-group btn-group-justified" data-toggle="buttons">
-                    <label class="btn btn-primary btn-group col-lg-6">
-                        <input type="radio" name="WereToRedirect" value="Teams" autocomplete="off">Go to teams
-                    </label>
-                    <label class="btn btn-primary btn-group col-lg-6">
-                        <input type="radio" name="WereToRedirect" value="ScoutingForm" autocomplete="off">Go back to ScoutingForm
-                    </label>
-    </div>
-    <input class="btn btn-primary" type="submit">
+    <input type="submit" name="WereToRedirect" class="btn btn-primary btn-group col-lg-6" value="Teams" autocomplete="off">
+    <input class="btn btn-primary btn-group col-lg-6 col-md-6 col-sm-6 col-xs-6" type="submit" name="WereToRedirect" value="ScoutingForm" autocomplete="off">
 </form>
 <div class="modal fade" id="overrideTeam" tabindex="-1" role="dialog" aria-labelledby="overrideTeamLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -56,7 +49,30 @@
     (function(){
         $(function(){
             initBlur();
+
+        $('#formAddTeam').submit(function (event){
+            if($('#number').val()==""){
+                event.preventDefault();
+                $('#number').addClass("btn-danger");
+            }
+            var preventDefault = "False";
+		     $.ajax({
+              method: "POST",
+              url: "/checkIfTeamExists",
+              data: { team_number: $('#number').val()}
+                })
+              .done(function(teamExists) {
+                if(teamExists != "false" && $('#shouldOverrideTeam').val()=="False"){
+                    preventDefault="True";
+                    $('#overrideTeam').modal('show');
+                }
+              });
+              if(preventDefault=="True"){
+               event.preventDefault();
+              }
+		});
         })
+
         function initBlur(){
         $('#number').blur(function (){
               $.ajax({
@@ -71,6 +87,9 @@
                 if(teamExists == "false" && $('#shouldOverrideTeam').val()=="True"){
                     $('#shouldOverrideTeam').val("False");
                 }
+                if($('#number').hasClass("btn-danger")&&$('#number').val()!=""){
+                    $('#number').removeClass("btn-danger");
+                }
               })});
         $('#override').click(function (){
             $('#shouldOverrideTeam').val("True");
@@ -80,20 +99,7 @@
         });
         }
 
-        $('#formAddTeam').submit(function (){
-		     $.ajax({
-              method: "POST",
-              url: "/checkIfTeamExists",
-              data: { team_number: $('#number').val()}
-                })
-              .done(function( teamExists ) {
-                if(teamExists != "false" && $('#shouldOverrideTeam').val()=="False"){
-                    event.preventDefault();
-                    $('#overrideTeam').modal('show');
-                }
-              });
 
-		});
     })()
 </script>
 </body>
