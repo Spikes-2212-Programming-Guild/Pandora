@@ -28,7 +28,7 @@ def best_game(games):
     best={"high":0,"low":0,"gears":0}
     for game in games:
         best["high"]=game.highgoal if game.highgoal>best["high"] else best["high"]
-        best["low"]=game.highgoal if game.lowgoal>best["low"] else best["low"]
+        best["low"]=game.lowgoal if game.lowgoal>best["low"] else best["low"]
         best["gears"]=game.gears if game.gears>best["gears"] else best["gears"]
     return best
 
@@ -36,6 +36,6 @@ def worst_game(games):
     worst={"high":float('inf'),"low":float('inf'),"gears":float('inf')}
     for game in games:
         worst["high"]=game.highgoal if game.highgoal<worst["high"] else worst["high"]
-        worst["low"]=game.highgoal if game.lowgoal<worst["low"] else worst["low"]
+        worst["low"]=game.lowgoal if game.lowgoal<worst["low"] else worst["low"]
         worst["gears"]=game.gears if game.gears<worst["gears"] else worst["gears"]
     return worst

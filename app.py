@@ -89,6 +89,11 @@ def users():
     print users
     return render_template("users.html", users=users)
 
+@app.route("/getConclusion", methods=["POST"])
+def get_conclusion():
+    # db_session.flush()
+    team = Team.query.filter_by(number=request.form["team_number"]).first()
+    return json.dumps(team.conclusion)
 
 
 @app.route("/team/<teamnumber>", methods=["GET", "POST"])
@@ -101,6 +106,7 @@ def team_page(teamnumber):
             db_session.query(Team).filter(Team.number == teamnumber).update({"conclusion": comment},
                                                                             synchronize_session='evaluate')
             db_session.flush()
+            return redirect('/team/'+teamnumber+'')
         except:
             pass
     all_team_matches = Results.query.filter_by(team=teamnumber).order_by(Results.number).all()
@@ -140,11 +146,11 @@ def team_page(teamnumber):
 def add_team():
     if request.method == 'POST':
         if request.form["shouldOverrideTeam"] == "True":
-            override = db_session.query(Results).filter_by(number=request.form["number"]).first()
-            db_session.delete(override)
+            db_session.query(Team).filter(Team.number == request.form["number"]).update({"name": request.form["name"]}, synchronize_session='evaluate')
             db_session.flush()
-        db_session.add(Team(request.form["number"], request.form["name"], ""))
-        db_session.flush()
+        else:
+            db_session.add(Team(request.form["number"], request.form["name"], " "))
+            db_session.flush()
         if request.form["WereToRedirect"] == "ScoutingForm":
             return redirect("/scoutingForm")
         else:

@@ -23,7 +23,9 @@
     <script src="/static/js/jquery.min.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="/static/js/bootstrap.min.js">
-        <script src="/static/js/canvasjs.min.js"></script>
+        <script src="/static/js/canvasjs.min.js">
+
+    </script>
 
 
     <script type="text/javascript" src="http://canvasjs.com/assets/script/canvasjs.min.js"></script>
@@ -41,12 +43,14 @@
         }
 
 
+
+
     </style>
 
 </head>
 <body>
 {% if doGamesExist == "True" %}
-    <script type="text/javascript">
+<script type="text/javascript">
   window.onload = function () {
     var height=300;
 
@@ -152,14 +156,13 @@
         type: "bar",
         legendText: "all averages",
         dataPoints: [
-        {y: {{worst.low}}/low *100, label:"Worst"},
-        {y: {{best.low}}/low *100, label:"Best"},
-        {y: {{all_average.LowShooting}}/low *100, label:"All A"},
-        {y: {{team_average.LowShooting}}/low *100, label:"Team A"}
+        {y:{{worst.low}}/low *100, label:"Worst"},
+        {y:{{best.low}}/low *100, label:"Best"},
+        {y:{{all_average.LowShooting}}/low *100, label:"All A"},
+        {y:{{team_average.LowShooting}}/low *100, label:"Team A"}
         ]
         }
       ]});
-
     highChart.render();
     gearsChart.render();
     lowChart.render();
@@ -295,7 +298,7 @@
         {%for game in games%}
         {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
-        {y:0}
+        {y:0, label:"-1"}
         ]
         }
       ]});
@@ -360,7 +363,7 @@
         {%for game in games%}
         {y:{%if game.defensive == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
-        {y:0}
+        {y:0, label:"-1"}
         ]
         }
       ]});
@@ -416,53 +419,61 @@
 
 
 
-    </script>
+
+
+</script>
 {% include 'util/menu.html' %}
-<div style="text-align:center" class=" col-xs-offset-4 col-xs-4 col-lg-offset-4 col-lg-4 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 well well-sm">
+<div style="text-align:center"
+     class=" col-xs-offset-4 col-xs-4 col-lg-offset-4 col-lg-4 col-sm-offset-4 col-sm-4 col-md-offset-4 col-md-4 well well-sm">
     {{games[0].team}}
 </div>
 <br/>
 <br/>
 <br/>
-{%if status== 'admin'%}
-<form id="conclusionForm" method="post" action="">
-    <div style="background-color:white"> conclusion:
-        <textarea align="center" id="conclusion" name="conclusion" form="conclusionForm" style="height:300; width:1500">{{team.conclusion}}</textarea>
-    </div>
-    <input type="submit" value="Update">
-</form>
-{%else%}
-<div class="panel panel-default">
-  <div class="panel-body">
-    Head Comment
-  </div>
-  <div class="panel-footer">{{team.conclusion}}</div>
+<div id="formSubmitConclusion" style="display:none">
+    <form id="conclusionForm" method="post" action="">
+        <div class="form-control" style="background-color:white"> conclusion:
+            <textarea align="center" id="conclusion" name="conclusion" form="conclusionForm"
+                      style="height:300; width:1500">{{team.conclusion}}</textarea>
+            <import type="hidden" name="is_conclusion" value="False"></import>
+        </div>
+    </form>
 </div>
-{%endif%}
+<div id="headComment" class="panel panel-default">
+    <div class="panel-body">
+        Head Comment
+    </div>
+    <div class="panel-footer" id="teamConclusion">{{team.conclusion}}</div>
+</div>
+<button class="btn btn-primary" id="changeConclusion">Change Conclusion</button>
+<br/>
+<br/>
 <div id="summeryDiv">
 
-<br/>
-<div id="chartContainerGears">
-</div>
-<div id="chartContainerHigh">
-</div>
-<div id="chartContainerLow">
-</div>
+    <br/>
+    <div id="chartContainerGears">
+    </div>
+    <div id="chartContainerHigh">
+    </div>
+    <div id="chartContainerLow">
+    </div>
 
-<div class="panel panel-default">
-  <div class="panel-body">
-    Other Parameters:
-      <script>var failedToClimb=0</script>
-  </div>
-    <ul class="list-group">
-        <li class="list-group-item">Does Climb? : <span id="paramDoesClimb">{%for game in games%}{%if game.climbing_quality != "none"%}climbs{%endif%}{%endfor%}</span></li>
-        <li class="list-group-item">Times failed climbing :<span id="paramFailedToClimb">{%for game in games%}{%if game.climbing_quality == "none" and game.climbed=="True"%}<script>failedToClimb+=1;</script>{%endif%}{%endfor%}{{timesFailedClimbing}}<script>$('#paramFailedToClimb').html(failedToClimb);</script></span></li>
-        <li class="list-group-item">Average fouls : {{team_average.Fouls}}</li>
-        <li class="list-group-item">Defence max : {{best_defence}}</li>
-        <li class="list-group-item">Average hoppers quality : {{average_hopper}}</li>
-        <li class="list-group-item">Average hoppers used : {{team_average.Hoppers}}</li>
-    </ul>
-</div>
+    <div class="panel panel-default">
+        <div class="panel-body">
+            Other Parameters:
+            <script>var failedToClimb=0</script>
+        </div>
+        <ul class="list-group">
+            <li class="list-group-item">Does Climb? : <span id="paramDoesClimb">{%for game in games%}{%if game.climbing_quality != "none"%}climbs{%endif%}{%endfor%}</span>
+            </li>
+            <li class="list-group-item">Times failed climbing :<span id="paramFailedToClimb">{%for game in games%}{%if game.climbing_quality == "none" and game.climbed=="True"%}<script>failedToClimb+=1;</script>{%endif%}{%endfor%}{{timesFailedClimbing}}<script>$('#paramFailedToClimb').html(failedToClimb);</script></span>
+            </li>
+            <li class="list-group-item">Average fouls : {{team_average.Fouls}}</li>
+            <li class="list-group-item">Defence max : {{best_defence}}</li>
+            <li class="list-group-item">Average hoppers quality : {{average_hopper}}</li>
+            <li class="list-group-item">Average hoppers used : {{team_average.Hoppers}}</li>
+        </ul>
+    </div>
 </div>
 <br/>
 
@@ -481,100 +492,110 @@
 <div id="chartContainerMission7" style="display:none">
 </div>
 <div class="btn-toolbar" role="toolbar">
-    <label class="btn btn-default btn-group" name="specificMission" id="Mission-1" value="Mission 1" role="group" aria-label="Mission 1">Mission 1</label>
-    <label class="btn btn-default btn-group" name="specificMission" id="Mission-2" value="Mission 2" role="group" aria-label="Mission 2">Mission 2</label>
-    <label class="btn btn-default btn-group" name="specificMission" id="Mission-3" value="Mission 3" role="group" aria-label="Mission 3">Mission 3</label>
-    <label class="btn btn-default btn-group" name="specificMission" id="Mission-4" value="Mission 4" role="group" aria-label="Mission 4">Mission 4</label>
-    <label class="btn btn-default btn-group" name="specificMission" id="Mission-5" value="Mission 5" role="group" aria-label="Mission 5">Mission 5</label>
-    <label class="btn btn-default btn-group" name="specificMission" id="Mission-6" value="Mission 6" role="group" aria-label="Mission 6">Mission 6</label>
-    <label class="btn btn-default btn-group" name="specificMission" id="Mission-7" value="Mission 7" role="group" aria-label="Mission 7">Mission 7</label>
-    <label class="btn btn-default btn-group" name="specificMission" id="Summery" value="Summery" role="group" aria-label="Summery">Summery</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-1" value="Mission 1" role="group"
+           aria-label="Mission 1">High Shooting</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-2" value="Mission 2" role="group"
+           aria-label="Mission 2">Low Shooting</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-3" value="Mission 3" role="group"
+           aria-label="Mission 3">Gears</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-4" value="Mission 4" role="group"
+           aria-label="Mission 4">Hanging</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-5" value="Mission 5" role="group"
+           aria-label="Mission 5">Fouls</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-6" value="Mission 6" role="group"
+           aria-label="Mission 6">Defence</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Mission-7" value="Mission 7" role="group"
+           aria-label="Mission 7">Hoppers</label>
+    <label class="btn btn-default btn-group" name="specificMission" id="Summery" value="Summery" role="group"
+           aria-label="Summery">Summery</label>
 </div>
 <br/>
 <div>
-    <label  class="btn btn-primary btn-group" href="#myModal" data-toggle="modal">Matches</label>
+    <label class="btn btn-primary btn-group" href="#myModal" data-toggle="modal">Matches</label>
 </div>
 <div class="modal fade" id="myModal">
-<div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 class="modal-title">Table By Matches on Team - {{games[0].team}}</h3>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h3 class="modal-title">Table By Matches on Team - {{games[0].team}} <span
+                        class="glyphicon glyphicon-repeat"></span></h3>
+            </div>
+            <div class="modal-body">
+                <table class="table table-hover" align="center">
+                    <thead>
+                    <tr class="success">
+                        <th class="success">Match</th>
+                        <th class="success">high goal</th>
+                        <th class="success">low goal</th>
+                        <th class="success">gears</th>
+                        <th class="success">hoppers</th>
+                        <th class="success">defence</th>
+                        <th class="success">climbing</th>
+                        <th class="danger">fouls</th>
+                    </tr>
+                    <tr class="success">
+                        <th class="info" colspan="8" rowspan="2">comment</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+                    <tr>
+                        <td style="background-color:AliceBlue">Team Averages</td>
+                        <td style="background-color:AliceBlue ">{{team_average.HighShooting}}</td>
+                        <td style="background-color:AliceBlue ">{{team_average.LowShooting}}</td>
+                        <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
+                        <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
+                        <td style="background-color:AliceBlue "></td>
+                        <td style="background-color:AliceBlue "></td>
+                        <td class="danger">{{team_average.Fouls}}</td>
+                    </tr>
+                    <tr>
+                        <td style="background-color:AliceBlue">All Averages</td>
+                        <td value="{{all_average.HighShooting}}" style="background-color:AliceBlue ">
+                            {{all_average.HighShooting}}
+                        </td>
+                        <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
+                        <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
+                        <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
+                        <td style="background-color:AliceBlue "></td>
+                        <td style="background-color:AliceBlue "></td>
+                        <td class="danger">{{all_average.Fouls}}</td>
+                    </tr>
+                    {%for game in games%}
+                    <tr>
+                        <td style="background-color:AliceBlue">{{game.number}}</td>
+
+                        <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}
+                        </td>
+                        <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
+                        <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
+                        <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>
+                        <td style="background-color:AliceBlue ">{%if game.defending_quality != "none" %}
+                            yes <br/> {{game.defending_quality}}
+                            {%else%} no {%endif%}
+                        </td>
+                        <td style="background-color:AliceBlue ">{%if game.climbing_quality != "none" %}
+                            yes <br/> {{game.climbing_quality}}
+                            {%else%} no{%endif%}
+                        </td>
+                        <td class="danger">{{game.fouls}}</td>
+                    </tr>
+                    <tr>
+                        <td class="info" colspan="8" rowspan="2" style="text-align:right">{{game.comment}}</td>
+                        {%endfor%}
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="form-group">
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+
         </div>
-        <div class="modal-body">
-            <table class="table table-hover" align="center">
-            <thead>
-            <tr class="success">
-                <th class="success">Match</th>
-                <th class="success">high goal</th>
-                <th class="success">low goal</th>
-                <th class="success">gears</th>
-                <th class="success">hoppers</th>
-                <th class="success">defence</th>
-                <th class="success">climbing</th>
-                <th class="danger">fouls</th>
-            </tr>
-            <tr class ="success">
-                <th class="info" colspan="8" rowspan="2">comment</th>
-            </tr>
-            </thead>
-            <tbody>
-
-            <tr>
-                <td style="background-color:AliceBlue">Team Averages</td>
-                <td style="background-color:AliceBlue ">{{team_average.HighShooting}}</td>
-                <td style="background-color:AliceBlue ">{{team_average.LowShooting}}</td>
-                <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
-                <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
-                <td style="background-color:AliceBlue "></td>
-                <td style="background-color:AliceBlue "></td>
-                <td class="danger">{{team_average.Fouls}}</td>
-            </tr>
-            <tr>
-                <td style="background-color:AliceBlue">All Averages</td>
-                <td value="{{all_average.HighShooting}}" style="background-color:AliceBlue ">{{all_average.HighShooting}}
-                </td>
-                <td style="background-color:AliceBlue ">{{all_average.LowShooting}}</td>
-                <td style="background-color:AliceBlue ">{{all_average.Gears}}</td>
-                <td style="background-color:AliceBlue ">{{all_average.Hoppers}}</td>
-                <td style="background-color:AliceBlue "></td>
-                <td style="background-color:AliceBlue "></td>
-                <td class="danger">{{all_average.Fouls}}</td>
-            </tr>
-            {%for game in games%}
-            <tr>
-                <td style="background-color:AliceBlue">{{game.number}}</td>
-
-                <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}
-                </td>
-                <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
-                <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
-                <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>
-                <td style="background-color:AliceBlue ">{%if game.defending_quality != "none" %}
-                    yes <br/> {{game.defending_quality}}
-                    {%else%} no {%endif%}
-                </td>
-                <td style="background-color:AliceBlue ">{%if game.climbing_quality != "none" %}
-                    yes <br/> {{game.climbing_quality}}
-                    {%else%} no{%endif%}
-                </td>
-                <td class="danger">{{game.fouls}}</td>
-            </tr>
-            <tr>
-                <td class="info" colspan="8" rowspan="2" style="text-align:right">{{game.comment}}</td>
-                {%endfor%}
-            </tr>
-            </tbody>
-        </table>
-          <div class="form-group">
-            <div class="clearfix"></div>
-          </div>
-		</div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-
-      </div>
     </div>
 </div>
 <script src="/static/js/teamPage.js"></script>
@@ -583,7 +604,23 @@
         $(function () {
         checkClimb();
         specificListener();
+        conclusionForm();
         });
+
+        function conclusionForm(){
+            $('#changeConclusion').click(function (){
+                if($('#formSubmitConclusion').css('display') == 'none'){
+                    $('#formSubmitConclusion').show();
+                    $('#headComment').hide();
+                }
+                else{
+                    $('#conclusionForm').submit();
+                    $('#formSubmitConclusion').hide();
+                    $('#headComment').show();
+                }
+            });
+        }
+
         function checkClimb(){
             if($('#paramDoesClimb').text()==""){
                 $('#paramDoesClimb').html("doesnt climb");
@@ -652,6 +689,8 @@
         }
 
      })()
+
+
 </script>
 <!--<script>-->
 <!--var scores = document.getElementById('scores').getContext('2d');-->
@@ -668,7 +707,6 @@
 <!--new Chart(scores).Line(info);-->
 
 
-
 <!--</script>-->
 {%else%}
 
@@ -678,18 +716,21 @@
             $('#noGamesIn').modal('show');
         })
     })()
+
+
 </script>
 <div class="modal fade" id="noGamesIn" tabindex="-1" role="dialog" aria-labelledby="noGamesLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="noGamesLabel">No Games On Team</h5>
-      </div>
-      <div class="modal-footer">
-          <button type="button" id="goToTeams" class="btn btn-secondary"><a href="/teams">Return to Teams</a></button>
-      </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="noGamesLabel">No Games On Team</h5>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="goToTeams" class="btn btn-secondary"><a href="/teams">Return to Teams</a>
+                </button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 {%endif%}
 </body>

@@ -636,7 +636,7 @@
             $('#deRealSubmit').click(function() {
                 $.ajax({
               method: "POST",
-              url: "/checkIfTeamAndGameExists",
+              url: "/checkIfTeamAndMatchExists",
               data: { team_number: $('#teamNumber').val(), match_number: $('#matchNumber').val() }
                 })
               .done(function( teamExists ) {
