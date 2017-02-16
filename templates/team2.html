@@ -361,13 +361,12 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.defensive == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
+        {y:{%if game.defensive_robot == True%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:0, label:"-1"}
         ]
         }
       ]});
-
       var MissionSeven = new CanvasJS.Chart("chartContainerMission7",
     {
       height: height,
@@ -430,14 +429,16 @@
 <br/>
 <br/>
 <br/>
-<div id="formSubmitConclusion" style="display:none">
+<div id="formSubmitConclusion" style="display:none" class="panel panel-default">
+    <div class="panel-body">
+        Head Comment
+    </div>
+    <div class="panel-footer">
     <form id="conclusionForm" method="post" action="">
-        <div class="form-control" style="background-color:white"> conclusion:
-            <textarea align="center" id="conclusion" name="conclusion" form="conclusionForm"
-                      style="height:300; width:1500">{{team.conclusion}}</textarea>
-            <import type="hidden" name="is_conclusion" value="False"></import>
-        </div>
+            <textarea class="form-control" id="conclusion" name="conclusion" form="conclusionForm" >{{team.conclusion}}</textarea>
     </form>
+    </div>
+    <br/>
 </div>
 <div id="headComment" class="panel panel-default">
     <div class="panel-body">
@@ -450,7 +451,7 @@
 <br/>
 <div id="summeryDiv">
 
-    <br/>
+    <br/>d
     <div id="chartContainerGears">
     </div>
     <div id="chartContainerHigh">
