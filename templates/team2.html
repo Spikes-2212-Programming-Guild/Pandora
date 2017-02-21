@@ -34,19 +34,7 @@
             height: 330px;
             width: 100%;
         }
-
-        @media screen and (max-height : 640px) {
-            #chartContainerGears,#chartContainerHigh,#chartContainerLow,#chartContainerMission5,#chartContainerMission4,#chartContainerMission3,#chartContainerMission2,#chartContainerMission1,#chartContainerMission6,#chartContainerMission7{
-                height: 330px;
-                width: 100%;
-            }
-        }
-
-
-
-
     </style>
-
 </head>
 <body>
 {% if doGamesExist == "True" %}
@@ -400,19 +388,19 @@
         }
       ]});
     MissionOne.render();
-    $("chartContainerMission1").attr('align', 'center')
+    $("chartContainerMission1").attr('align', 'center');
     MissionTwo.render();
-    $("chartContainerMission2").attr('align', 'center')
+    $("chartContainerMission2").attr('align', 'center');
     MissionThree.render();
-    $("chartContainerMission3").attr('align', 'center')
+    $("chartContainerMission3").attr('align', 'center');
     MissionFour.render();
-    $("chartContainerMission4").attr('align', 'center')
+    $("chartContainerMission4").attr('align', 'center');
     MissionFive.render();
-    $("chartContainerMission5").attr('align', 'center')
+    $("chartContainerMission5").attr('align', 'center');
     MissionSix.render();
-    $("chartContainerMission6").attr('align', 'center')
+    $("chartContainerMission6").attr('align', 'center');
     MissionSeven.render();
-    $("chartContainerMission7").attr('align', 'center')
+    $("chartContainerMission7").attr('align', 'center');
   }
 
 
@@ -604,7 +592,7 @@
 (function() {
         $(function () {
         checkClimb();
-        specificListener();
+        specificListeners();
         conclusionForm();
         });
 
@@ -616,8 +604,6 @@
                 }
                 else{
                     $('#conclusionForm').submit();
-                    $('#formSubmitConclusion').hide();
-                    $('#headComment').show();
                 }
             });
         }
@@ -630,7 +616,7 @@
             }
         }
 
-        function specificListener(){
+        function specificListeners(){
             $('#Mission-1').click(function (){
                 for(var j=1;j<8;j++){
                     $('#chartContainerMission'+j+'').hide();
