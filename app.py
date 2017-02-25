@@ -225,7 +225,7 @@ def scouting_form():
             values["Climb"] = request.form["qualityClimbing"]
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
-            recivers = ['moshesher1998@gmail.com']
+            recivers = ['roeeiit1@gmail.com']
             message = "Got a message"
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
@@ -291,7 +291,7 @@ def scouting_form():
             values["Climb"] = request.form["qualityClimbing"]
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
-            recivers = ['moshesher1998@gmail.com']
+            recivers = ['roeeiit1@gmail.com']
             message = "Got a message"
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
@@ -315,7 +315,7 @@ def scouting_form():
 
 if __name__ == "__main__":
     sender = 'randommailmessage@gmail.com'
-    recivers = ['moshesher1998@gmail.com']
+    recivers = ['roeeiit1@gmail.com']
     message = "Got a message"
     smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
     smtpObj.ehlo()
