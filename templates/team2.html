@@ -461,6 +461,8 @@
             <li class="list-group-item">Defence max : {{best_defence}}</li>
             <li class="list-group-item">Average hoppers quality : {{average_hopper}}</li>
             <li class="list-group-item">Average hoppers used : {{team_average.Hoppers}}</li>
+            <li class="list-group-item">Total problems : {{reliablty_problem}}</li>
+            <li class="list-group-item">Driver quality : {{average_driver_qualitys}}</li>
         </ul>
     </div>
 </div>
@@ -569,6 +571,10 @@
                             {%else%} no{%endif%}
                         </td>
                         <td class="danger">{{game.fouls}}</td>
+                        <td style="background-color:AliceBlue">{{game.driver_quality}}</td>
+                        <td style="background-color:AliceBlue">{{game.communication_problem}}</td>
+                        <td style="background-color:AliceBlue">{{game.unstable_problem}}</td>
+                        <td style="background-color:AliceBlue">{{game.breaking_problem}}</td>
                     </tr>
                     <tr>
                         <td class="info" colspan="8" rowspan="2" style="text-align:right">{{game.comment}}</td>

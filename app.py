@@ -11,8 +11,9 @@ from users import User
 from performances import Results
 from user_manager import login_manager
 import enums
-from statistics import averages,best_game,worst_game
-from best_stuff import best_defence,average_hopper
+import smtplib
+from statistics import averages, best_game, worst_game
+from best_stuff import best_defence, average_hopper, reliablty_problems, average_driver_quality
 
 app = Flask(__name__)
 
@@ -89,6 +90,7 @@ def users():
     print users
     return render_template("users.html", users=users)
 
+
 @app.route("/getConclusion", methods=["POST"])
 def get_conclusion():
     # db_session.flush()
@@ -106,7 +108,7 @@ def team_page(teamnumber):
             db_session.query(Team).filter(Team.number == teamnumber).update({"conclusion": comment},
                                                                             synchronize_session='evaluate')
             db_session.flush()
-            return redirect('/team/'+teamnumber+'')
+            return redirect('/team/' + teamnumber + '')
         except:
             pass
     all_team_matches = Results.query.filter_by(team=teamnumber).order_by(Results.number).all()
@@ -115,14 +117,17 @@ def team_page(teamnumber):
     all_average = averages(all_matches)
     best_defences = best_defence(games=all_team_matches)
     average_hoppers = average_hopper(games=all_team_matches)
+    reliablty_problem = reliablty_problems(games=all_team_matches)
+    average_driver_qualitys = average_driver_quality(games=all_team_matches)
     if len(all_team_matches) == 0:
-        doMatchExists="False"
+        doMatchExists = "False"
     else:
-        doMatchExists="True"
+        doMatchExists = "True"
     return render_template('team2.html', status=login_manager.status, games=all_team_matches,
                            team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber,
                            best=best_game(all_team_matches), worst=worst_game(all_team_matches),
-                           doGamesExist=doMatchExists, best_defence=best_defences, average_hopper=average_hoppers)
+                           doGamesExist=doMatchExists, best_defence=best_defences, average_hopper=average_hoppers,
+                           reliablty_problem=reliablty_problem, average_driver_qualitys=average_driver_qualitys)
 
 
 # @app.route("/games")
@@ -141,12 +146,12 @@ def team_page(teamnumber):
 #     all_average = averages(all_games)
 #     return render_template('game_page.html', game=game, team_average=team_average, all_average=all_average)
 
-
 @app.route("/newTeam", methods=["GET", "POST"])
 def add_team():
     if request.method == 'POST':
         if request.form["shouldOverrideTeam"] == "True":
-            db_session.query(Team).filter(Team.number == request.form["number"]).update({"name": request.form["name"]}, synchronize_session='evaluate')
+            db_session.query(Team).filter(Team.number == request.form["number"]).update({"name": request.form["name"]},
+                                                                                        synchronize_session='evaluate')
             db_session.flush()
         else:
             db_session.add(Team(request.form["number"], request.form["name"], " "))
@@ -164,10 +169,12 @@ def check_if_happened():
                                            number=request.form["match_number"]).first()
     return json.dumps(match_exists is not None)
 
+
 @app.route("/checkIfTeamExists", methods=["POST"])
 def check_if_team_exists():
     team_exists = Team.query.filter_by(number=request.form["team_number"]).first()
     return json.dumps(team_exists is not None)
+
 
 @app.route("/showDb")
 def show_db():
@@ -216,14 +223,25 @@ def scouting_form():
         else:
             values["didClimb"] = "True"
             values["Climb"] = request.form["qualityClimbing"]
+        if request.form["comment"] != "":
+            sender = 'randommailmessage@gmail.com'
+            recivers = ['moshesher1998@gmail.com']
+            message = "Got a message"
+            smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
+            smtpObj.ehlo()
+            smtpObj.starttls()
+            smtpObj.login("randommailmessage", "2212InYourPants")
+            smtpObj.sendmail(sender, recivers, message)
         result = Results(number=request.form["matchNumber"], team=request.form["teamNumber"],
                          highgoal=values["scoreHigh"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
-                         climbed=values["didClimb"], defensive=request.form["Defence"],
-                         comment=request.form["comment"])
+                         driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
+                         defensive=request.form["Defence"], communication_problem=request.form["comuProblem"],
+                         unstable_problem=request.form["unstableProblem"],
+                         breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()
         return redirect('/scoutingForm')
@@ -271,21 +289,39 @@ def scouting_form():
             values["Climb"] = "none"
         else:
             values["Climb"] = request.form["qualityClimbing"]
+        if request.form["comment"] != "":
+            sender = 'randommailmessage@gmail.com'
+            recivers = ['moshesher1998@gmail.com']
+            message = "Got a message"
+            smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
+            smtpObj.ehlo()
+            smtpObj.starttls()
+            smtpObj.login("randommailmessage", "2212InYourPants")
+            smtpObj.sendmail(sender, recivers, message)
         result = Results(number=request.form["matchNumber"], team=request.form["teamNumber"],
                          highgoal=values["scoreHigh"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
-                         climbed=request.form["Climb"], defensive=request.form["Defence"],
-                         comment=request.form["comment"])
+                         driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
+                         defensive=request.form["Defence"], communication_problem=request.form["comuProblem"],
+                         unstable_problem=request.form["unstableProblem"],
+                         breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()
         return redirect('/scoutingForm')
 
 
 if __name__ == "__main__":
-    # set the secret key.  keep this really secret:
+    sender = 'randommailmessage@gmail.com'
+    recivers = ['moshesher1998@gmail.com']
+    message = "Got a message"
+    smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
+    smtpObj.ehlo()
+    smtpObj.starttls()
+    smtpObj.login("randommailmessage", "2212InYourPants")
+    smtpObj.sendmail(sender, recivers, message)
     app.secret_key = 'Spikes2212Spikes2212'
     login_manager.logout()
     init_db()

@@ -530,11 +530,53 @@
                 });
             }
 
+            $('#comuProblemFalse').click(function (){
+                $('#comuProblemFalse').removeClass("btn-danger");
+                $('#comuProblemFalse').addClass("btn-primary");
+                $('#comuProblemTrue').removeClass("btn-danger");
+                $('#comuProblemTrue').addClass("btn-primary");
+            })
+
+            $('#comuProblemTrue').click(function (){
+                $('#comuProblemFalse').removeClass("btn-danger");
+                $('#comuProblemFalse').addClass("btn-primary");
+                $('#comuProblemTrue').removeClass("btn-danger");
+                $('#comuProblemTrue').addClass("btn-primary");
+            })
+
+            $('#unstableProblemFalse').click(function (){
+                $('#unstableProblemFalse').removeClass("btn-danger");
+                $('#unstableProblemFalse').addClass("btn-primary");
+                $('#unstableProblemTrue').removeClass("btn-danger");
+                $('#unstableProblemTrue').addClass("btn-primary");
+            })
+
+            $('#unstableProblemTrue').click(function (){
+                $('#unstableProblemFalse').removeClass("btn-danger");
+                $('#unstableProblemFalse').addClass("btn-primary");
+                $('#unstableProblemTrue').removeClass("btn-danger");
+                $('#unstableProblemTrue').addClass("btn-primary");
+            })
+
+            $('#breakingProblemFalse').click(function (){
+                $('#breakingProblemFalse').removeClass("btn-danger");
+                $('#breakingProblemFalse').addClass("btn-primary");
+                $('#breakingProblemTrue').removeClass("btn-danger");
+                $('#breakingProblemTrue').addClass("btn-primary");
+            })
+
+            $('#breakingProblemTrue').click(function (){
+                $('#breakingProblemFalse').removeClass("btn-danger");
+                $('#breakingProblemFalse').addClass("btn-primary");
+                $('#breakingProblemTrue').removeClass("btn-danger");
+                $('#breakingProblemTrue').addClass("btn-primary");
+            })
+
             $('#requiredModal').modal("show");
             }
             }
             function lightUmUp(){
-            var textInputs = ["comment","matchNumber","teamNumber"];
+            var textInputs = ["matchNumber","teamNumber"];
             var quality =["very bad", "bad", "fine", "good", "very good"];
             var checkList = ["Low","Climb","High","Gear","Defence"];
             var boolean = ["True", "False"];
@@ -577,6 +619,12 @@
                 $('#fuelLowInc10').addClass("btn-danger");
                 $('#fuelLowDec10').removeClass("btn-primary");
                 $('#fuelLowInc10').removeClass("btn-primary");
+            }
+
+            if($('input[name=comuProblem]:checked').val() == null){
+                count+=1;
+                $('#comuProblemFalse').addClass("btn-danger");
+                $('#comuProblemFalse').removeClass("btn-primary");
             }
 
             for(var j=0;j<checkList.length;j++){

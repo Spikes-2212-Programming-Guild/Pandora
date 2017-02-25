@@ -42,6 +42,52 @@ def average_hopper(games):
     else:
         return 0
 
+def average_driver_quality(games):
+    """
+    :param games: a list of games
+    :return:
+    """
+    very_bad_driver=0
+    bad_driver=0
+    fine_driver=0
+    good_driver=0
+    very_good_driver=0
+    count=0
+    for match in games:
+        if match.driver_quality == "very bad":
+            very_bad_driver+=1
+            count += 1
+        elif match.driver_quality == "bad":
+            bad_driver+=1
+            count += 1
+        elif match.driver_quality == "fine":
+            fine_driver+=1
+            count += 1
+        elif match.driver_quality == "good":
+            good_driver+=1
+            count += 1
+        else:
+            very_good_driver+=1
+            count += 1
+    if count!=0:
+        return (1*very_bad_driver+2*bad_driver+3*fine_driver+4*good_driver+5*very_good_driver)/count
+    else:
+        return 0
+
+def reliablty_problems(games):
+    """
+    :param games: a list of games
+    :return: number of problems
+    """
+    count = 0
+    for game in games:
+        if game.breaking_problem == "True":
+            count+=1
+        if game.unstable_problem == "True":
+            count+=1
+        if game.communication_problem == "True":
+            count+=1
+    return count
 
 def best_defence(games):
     """

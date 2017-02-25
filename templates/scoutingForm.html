@@ -22,14 +22,16 @@
     <div class="form-group">
         <input type="hidden" name="userName" id="userName" value="">
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
-            <input type="number" class="form-control" placeholder="Team Number" name="teamNumber" id="teamNumber" required>
+            <input type="number" class="form-control" placeholder="Team Number" name="teamNumber" id="teamNumber"
+                   required>
         </div>
 
         <br/>
         <br/>
 
         <div class="col-xs-offset-3 col-lg-7 col-sm-7 col-md-7 col-xs-6 input-group input-group-lg input-group-middle">
-            <input type="number" class="form-control" placeholder="Match Number" name="matchNumber" id="matchNumber" required>
+            <input type="number" class="form-control" placeholder="Match Number" name="matchNumber" id="matchNumber"
+                   required>
         </div>
 
         <br/>
@@ -49,7 +51,7 @@
             <br/>
             <br/>
             <div class="panel panel-primary">
-                <div class="panel-heading" style="text-align: center; font-size: 200%" >
+                <div class="panel-heading" style="text-align: center; font-size: 200%">
                     High Shooting Quality
                 </div>
                 <div class="panel-body">
@@ -57,8 +59,8 @@
                         {%for enum in quality[1::]%}
                         <div id="qualityHigh-{{enum}}" name="qualitysHigh" class="btn btn-group-justified btn-primary">
                             <label>
-                                    <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
-                                           autocomplete="off">
+                                <input type="radio" name="qualityHigh" value="{{enum}}" id="qualityHigh"
+                                       autocomplete="off">
                                 {{enum}}
                             </label>
                         </div>
@@ -112,7 +114,7 @@
         <br/>
 
         <div id="lowShooting" class="input-group input-group-lg input-group-middle" style="display:none">
-                  <div id="numberShootsLow" class="panel panel-primary">
+            <div id="numberShootsLow" class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title" style="text-align: center; font-size: 200%">Fuel Scored Low - <span
                             id="fuelLow"></span><input type="hidden" name="lowFuelScoredSend" id="lowFuelScoredSend">
@@ -161,11 +163,11 @@
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
                         <div id="qualityGear-{{enum}}" name="qualitysGear" class="btn btn-group-justified btn-primary">
-                                <label>
-                                    <input type="radio" name="qualityGear" value="{{enum}}" id="qualityGear"
-                                           autocomplete="off">
-                                    {{enum}}
-                                </label>
+                            <label>
+                                <input type="radio" name="qualityGear" value="{{enum}}" id="qualityGear"
+                                       autocomplete="off">
+                                {{enum}}
+                            </label>
                         </div>
                         {%endfor%}
                     </div>
@@ -220,7 +222,7 @@
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in time[1::]%}
                         <div id="timeClimb-{{enum}}" name="timeClimb" class="btn btn-group-justified btn-primary">
-                            <label >
+                            <label>
                                 <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
                                        autocomplete="off">
                                 {{enum}}
@@ -244,11 +246,13 @@
         </div>
 
         <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label id="doesDefenceFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').hide()">
+            <label id="doesDefenceFalse" class="btn btn-primary btn-group col-lg-6"
+                   onclick="$('#deffenciveRobot').hide()">
                 <input type="radio" name="Defence" id="Defence" value="False" autocomplete="off"> Dosen't
                 Defeneds
             </label>
-            <label id="doesDefenceTrue" class="btn btn-primary btn-group col-lg-6" onclick="$('#deffenciveRobot').show()">
+            <label id="doesDefenceTrue" class="btn btn-primary btn-group col-lg-6"
+                   onclick="$('#deffenciveRobot').show()">
                 <input type="radio" name="Defence" id="Defence" value="True" autocomplete="off"> Defends
             </label>
         </div>
@@ -265,10 +269,11 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        <div id="qualityDefence-{{enum}}" name="qualitysDefence" class="btn btn-group-justified btn-primary">
+                        <div id="qualityDefence-{{enum}}" name="qualitysDefence"
+                             class="btn btn-group-justified btn-primary">
                             <label>
-                                    <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
-                                           autocomplete="off">
+                                <input type="radio" name="qualityDefence" value="{{enum}}" id="qualityDefence"
+                                       autocomplete="off">
                                 {{enum}}
                             </label>
                         </div>
@@ -331,10 +336,12 @@
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
                         {%for enum in quality[1::]%}
-                        <div id="qualityHopper-{{enum}}" name="qualitysHopper" class="btn btn-group-justified btn-primary">
+                        <div id="qualityHopper-{{enum}}" name="qualitysHopper"
+                             class="btn btn-group-justified btn-primary">
                             <label>
-                                    <input type="radio" name="hopperCatchingQuality" value="{{enum}}" id="hopperCatchingQuality"
-                                           autocomplete="off">
+                                <input type="radio" name="hopperCatchingQuality" value="{{enum}}"
+                                       id="hopperCatchingQuality"
+                                       autocomplete="off">
                                 {{enum}}
                             </label>
                         </div>
@@ -347,15 +354,88 @@
         <br/>
         <br/>
 
-        <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 input-group input-group-lg input-group-middle">
-            <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
-            <textarea class="form-control" style="text-align: right;" form="scoutingForm" rows="5" name="comment"
-                      id="comment"
-                      placeholder="הערות על המשחק"></textarea>
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 200%">Driver Quality</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group" data-toggle="buttons">
+                    {%for enum in quality[1::]%}
+                    <div id="qualityDriver-{{enum}}" name="qualitysDriver" class="btn btn-group-justified btn-primary">
+                        <label>
+                            <input type="radio" name="qualityDriver" value="{{enum}}" autocomplete="off">
+                            {{enum}}
+                        </label>
+                    </div>
+                    {%endfor%}
+                </div>
+            </div>
         </div>
 
         <br/>
         <br/>
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h3 class="panel-title" style="text-align: center; font-size: 200%">Problems</span>
+                </h3>
+            </div>
+            <div class="panel-body">
+                <div class="btn-group" data-toggle="buttons">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="comuProblemFalse" class="btn btn-primary btn-group col-lg-6">
+                            <input type="radio" name="comuProblem" value="False" autocomplete="off"> No communication
+                            problem
+                        </label>
+                        <label id="comuProblemTrue" class="btn btn-primary btn-group col-lg-6">
+                            <input type="radio" name="comuProblem" value="True" autocomplete="off"> Communication
+                            problem
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-group" data-toggle="buttons">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="unstableProblemFalse" class="btn btn-primary btn-group col-lg-6">
+                            <input type="radio" name="unstableProblem" value="False" autocomplete="off"> Stable robot
+                        </label>
+                        <label id="unstableProblemTrue" class="btn btn-primary btn-group col-lg-6">
+                            <input type="radio" name="unstableProblem" value="True" autocomplete="off"> Unstable robot
+                            problem
+                        </label>
+                    </div>
+                </div>
+
+                <div class="btn-group" data-toggle="buttons">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="breakingProblemFalse" class="btn btn-primary btn-group col-lg-6">
+                            <input type="radio" name="breakingProblem" value="False" autocomplete="off"> Robot didn't
+                            brake
+                        </label>
+                        <label id="breakingProblemTrue" class="btn btn-primary btn-group col-lg-6">
+                            <input type="radio" name="breakingProblem" value="True" autocomplete="off"> Robot broke
+                            problem
+                        </label>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <br/>
+    <br/>
+
+    <div class="col-lg-12 col-sm-12 col-md-12 col-xs-12 input-group input-group-lg input-group-middle">
+        <!-- <input type="textarea" class="form-control" placeholder="Comments" id="comments"> -->
+        <textarea class="form-control" style="text-align: right;" value="" form="scoutingForm" rows="5" name="comment"
+                  id="comment"
+                  placeholder="הערות על המשחק"></textarea>
+    </div>
+
+    <br/>
+    <br/>
 
     </div>
     <br/>
@@ -371,79 +451,85 @@
 <br/>
 <br/>
 
-<div class="modal fade" id="overrideModal" tabindex="-1" role="dialog" aria-labelledby="overrideModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="overrideModalLabel">Game and Team exist</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        This Team and Game exist Are YOU SURE you want to override the last saved game?!
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
-        <button id="overrideButton" type="button" class="btn btn-primary">Override</button>
-      </div>
+<div class="modal fade" id="overrideModal" tabindex="-1" role="dialog" aria-labelledby="overrideModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="overrideModalLabel">Game and Team exist</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                This Team and Game exist Are YOU SURE you want to override the last saved game?!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
+                <button id="overrideButton" type="button" class="btn btn-primary">Override</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<div class="modal fade" id="requiredModal" tabindex="-1" role="dialog" aria-labelledby="requiredModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="requiredModalLabel">Didn't fill in Required</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        You didn't Fill in Something, Please fill in the red highlighted stuff
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
-      </div>
+<div class="modal fade" id="requiredModal" tabindex="-1" role="dialog" aria-labelledby="requiredModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="requiredModalLabel">Didn't fill in Required</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                You didn't Fill in Something, Please fill in the red highlighted stuff
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<div class="modal fade" id="teamNumberIncorrectModal" tabindex="-1" role="dialog" aria-labelledby="requiredNameModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="requiredNameModalLabel">Change team NUMBER!</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fix Some Stuff</button>
-          <a href="/newTeam"><label class="btn btn-primary">Add Team</label></a>
-      </div>
+<div class="modal fade" id="teamNumberIncorrectModal" tabindex="-1" role="dialog"
+     aria-labelledby="requiredNameModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="requiredNameModalLabel">Change team NUMBER!</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fix Some Stuff</button>
+                <a href="/newTeam"><label class="btn btn-primary">Add Team</label></a>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
-<div class="modal fade" id="showStuffModal" tabindex="-1" role="dialog" aria-labelledby="showModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="showModalLabel">Form:</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div id="modalBody"class="modal-body">
-      </div>
-      <div class="modal-footer">
-        <button id="dontSubmitButton" type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix Some Stuff</button>
-          <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
-      </div>
+<div class="modal fade" id="showStuffModal" tabindex="-1" role="dialog" aria-labelledby="showModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="showModalLabel">Form:</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div id="modalBody" class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button id="dontSubmitButton" type="button" class="btn btn-secondary" data-dismiss="modal">Gonna Fix
+                    Some Stuff
+                </button>
+                <button id="submitButton" type="button" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 

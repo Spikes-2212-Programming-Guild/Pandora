@@ -4,8 +4,6 @@ from database import Base
 import enums
 
 
-
-
 class Results(Base):
     """ A table representing every game resaults of each group in each game
 
@@ -13,7 +11,7 @@ class Results(Base):
     __tablename__ = 'results'
 
     # id fields
-    index = Column(Integer,primary_key=True,autoincrement=True)
+    index = Column(Integer, primary_key=True, autoincrement=True)
     number = Column(Integer, ForeignKey("games.number"))
     team = Column(Integer, ForeignKey("teams.number"))
 
@@ -30,16 +28,21 @@ class Results(Base):
     gears_efficiancy = Column("gears efficiency", Enum(*enums.quality))
     climbing_quality = Column("climbing efficiency", Enum(*enums.time))
     defending_quality = Column("defending efficiency", Enum(*enums.quality))
+    driver_quality = Column("driver efficiency", Enum(*enums.quality))
 
     # boolean fields
     climbed = Column("climbing", Boolean)
     defensive_robot = Column("defence", Boolean)
+    communication_problem = Column("communication problem", Boolean)
+    unstable_problem = Column("unstable", Boolean)
+    breaking_problem = Column("breaking", Boolean)
 
     # conclusion fields
     comment = Column("comments", String(1050))
 
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
-                 gears_efficiency, climbing_quality, defending_quality, climbed, defensive, comment):
+                 gears_efficiency, climbing_quality, defending_quality, driver_quality, climbed, defensive,
+                 communication_problem, unstable_problem, breaking_problem, comment):
         """
         :param number:
         :type number: int
@@ -58,8 +61,8 @@ class Results(Base):
         :param climbed:
         :param defensive:
         """
-        self.team=team
-        self.number=number
+        self.team = team
+        self.number = number
         self.highgoal = highgoal
         self.lowgoal = lowgoal
         self.gears = gears
@@ -70,6 +73,10 @@ class Results(Base):
         self.gears_efficiancy = gears_efficiency
         self.climbing_quality = climbing_quality
         self.defending_quality = defending_quality
+        self.driver_quality = driver_quality
         self.climbed = climbed
         self.defensive_robot = defensive
+        self.communication_problem = communication_problem
+        self.unstable_problem = unstable_problem
+        self.breaking_problem = breaking_problem
         self.comment = comment
