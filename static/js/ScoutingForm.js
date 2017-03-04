@@ -7,8 +7,14 @@
             hopperInit();
             checkSubmittedForm();
             rightTeamNumber();
+            autonomousListener();
 
         })
+        function autonomousListener(){
+            $('#hideAutonomous').click(function (){
+                $('#autonomous').show();
+            });
+        }
         function fuelHighInit() {
             var fuelHigh = 0;
             $('#fuelHigh').html(fuelHigh);

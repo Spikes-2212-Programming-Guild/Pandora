@@ -286,7 +286,7 @@
         {%for game in games%}
         {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
-        {y:0, label:"-1"}
+        {y:0}
         ]
         }
       ]});

@@ -15,6 +15,13 @@ class Results(Base):
     number = Column(Integer, ForeignKey("games.number"))
     team = Column(Integer, ForeignKey("teams.number"))
 
+    # autonomous fields
+    passed_line = Column("passed line", Boolean)
+    center_gears = Column("center gears", Boolean)
+    side_gears = Column("side gears", Boolean)
+    highgoal_auto = Column("high goal auto", Boolean)
+    lowgoal_auto = Column("low goal auto", Boolean)
+
     # countable fields
     highgoal = Column("high goal", Integer)
     lowgoal = Column("low goal", Integer)
@@ -42,7 +49,8 @@ class Results(Base):
 
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
                  gears_efficiency, climbing_quality, defending_quality, driver_quality, climbed, defensive,
-                 communication_problem, unstable_problem, breaking_problem, comment):
+                 communication_problem, unstable_problem, breaking_problem, comment, passed_line, side_gears,
+                 center_gears, highgoal_auto, lowgoal_auto):
         """
         :param number:
         :type number: int
@@ -80,3 +88,8 @@ class Results(Base):
         self.unstable_problem = unstable_problem
         self.breaking_problem = breaking_problem
         self.comment = comment
+        self.passed_line = passed_line
+        self.center_gears = center_gears
+        self.side_gears = side_gears
+        self.lowgoal_auto = lowgoal_auto
+        self.highgoal_auto = highgoal_auto
