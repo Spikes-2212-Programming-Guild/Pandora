@@ -37,6 +37,84 @@
         <br/>
         <br/>
 
+        <div id="autonomous">
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+            <label id="autoDidNothing" class="auto-did-stuff btn btn-primary btn-group-justified">
+                <input type="radio" name="didAuto" id="didNothing" value="False" autocomplete="off"> Dosen't Do Auto
+            </label>
+            <label id="autoDidSomething" class="auto-did-stuff btn btn-primary btn-group-justified">
+                <input type="radio" name="didAuto" id="didSomething" value="True" autocomplete="off"> Does Auto
+            </label>
+        </div>
+
+            <div id="autonomousStuff" style="display:none">
+                <br/>
+                <br/>
+                <div class="panel panel-primary">
+                <div class="panel-heading" style="text-align: center; font-size: 200%">
+                    Autonomous
+                </div>
+
+                <br/>
+                <br/>
+                <div class="panel-body">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="passedLine" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="lineAuto" id="linePassedTrue" value="True" autocomplete="off"> Passed Line
+                        </label>
+                        <label id="didntPassLine" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="lineAuto" id="linePassedFalse" value="False" autocomplete="off"> Didnt pass line
+                        </label>
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="gearsDidntPut" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="gearsAuto" id="gearsAutoFalse" value="False" autocomplete="off"> Dosen't Put Gears
+                        </label>
+                        <label id="gearsPutSide" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="gearsAuto" id="gearsAutoSide" value="Side" autocomplete="off"> Puts Gear in Side
+                        </label>
+                        <label id="gearsPutMiddle" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="gearsAuto" id="gearsAutoMid" value="Mid" autocomplete="off"> Puts Gears in Middle
+                        </label>
+                    </div>
+
+                    <br/>
+                    <br/>
+
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <label id="didntShoot" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="shootingAuto" id="shootingFalse" value="False" autocomplete="off"> Dosen't Shoot
+                        </label>
+                        <label id="shootHigh" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="shootingAuto" id="shootingHigh" value="High" autocomplete="off"> Shoot High
+                        </label>
+                        <label id="shootLow" class="btn btn-primary btn-group-justified">
+                            <input type="radio" name="shootingAuto" id="shootingLow" value="Low" autocomplete="off"> Shoot Low
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+        <br/>
+        <br/>
+
+        <label id="hideAutonomous"
+               class="btn btn-group-justified btn-primary">
+            close autonomous section
+        </label>
+        <label id="showAutonomous" style="display:none"
+               class="btn btn-group-justified btn-primary">
+            open autonomous section
+        </label>
+
+        <br/>
+        <br/>
+
         <div class="btn-group btn-group-justified" data-toggle="buttons">
             <label id="doesHighFalse" class="btn btn-primary btn-group col-lg-6" onclick="$('#HighShooting').hide()">
                 <input type="radio" name="High" id="High" value="False" autocomplete="off"> Dosen't Shoots High
@@ -45,13 +123,6 @@
                 <input type="radio" name="High" id="High" value="True" autocomplete="off"> Shoots High
             </label>
         </div>
-
-        <div id="autonomous">
-
-        </div>
-        <label id="hideAutonomous" class="btn btn-group-justified btn-primary col-lg-4 col-offset-lg-4 col-md-4 col-offset-md-4 col-xs-4 col-offset-xs-4 col-sm-4 col-offset-sm-4">
-            close autonomous section
-        </label>
         <div id="HighShooting" class="input-group input-group-lg input-group-middle" style="display:none">
             <br/>
             <br/>

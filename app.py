@@ -23,7 +23,7 @@ login_manager = login_manager()
 # login_manager.init_app(app)
 # login_manager.login_view = "login"
 
-
+# fk u saer
 @app.teardown_appcontext
 def shutdown_session(exception=None):
     db_session.remove()
@@ -188,7 +188,6 @@ def scouting_form():
         return render_template('scoutingForm.html', quality=enums.quality, time=enums.time)
     elif request.form["override"] == "False":
         values = {}
-
         # try:
         values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
         values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
@@ -232,8 +231,40 @@ def scouting_form():
             smtpObj.starttls()
             smtpObj.login("randommailmessage", "2212InYourPants")
             smtpObj.sendmail(sender, recivers, message)
-        result = Results(number=request.form["matchNumber"], team=request.form["teamNumber"],
-                         highgoal=values["scoreHigh"],
+        auto = {}
+        if request.form["didAuto"] == "False":
+            auto["GearsSide"] = "False"
+            auto["GearsMid"] = "False"
+            auto["High"] = "False"
+            auto["Low"] = "False"
+            auto["lineAuto"] = "False"
+        else:
+            if request.form["shootingAuto"] == "High":
+                auto["High"] = "True"
+                auto["Low"] = "False"
+            elif request.form["shootingAuto"] == "Low":
+                auto["High"] = "False"
+                auto["Low"] = "True"
+            else:
+                auto["High"] = "False"
+                auto["Low"] = "False"
+            if request.form["gearsAuto"] == "Mid":
+                auto["GearsMid"] = "True"
+                auto["GearsSide"] = "False"
+            elif request.form["gearsAuto"] == "Side":
+                auto["GearsMid"] = "False"
+                auto["GearsSide"] = "True"
+            else:
+                auto["GearsMid"] = "False"
+                auto["GearsSide"] = "False"
+            if request.form["lineAuto"] == "True":
+                auto["lineAuto"] = "True"
+            else:
+                auto["lineAuto"] = "False"
+        result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
+                         side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
+                         passed_line=auto["lineAuto"], highgoal=values["scoreHigh"],
+                         number=request.form["matchNumber"], team=request.form["teamNumber"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
@@ -292,14 +323,47 @@ def scouting_form():
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
             recivers = ['roeeiit1@gmail.com']
-            message = "Got a message"
+            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form[
+                "teamNumber"]
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
             smtpObj.login("randommailmessage", "2212InYourPants")
             smtpObj.sendmail(sender, recivers, message)
-        result = Results(number=request.form["matchNumber"], team=request.form["teamNumber"],
-                         highgoal=values["scoreHigh"],
+        auto = {}
+        if request.form["didAuto"] == "False":
+            auto["GearsSide"] = "False"
+            auto["GearsMid"] = "False"
+            auto["High"] = "False"
+            auto["Low"] = "False"
+            auto["lineAuto"] = "False"
+        else:
+            if request.form["shootingAuto"] == "High":
+                auto["High"] = "True"
+                auto["Low"] = "False"
+            elif request.form["shootingAuto"] == "Low":
+                auto["High"] = "False"
+                auto["Low"] = "True"
+            else:
+                auto["High"] = "False"
+                auto["Low"] = "False"
+            if request.form["gearsAuto"] == "Mid":
+                auto["GearsMid"] = "True"
+                auto["GearsSide"] = "False"
+            elif request.form["gearsAuto"] == "Side":
+                auto["GearsMid"] = "False"
+                auto["GearsSide"] = "True"
+            else:
+                auto["GearsMid"] = "False"
+                auto["GearsSide"] = "False"
+            if request.form["lineAuto"] == "True":
+                auto["lineAuto"] = "True"
+            else:
+                auto["lineAuto"] = "False"
+        result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
+                         side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
+                         passed_line=request.form["lineAuto"], highgoal=values["scoreHigh"],
+                         number=request.form["matchNumber"], team=request.form["teamNumber"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
@@ -314,14 +378,6 @@ def scouting_form():
 
 
 if __name__ == "__main__":
-    sender = 'randommailmessage@gmail.com'
-    recivers = ['roeeiit1@gmail.com']
-    message = "Got a message"
-    smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
-    smtpObj.ehlo()
-    smtpObj.starttls()
-    smtpObj.login("randommailmessage", "2212InYourPants")
-    smtpObj.sendmail(sender, recivers, message)
     app.secret_key = 'Spikes2212Spikes2212'
     login_manager.logout()
     init_db()

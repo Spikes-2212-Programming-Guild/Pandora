@@ -12,7 +12,20 @@
         })
         function autonomousListener(){
             $('#hideAutonomous').click(function (){
+                $('#autonomous').hide();
+                $('#hideAutonomous').hide();
+                $('#showAutonomous').show();
+            });
+            $('#showAutonomous').click(function (){
                 $('#autonomous').show();
+                $('#hideAutonomous').show();
+                $('#showAutonomous').hide();
+            });
+            $('#autoDidSomething').click(function (){
+                $('#autonomousStuff').show();
+            });
+            $('#autoDidNothing').click(function (){
+                $('#autonomousStuff').hide();
             });
         }
         function fuelHighInit() {
@@ -578,6 +591,95 @@
                 $('#breakingProblemTrue').addClass("btn-primary");
             })
 
+            $('#autoDidNothing').click(function (){
+                $('#autoDidNothing').removeClass("btn-danger");
+                $('#autoDidNothing').addClass("btn-primary");
+                $('#autoDidSomething').removeClass("btn-danger");
+                $('#autoDidSomething').addClass("btn-primary");
+            })
+
+            $('#autoDidSomething').click(function (){
+                $('#autoDidNothing').removeClass("btn-danger");
+                $('#autoDidNothing').addClass("btn-primary");
+                $('#autoDidSomething').removeClass("btn-danger");
+                $('#autoDidSomething').addClass("btn-primary");
+            })
+
+            $('#passedLine').click(function (){
+                $('#passedLine').addClass("btn-danger");
+                $('#passedLine').removeClass("btn-primary");
+                $('#didntPassLine').addClass("btn-danger");
+                $('#didntPassLine').removeClass("btn-primary");
+            })
+
+            $('#didntPassLine').click(function (){
+                $('#passedLine').removeClass("btn-danger");
+                $('#passedLine').addClass("btn-primary");
+                $('#didntPassLine').removeClass("btn-danger");
+                $('#didntPassLine').addClass("btn-primary");
+            })
+
+            $('#passedLine').click(function (){
+                $('#passedLine').removeClass("btn-danger");
+                $('#passedLine').addClass("btn-primary");
+                $('#didntPassLine').removeClass("btn-danger");
+                $('#didntPassLine').addClass("btn-primary");
+            })
+
+            $('#gearsDidntPut').click(function (){
+                $('#gearsDidntPut').removeClass("btn-danger");
+                $('#gearsDidntPut').addClass("btn-primary");
+                $('#gearsPutSide').removeClass("btn-danger");
+                $('#gearsPutSide').addClass("btn-primary");
+                $('#gearsPutMiddle').removeClass("btn-danger");
+                $('#gearsPutMiddle').addClass("btn-primary");
+            })
+
+            $('#gearsPutSide').click(function (){
+                $('#gearsDidntPut').removeClass("btn-danger");
+                $('#gearsDidntPut').addClass("btn-primary");
+                $('#gearsPutSide').removeClass("btn-danger");
+                $('#gearsPutSide').addClass("btn-primary");
+                $('#gearsPutMiddle').removeClass("btn-danger");
+                $('#gearsPutMiddle').addClass("btn-primary");
+            })
+
+            $('#gearsPutMiddle').click(function (){
+                $('#gearsDidntPut').removeClass("btn-danger");
+                $('#gearsDidntPut').addClass("btn-primary");
+                $('#gearsPutSide').removeClass("btn-danger");
+                $('#gearsPutSide').addClass("btn-primary");
+                $('#gearsPutMiddle').removeClass("btn-danger");
+                $('#gearsPutMiddle').addClass("btn-primary");
+            })
+
+            $('#didntShoot').click(function (){
+                $('#didntShoot').removeClass("btn-danger");
+                $('#didntShoot').addClass("btn-primary");
+                $('#shootHigh').removeClass("btn-danger");
+                $('#shootHigh').addClass("btn-primary");
+                $('#shootLow').removeClass("btn-danger");
+                $('#shootLow').addClass("btn-primary");
+            })
+
+            $('#shootHigh').click(function (){
+                $('#didntShoot').removeClass("btn-danger");
+                $('#didntShoot').addClass("btn-primary");
+                $('#shootHigh').removeClass("btn-danger");
+                $('#shootHigh').addClass("btn-primary");
+                $('#shootLow').removeClass("btn-danger");
+                $('#shootLow').addClass("btn-primary");
+            })
+
+            $('#shootLow').click(function (){
+                $('#didntShoot').removeClass("btn-danger");
+                $('#didntShoot').addClass("btn-primary");
+                $('#shootHigh').removeClass("btn-danger");
+                $('#shootHigh').addClass("btn-primary");
+                $('#shootLow').removeClass("btn-danger");
+                $('#shootLow').addClass("btn-primary");
+            })
+
             $('#requiredModal').modal("show");
             }
             }
@@ -655,6 +757,7 @@
             for(var j=1;j<checkList.length;j++){
                 if($('input[name="'+checkList[j]+'"]:checked').val() == "True"){
                     if($('input[name="quality'+checkList[j]+'"]:checked').val() == null){
+                        count+=1;
                         for(var i=0;i<quality.length;i++){
                              var id = "quality"+checkList[j]+"-"+quality[i];
                              $('div[id="'+id+'"]').addClass("btn-danger");
@@ -665,6 +768,7 @@
                if(checkList[j]=="Climb"){
                if($('input[name="'+checkList[j]+'"]:checked').val() == "True"){
                     if($('input[name="quality'+checkList[j]+'ing'+'"]:checked').val() == null){
+                        count+=1;
                         for(var i=0;i<time.length;i++){
                              var id = "time"+checkList[j]+"-"+time[i];
                              $('div[id="'+id+'"]').addClass("btn-danger");
@@ -676,12 +780,50 @@
             }
             if($('#hoppersUsed').val()>0){
                 if($('input[name=hopperCatchingQuality]:checked').val() == null){
+                        count+=1;
                         for(var i=0;i<quality.length;i++){
                              var id = "qualityHopper-"+quality[i];
                              $('div[id="'+id+'"]').addClass("btn-danger");
                              $('div[id="'+id+'"]').removeClass("btn-primary");
                       }
                     }
+            }
+
+            if($('input[name=didAuto]:checked').val() == null){
+                count+=1;
+                $('#autoDidNothing').addClass("btn-danger");
+                $('#autoDidNothing').removeClass("btn-primary");
+                $('#autoDidSomething').addClass("btn-danger");
+                $('#autoDidSomething').removeClass("btn-primary");
+            }
+            if($('input[name=didAuto]:checked').val() == "True"){
+                if($('input[name=lineAuto]:checked').val() == null){
+                    count+=1;
+                    $('#passedLine').addClass("btn-danger");
+                    $('#passedLine').removeClass("btn-primary");
+                    $('#didntPassLine').addClass("btn-danger");
+                    $('#didntPassLine').removeClass("btn-primary");
+                }
+
+                if($('input[name=gearsAuto]:checked').val() == null){
+                    count+=1;
+                    $('#gearsDidntPut').addClass("btn-danger");
+                    $('#gearsDidntPut').removeClass("btn-primary");
+                    $('#gearsPutSide').addClass("btn-danger");
+                    $('#gearsPutSide').removeClass("btn-primary");
+                    $('#gearsPutMiddle').addClass("btn-danger");
+                    $('#gearsPutMiddle').removeClass("btn-primary");
+                }
+
+                if($('input[name=shootingAuto]:checked').val() == null){
+                    count+=1;
+                    $('#didntShoot').addClass("btn-danger");
+                    $('#didntShoot').removeClass("btn-primary");
+                    $('#shootHigh').addClass("btn-danger");
+                    $('#shootHigh').removeClass("btn-primary");
+                    $('#shootLow').addClass("btn-danger");
+                    $('#shootLow').removeClass("btn-primary");
+                }
             }
             return count;
             }
