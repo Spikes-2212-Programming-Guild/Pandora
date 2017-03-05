@@ -8,7 +8,7 @@
             checkSubmittedForm();
             rightTeamNumber();
             autonomousListener();
-
+            problemsInit();
         })
         function autonomousListener(){
             $('#hideAutonomous').click(function (){
@@ -549,47 +549,41 @@
                 });
             }
 
-            $('#comuProblemFalse').click(function (){
-                $('#comuProblemFalse').removeClass("btn-danger");
-                $('#comuProblemFalse').addClass("btn-primary");
-                $('#comuProblemTrue').removeClass("btn-danger");
-                $('#comuProblemTrue').addClass("btn-primary");
-            })
+            var DriverQual= $('div[name=qualitysDriver]');
 
-            $('#comuProblemTrue').click(function (){
-                $('#comuProblemFalse').removeClass("btn-danger");
-                $('#comuProblemFalse').addClass("btn-primary");
-                $('#comuProblemTrue').removeClass("btn-danger");
-                $('#comuProblemTrue').addClass("btn-primary");
-            })
+            for(var i=0;i<5;i++){
+                $(DriverQual[i]).click(function (){
+                    for(var z=0;z<5;z++){
+                        $(DriverQual[z]).addClass("btn-primary");
+                        $(DriverQual[z]).removeClass("btn-danger");
+                    }
+                });
+            }
 
-            $('#unstableProblemFalse').click(function (){
-                $('#unstableProblemFalse').removeClass("btn-danger");
-                $('#unstableProblemFalse').addClass("btn-primary");
-                $('#unstableProblemTrue').removeClass("btn-danger");
-                $('#unstableProblemTrue').addClass("btn-primary");
-            })
+            var PilotQual= $('div[name=qualitysPilot]');
 
-            $('#unstableProblemTrue').click(function (){
-                $('#unstableProblemFalse').removeClass("btn-danger");
-                $('#unstableProblemFalse').addClass("btn-primary");
-                $('#unstableProblemTrue').removeClass("btn-danger");
-                $('#unstableProblemTrue').addClass("btn-primary");
-            })
+            for(var i=0;i<5;i++){
+                $(PilotQual[i]).click(function (){
+                    for(var z=0;z<5;z++){
+                        $(PilotQual[z]).addClass("btn-primary");
+                        $(PilotQual[z]).removeClass("btn-danger");
+                    }
+                });
+            }
 
-            $('#breakingProblemFalse').click(function (){
-                $('#breakingProblemFalse').removeClass("btn-danger");
-                $('#breakingProblemFalse').addClass("btn-primary");
-                $('#breakingProblemTrue').removeClass("btn-danger");
-                $('#breakingProblemTrue').addClass("btn-primary");
-            })
+            var PilotCheckBox= $('label[name=pilots]');
 
-            $('#breakingProblemTrue').click(function (){
-                $('#breakingProblemFalse').removeClass("btn-danger");
-                $('#breakingProblemFalse').addClass("btn-primary");
-                $('#breakingProblemTrue').removeClass("btn-danger");
-                $('#breakingProblemTrue').addClass("btn-primary");
-            })
+            for(var i=0;i<5;i++){
+                $(PilotCheckBox[i]).click(function (){
+                    for(var z=0;z<5;z++){
+                        $(PilotCheckBox[z]).addClass("btn-primary");
+                        $(PilotCheckBox[z]).removeClass("btn-danger");
+                    }
+                });
+            }
+
+
+
 
             $('#autoDidNothing').click(function (){
                 $('#autoDidNothing').removeClass("btn-danger");
@@ -683,13 +677,50 @@
             $('#requiredModal').modal("show");
             }
             }
+
+            function problemsInit(){
+            $('#unstableProblem').click(function(){
+                if($('#unstableProblemInput').val() == "True"){
+                    $('#unstableProblem').removeClass("active");
+                    $('#unstableProblemInput').val("False");
+                }
+                else if($('#unstableProblemInput').val() == "False"){
+                    $('#unstableProblem').addClass("active");
+                    $('#unstableProblemInput').val("True");
+                }
+            });
+
+            $('#comuProblem').click(function(){
+                if($('#comuProblemInput').val() == "True"){
+                    $('#comuProblem').removeClass("active");
+                    $('#comuProblemInput').val("False");
+                }
+                else if($('#comuProblemInput').val() == "False"){
+                    $('#comuProblem').addClass("active");
+                    $('#comuProblemInput').val("True");
+                }
+            });
+
+            $('#breakingProblem').click(function(){
+                if($('#breakingProblemInput').val() == "True"){
+                    $('#breakingProblem').removeClass("active");
+                    $('#breakingProblemInput').val("False");
+                }
+                else if($('#breakingProblemInput').val() == "False"){
+                    $('#breakingProblem').addClass("active");
+                    $('#breakingProblemInput').val("True");
+                }
+            });
+            }
+
             function lightUmUp(){
             var textInputs = ["matchNumber","teamNumber"];
             var quality =["very bad", "bad", "fine", "good", "very good"];
-            var checkList = ["Low","Climb","High","Gear","Defence"];
+            var checkList = ["Low","Climb","High","Gear","Defence", "Pilot","Driver"];
             var boolean = ["True", "False"];
             var time = ["none", "long", "medium", "short"];
-            var count =0;
+            var count = 0;
+            var problems = ["breaking", "comu", "unstable"];
 
             if($('#highFuelScoredSend').val()==0&&$('input[name=High]:checked').val()=="True"){
                 count++;
@@ -729,13 +760,8 @@
                 $('#fuelLowInc10').removeClass("btn-primary");
             }
 
-            if($('input[name=comuProblem]:checked').val() == null){
-                count+=1;
-                $('#comuProblemFalse').addClass("btn-danger");
-                $('#comuProblemFalse').removeClass("btn-primary");
-            }
 
-            for(var j=0;j<checkList.length;j++){
+            for(var j=0;j<checkList.length-1;j++){
                 if($('input[name='+checkList[j]+']:checked').val() == null){
                     count+=1;
                     if(checkList[j]=="Climb"){
@@ -754,7 +780,7 @@
                     $('#'+textInputs[i]+'').addClass("btn-danger");
                 }
             }
-            for(var j=1;j<checkList.length;j++){
+            for(var j=2;j<checkList.length;j++){
                 if($('input[name="'+checkList[j]+'"]:checked').val() == "True"){
                     if($('input[name="quality'+checkList[j]+'"]:checked').val() == null){
                         count+=1;
@@ -764,6 +790,16 @@
                              $('div[id="'+id+'"]').removeClass("btn-primary");
                       }
                     }
+               }
+               if(checkList[j]=="Driver"){
+                   if($('input[name="quality'+checkList[j]+'"]:checked').val() == null){
+                        count+=1;
+                        for(var i=0;i<quality.length;i++){
+                             var id = "quality"+checkList[j]+"-"+quality[i];
+                             $('div[id="'+id+'"]').addClass("btn-danger");
+                             $('div[id="'+id+'"]').removeClass("btn-primary");
+                      }
+                   }
                }
                if(checkList[j]=="Climb"){
                if($('input[name="'+checkList[j]+'"]:checked').val() == "True"){

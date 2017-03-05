@@ -13,7 +13,7 @@ from user_manager import login_manager
 import enums
 import smtplib
 from statistics import averages, best_game, worst_game
-from best_stuff import best_defence, average_hopper, reliablty_problems, average_driver_quality
+from best_stuff import best_defence, average_hopper, reliablty_problems, average_driver_quality, average_pilot
 
 app = Flask(__name__)
 
@@ -119,6 +119,7 @@ def team_page(teamnumber):
     average_hoppers = average_hopper(games=all_team_matches)
     reliablty_problem = reliablty_problems(games=all_team_matches)
     average_driver_qualitys = average_driver_quality(games=all_team_matches)
+    average_pilot_stats = average_pilot(games=all_team_matches)
     if len(all_team_matches) == 0:
         doMatchExists = "False"
     else:
@@ -127,7 +128,8 @@ def team_page(teamnumber):
                            team=cur_team, all_average=all_average, team_average=team_average, team_number=teamnumber,
                            best=best_game(all_team_matches), worst=worst_game(all_team_matches),
                            doGamesExist=doMatchExists, best_defence=best_defences, average_hopper=average_hoppers,
-                           reliablty_problem=reliablty_problem, average_driver_qualitys=average_driver_qualitys)
+                           reliablty_problem=reliablty_problem, average_driver_qualitys=average_driver_qualitys,
+                           average_pilot=average_pilot_stats)
 
 
 # @app.route("/games")
@@ -261,9 +263,13 @@ def scouting_form():
                 auto["lineAuto"] = "True"
             else:
                 auto["lineAuto"] = "False"
+        if request.form["Pilot"] == "False":
+            values["qualityPilot"] = "none"
+        else:
+            values["qualityPilot"] = request.form["qualityPilot"]
         result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
                          side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
-                         passed_line=auto["lineAuto"], highgoal=values["scoreHigh"],
+                         passed_line=request.form["lineAuto"], highgoal=values["scoreHigh"],
                          number=request.form["matchNumber"], team=request.form["teamNumber"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
@@ -271,7 +277,8 @@ def scouting_form():
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
                          defensive=request.form["Defence"], communication_problem=request.form["comuProblem"],
-                         unstable_problem=request.form["unstableProblem"],
+                         unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
+                         pilot_quality=values["qualityPilot"], autonomous=["didAuto"],
                          breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()
@@ -360,6 +367,10 @@ def scouting_form():
                 auto["lineAuto"] = "True"
             else:
                 auto["lineAuto"] = "False"
+        if request.form["Pilot"] == "False":
+            values["qualityPilot"] = "none"
+        else:
+            values["qualityPilot"] = request.form["qualityPilot"]
         result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
                          side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
                          passed_line=request.form["lineAuto"], highgoal=values["scoreHigh"],
@@ -370,7 +381,8 @@ def scouting_form():
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
                          defensive=request.form["Defence"], communication_problem=request.form["comuProblem"],
-                         unstable_problem=request.form["unstableProblem"],
+                         unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
+                         pilot_quality=values["qualityPilot"], autonomous=["didAuto"],
                          breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()

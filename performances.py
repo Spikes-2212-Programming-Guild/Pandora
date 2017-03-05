@@ -16,6 +16,7 @@ class Results(Base):
     team = Column(Integer, ForeignKey("teams.number"))
 
     # autonomous fields
+    autonomous = Column("autonomous", Boolean)
     passed_line = Column("passed line", Boolean)
     center_gears = Column("center gears", Boolean)
     side_gears = Column("side gears", Boolean)
@@ -36,6 +37,7 @@ class Results(Base):
     climbing_quality = Column("climbing efficiency", Enum(*enums.time))
     defending_quality = Column("defending efficiency", Enum(*enums.quality))
     driver_quality = Column("driver efficiency", Enum(*enums.quality))
+    pilot_quality = Column("pilot efficiency", Enum(*enums.quality))
 
     # boolean fields
     climbed = Column("climbing", Boolean)
@@ -43,6 +45,7 @@ class Results(Base):
     communication_problem = Column("communication problem", Boolean)
     unstable_problem = Column("unstable", Boolean)
     breaking_problem = Column("breaking", Boolean)
+    pilot = Column("pilot", Boolean)
 
     # conclusion fields
     comment = Column("comments", String(1050))
@@ -50,7 +53,7 @@ class Results(Base):
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
                  gears_efficiency, climbing_quality, defending_quality, driver_quality, climbed, defensive,
                  communication_problem, unstable_problem, breaking_problem, comment, passed_line, side_gears,
-                 center_gears, highgoal_auto, lowgoal_auto):
+                 center_gears, highgoal_auto, lowgoal_auto, pilot, pilot_quality, autonomous):
         """
         :param number:
         :type number: int
@@ -93,3 +96,6 @@ class Results(Base):
         self.side_gears = side_gears
         self.lowgoal_auto = lowgoal_auto
         self.highgoal_auto = highgoal_auto
+        self.pilot = pilot
+        self.pilot_quality = pilot_quality
+        self.autonomous = autonomous

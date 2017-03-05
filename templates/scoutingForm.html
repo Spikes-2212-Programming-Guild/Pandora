@@ -38,67 +38,75 @@
         <br/>
 
         <div id="autonomous">
-        <div class="btn-group btn-group-justified" data-toggle="buttons">
-            <label id="autoDidNothing" class="auto-did-stuff btn btn-primary btn-group-justified">
-                <input type="radio" name="didAuto" id="didNothing" value="False" autocomplete="off"> Dosen't Do Auto
-            </label>
-            <label id="autoDidSomething" class="auto-did-stuff btn btn-primary btn-group-justified">
-                <input type="radio" name="didAuto" id="didSomething" value="True" autocomplete="off"> Does Auto
-            </label>
-        </div>
+            <div class="btn-group btn-group-justified" data-toggle="buttons">
+                <label id="autoDidNothing" class="auto-did-stuff btn btn-primary btn-group-justified">
+                    <input type="radio" name="didAuto" id="didNothing" value="False" autocomplete="off"> Dosen't Do Auto
+                </label>
+                <label id="autoDidSomething" class="auto-did-stuff btn btn-primary btn-group-justified">
+                    <input type="radio" name="didAuto" id="didSomething" value="True" autocomplete="off"> Does Auto
+                </label>
+            </div>
 
             <div id="autonomousStuff" style="display:none">
                 <br/>
                 <br/>
                 <div class="panel panel-primary">
-                <div class="panel-heading" style="text-align: center; font-size: 200%">
-                    Autonomous
-                </div>
-
-                <br/>
-                <br/>
-                <div class="panel-body">
-                    <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label id="passedLine" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="lineAuto" id="linePassedTrue" value="True" autocomplete="off"> Passed Line
-                        </label>
-                        <label id="didntPassLine" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="lineAuto" id="linePassedFalse" value="False" autocomplete="off"> Didnt pass line
-                        </label>
+                    <div class="panel-heading" style="text-align: center; font-size: 200%">
+                        Autonomous
                     </div>
 
                     <br/>
                     <br/>
+                    <div class="panel-body">
+                        <div class="btn-group btn-group-justified" data-toggle="buttons">
+                            <label id="passedLine" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="lineAuto" id="linePassedTrue" value="True" autocomplete="off">
+                                Passed Line
+                            </label>
+                            <label id="didntPassLine" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="lineAuto" id="linePassedFalse" value="False"
+                                       autocomplete="off"> Didnt pass line
+                            </label>
+                        </div>
 
-                    <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label id="gearsDidntPut" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="gearsAuto" id="gearsAutoFalse" value="False" autocomplete="off"> Dosen't Put Gears
-                        </label>
-                        <label id="gearsPutSide" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="gearsAuto" id="gearsAutoSide" value="Side" autocomplete="off"> Puts Gear in Side
-                        </label>
-                        <label id="gearsPutMiddle" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="gearsAuto" id="gearsAutoMid" value="Mid" autocomplete="off"> Puts Gears in Middle
-                        </label>
-                    </div>
+                        <br/>
+                        <br/>
 
-                    <br/>
-                    <br/>
+                        <div class="btn-group btn-group-justified" data-toggle="buttons">
+                            <label id="gearsDidntPut" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="gearsAuto" id="gearsAutoFalse" value="False"
+                                       autocomplete="off"> Dosen't Put Gears
+                            </label>
+                            <label id="gearsPutSide" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="gearsAuto" id="gearsAutoSide" value="Side" autocomplete="off">
+                                Puts Gear in Side
+                            </label>
+                            <label id="gearsPutMiddle" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="gearsAuto" id="gearsAutoMid" value="Mid" autocomplete="off">
+                                Puts Gears in Middle
+                            </label>
+                        </div>
 
-                    <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label id="didntShoot" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="shootingAuto" id="shootingFalse" value="False" autocomplete="off"> Dosen't Shoot
-                        </label>
-                        <label id="shootHigh" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="shootingAuto" id="shootingHigh" value="High" autocomplete="off"> Shoot High
-                        </label>
-                        <label id="shootLow" class="btn btn-primary btn-group-justified">
-                            <input type="radio" name="shootingAuto" id="shootingLow" value="Low" autocomplete="off"> Shoot Low
-                        </label>
+                        <br/>
+                        <br/>
+
+                        <div class="btn-group btn-group-justified" data-toggle="buttons">
+                            <label id="didntShoot" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="shootingAuto" id="shootingFalse" value="False"
+                                       autocomplete="off"> Dosen't Shoot
+                            </label>
+                            <label id="shootHigh" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="shootingAuto" id="shootingHigh" value="High"
+                                       autocomplete="off"> Shoot High
+                            </label>
+                            <label id="shootLow" class="btn btn-primary btn-group-justified">
+                                <input type="radio" name="shootingAuto" id="shootingLow" value="Low" autocomplete="off">
+                                Shoot Low
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
         <br/>
         <br/>
@@ -452,49 +460,84 @@
         <br/>
         <br/>
 
+        <div class="btn-group btn-group-justified" data-toggle="buttons">
+                    <label name="pilots" id="doesPilotFalse" class="btn btn-primary btn-group col-lg-6"
+                           onclick="$('#pilotQual').hide()">
+                        <input type="radio" name="Pilot" id="pilotInputFalse" value="False" autocomplete="off"> Doesnt
+                        Have Pilot
+                    </label>
+                    <label name="pilots" id="doesPilotTrue" class="btn btn-primary btn-group col-lg-6"
+                           onclick="$('#pilotQual').show()">
+                        <input type="radio" name="Pilot" id="pilotInputTrue" value="True" autocomplete="off"> Has Pilot
+                    </label>
+                </div>
+
+                <div id="pilotQual" style="display:none">
+                    <br/>
+                    <br/>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h3 class="panel-title" style="text-align: center; font-size: 200%">Quality Pilot</span>
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="btn-group" data-toggle="buttons">
+                                {%for enum in quality[1::]%}
+                                <div id="qualityPilot-{{enum}}" name="qualitysPilot" class="btn btn-group-justified btn-primary">
+                                    <label>
+                                        <input type="radio" name="qualityPilot" value="{{enum}}" autocomplete="off">
+                                        {{enum}}
+                                    </label>
+                                </div>
+                                {%endfor%}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+        <br/>
+        <br/>
+
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title" style="text-align: center; font-size: 200%">Problems</span>
                 </h3>
             </div>
             <div class="panel-body">
+
                 <div class="btn-group" data-toggle="buttons">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label id="comuProblemFalse" class="btn btn-primary btn-group col-lg-6">
-                            <input type="radio" name="comuProblem" value="False" autocomplete="off"> No communication
-                            problem
-                        </label>
-                        <label id="comuProblemTrue" class="btn btn-primary btn-group col-lg-6">
-                            <input type="radio" name="comuProblem" value="True" autocomplete="off"> Communication
-                            problem
+                        <input type="hidden" name="comuProblem" id="comuProblemInput" value="False">
+                        <label id="comuProblem" class="btn btn-primary btn-group">
+                            Communication Problem
                         </label>
                     </div>
                 </div>
 
+                <br/>
+                <br/>
+
                 <div class="btn-group" data-toggle="buttons">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label id="unstableProblemFalse" class="btn btn-primary btn-group col-lg-6">
-                            <input type="radio" name="unstableProblem" value="False" autocomplete="off"> Stable robot
-                        </label>
-                        <label id="unstableProblemTrue" class="btn btn-primary btn-group col-lg-6">
-                            <input type="radio" name="unstableProblem" value="True" autocomplete="off"> Unstable robot
-                            problem
+                        <input type="hidden" name="unstableProblem" id="unstableProblemInput" value="False">
+                        <label id="unstableProblem" class="btn btn-primary btn-group">
+                            Unstable Problem
                         </label>
                     </div>
                 </div>
 
+                <br/>
+                <br/>
+
                 <div class="btn-group" data-toggle="buttons">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <label id="breakingProblemFalse" class="btn btn-primary btn-group col-lg-6">
-                            <input type="radio" name="breakingProblem" value="False" autocomplete="off"> Robot didn't
-                            brake
-                        </label>
-                        <label id="breakingProblemTrue" class="btn btn-primary btn-group col-lg-6">
-                            <input type="radio" name="breakingProblem" value="True" autocomplete="off"> Robot broke
-                            problem
+                        <input type="hidden" name="breakingProblem" id="breakingProblemInput" value="False">
+                        <label id="breakingProblem" class="btn btn-primary btn-group">
+                            Robot Broke
                         </label>
                     </div>
                 </div>
+
 
             </div>
         </div>
