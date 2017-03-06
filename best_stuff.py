@@ -88,7 +88,9 @@ def reliablty_problems(games):
                 count += 1
             if games[(len(games)-i)-1].unstable_problem == "True":
                 count += 1
-            if games[(len(games)-i)-1].communication_problem == "True":
+            if games[(len(games)-i)-1].not_moving_problem == "True":
+                count += 1
+            if games[(len(games)-i)-1].shutdown_problem == "True":
                 count += 1
     else:
         for game in games:
@@ -96,7 +98,9 @@ def reliablty_problems(games):
                 count += 1
             if game.unstable_problem == "True":
                 count += 1
-            if game.communication_problem == "True":
+            if game.shutdown_problem == "True":
+                count += 1
+            if game.not_moving_problem == "True":
                 count += 1
     return count
 
