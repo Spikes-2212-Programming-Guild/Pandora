@@ -603,10 +603,10 @@
                         <td style="background-color:AliceBlue">{%if game.pilot == True
                             %}{{game.pilot_quality}}{%else%}Did'nt have{%endif%}
                         </td>
-                        <td style="background-color:AliceBlue">{{game.not_moving_problem}}</td>
-                        <td style="background-color:AliceBlue">{{game.shutdown_problem}}</td>
-                        <td style="background-color:AliceBlue">{{game.unstable_problem}}</td>
-                        <td style="background-color:AliceBlue">{{game.breaking_problem}}</td>
+                        <td style="background-color:AliceBlue">{% if game.not_moving_problem%} True {%else%} False {%endif%}</td>
+                        <td style="background-color:AliceBlue">{% if game.shutdown_problem%} True {%else%} False {%endif%}</td>
+                        <td style="background-color:AliceBlue">{% if game.unstable_problem%} True {%else%} False {%endif%}</td>
+                        <td style="background-color:AliceBlue">{% if game.breaking_problem%} True {%else%} False {%endif%}</td>
                         <td style="background-color:AliceBlue"></td>
                         <td style="background-color:AliceBlue"></td>
                         <td class="danger"></td>
