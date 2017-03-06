@@ -276,7 +276,8 @@ def scouting_form():
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
-                         defensive=request.form["Defence"], communication_problem=request.form["comuProblem"],
+                         defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
+                         not_moving_problem=request.form["notMovingProblem"],
                          unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
                          pilot_quality=values["qualityPilot"], autonomous=["didAuto"],
                          breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
@@ -380,7 +381,8 @@ def scouting_form():
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
-                         defensive=request.form["Defence"], communication_problem=request.form["comuProblem"],
+                         defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
+                         not_moving_problem=request.form["notMovingProblem"],
                          unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
                          pilot_quality=values["qualityPilot"], autonomous=["didAuto"],
                          breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])

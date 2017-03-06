@@ -690,14 +690,25 @@
                 }
             });
 
-            $('#comuProblem').click(function(){
-                if($('#comuProblemInput').val() == "True"){
-                    $('#comuProblem').removeClass("active");
-                    $('#comuProblemInput').val("False");
+            $('#notMovingProblem').click(function(){
+                if($('#notMovingProblemInput').val() == "True"){
+                    $('#notMovingProblem').removeClass("active");
+                    $('#notMovingProblemInput').val("False");
                 }
-                else if($('#comuProblemInput').val() == "False"){
-                    $('#comuProblem').addClass("active");
-                    $('#comuProblemInput').val("True");
+                else if($('#notMovingProblemInput').val() == "False"){
+                    $('#notMovingProblem').addClass("active");
+                    $('#notMovingProblemInput').val("True");
+                }
+            });
+            
+            $('#shutdownProblem').click(function(){
+                if($('#shutdownProblemInput').val() == "True"){
+                    $('#shutdownProblem').removeClass("active");
+                    $('#shutdownProblemInput').val("False");
+                }
+                else if($('#shutdownProblemInput').val() == "False"){
+                    $('#shutdownProblem').addClass("active");
+                    $('#shutdownProblemInput').val("True");
                 }
             });
 
@@ -720,7 +731,7 @@
             var boolean = ["True", "False"];
             var time = ["none", "long", "medium", "short"];
             var count = 0;
-            var problems = ["breaking", "comu", "unstable"];
+            var problems = ["breaking", "notMoving", "unstable", "shutdown"];
 
             if($('#highFuelScoredSend').val()==0&&$('input[name=High]:checked').val()=="True"){
                 count++;

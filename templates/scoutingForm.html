@@ -75,15 +75,15 @@
                         <div class="btn-group btn-group-justified" data-toggle="buttons">
                             <label id="gearsDidntPut" class="btn btn-primary btn-group-justified">
                                 <input type="radio" name="gearsAuto" id="gearsAutoFalse" value="False"
-                                       autocomplete="off"> Dosen't Put Gears
+                                       autocomplete="off">No Gear
                             </label>
                             <label id="gearsPutSide" class="btn btn-primary btn-group-justified">
                                 <input type="radio" name="gearsAuto" id="gearsAutoSide" value="Side" autocomplete="off">
-                                Puts Gear in Side
+                                Gear Side
                             </label>
                             <label id="gearsPutMiddle" class="btn btn-primary btn-group-justified">
                                 <input type="radio" name="gearsAuto" id="gearsAutoMid" value="Mid" autocomplete="off">
-                                Puts Gears in Middle
+                                Gear Middle
                             </label>
                         </div>
 
@@ -507,9 +507,21 @@
 
                 <div class="btn-group" data-toggle="buttons">
                     <div class="btn-group btn-group-justified" data-toggle="buttons">
-                        <input type="hidden" name="comuProblem" id="comuProblemInput" value="False">
-                        <label id="comuProblem" class="btn btn-primary btn-group">
-                            Communication Problem
+                        <input type="hidden" name="shutdownProblem" id="shutdownProblemInput" value="False">
+                        <label id="shutdownProblem" class="btn btn-primary btn-group">
+                            Robot Shutdown
+                        </label>
+                    </div>
+                </div>
+
+                <br/>
+                <br/>
+
+                <div class="btn-group" data-toggle="buttons">
+                    <div class="btn-group btn-group-justified" data-toggle="buttons">
+                        <input type="hidden" name="notMovingProblem" id="notMovingProblemInput" value="False">
+                        <label id="notMovingProblem" class="btn btn-primary btn-group">
+                            Robot Not Moving
                         </label>
                     </div>
                 </div>
