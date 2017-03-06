@@ -190,6 +190,7 @@ def scouting_form():
         return render_template('scoutingForm.html', quality=enums.quality, time=enums.time)
     elif request.form["override"] == "False":
         values = {}
+
         # try:
         values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
         values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
@@ -199,6 +200,14 @@ def scouting_form():
         values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
         values["scoreHoppers"] = int(request.form["hoppersUsed"]) if request.form["hoppersUsed"] else 0
         values["Hoppers"] = request.form["hopperCatchingQuality"] if values["scoreHoppers"] > 0 else enums.quality[0]
+        # except:
+        # values["scoreHigh"] = 0
+        # values["scoreLow"] = 0
+        # values["scoreGears"] = 0
+        # values["scoreHoppers"] = 0
+        # values["Hoppers"] = enums.quality[0]
+        # values["fouls"] = 0
+        # finally:
         if request.form["Defence"] == "False":
             values["qualityDefence"] = "none"
         else:
@@ -217,17 +226,12 @@ def scouting_form():
             values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
             values["Climb"] = "none"
-            values["didClimb"] = "False"
-        elif request.form["Climb"] == "TrueFail":
-            values["Climb"] = "none"
-            values["didClimb"] = "True"
         else:
-            values["didClimb"] = "True"
             values["Climb"] = request.form["qualityClimbing"]
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
             recivers = ['roeeiit1@gmail.com']
-            message = "Got a message"
+            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form["teamNumber"]
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
@@ -269,7 +273,7 @@ def scouting_form():
             values["qualityPilot"] = request.form["qualityPilot"]
         result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
                          side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
-                         passed_line=request.form["lineAuto"], highgoal=values["scoreHigh"],
+                         passed_line=auto["lineAuto"], highgoal=values["scoreHigh"],
                          number=request.form["matchNumber"], team=request.form["teamNumber"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
@@ -279,7 +283,7 @@ def scouting_form():
                          defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
                          not_moving_problem=request.form["notMovingProblem"],
                          unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
-                         pilot_quality=values["qualityPilot"], autonomous=["didAuto"],
+                         pilot_quality=values["qualityPilot"], autonomous=request.form["didAuto"],
                          breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()
@@ -331,8 +335,7 @@ def scouting_form():
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
             recivers = ['roeeiit1@gmail.com']
-            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form[
-                "teamNumber"]
+            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form["teamNumber"]
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
@@ -374,7 +377,7 @@ def scouting_form():
             values["qualityPilot"] = request.form["qualityPilot"]
         result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
                          side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
-                         passed_line=request.form["lineAuto"], highgoal=values["scoreHigh"],
+                         passed_line=auto["lineAuto"], highgoal=values["scoreHigh"],
                          number=request.form["matchNumber"], team=request.form["teamNumber"],
                          lowgoal=values["scoreLow"], gears=values["scoreGears"], hoppers=values["scoreHoppers"],
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
@@ -384,7 +387,7 @@ def scouting_form():
                          defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
                          not_moving_problem=request.form["notMovingProblem"],
                          unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
-                         pilot_quality=values["qualityPilot"], autonomous=["didAuto"],
+                         pilot_quality=values["qualityPilot"], autonomous=request.form["didAuto"],
                          breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()
