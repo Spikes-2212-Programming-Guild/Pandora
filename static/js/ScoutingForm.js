@@ -11,16 +11,6 @@
             problemsInit();
         })
         function autonomousListener(){
-            $('#hideAutonomous').click(function (){
-                $('#autonomous').hide();
-                $('#hideAutonomous').hide();
-                $('#showAutonomous').show();
-            });
-            $('#showAutonomous').click(function (){
-                $('#autonomous').show();
-                $('#hideAutonomous').show();
-                $('#showAutonomous').hide();
-            });
             $('#autoDidSomething').click(function (){
                 $('#autonomousStuff').show();
             });

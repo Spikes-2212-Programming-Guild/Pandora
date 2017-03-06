@@ -537,7 +537,8 @@
                     <tr class="success">
                         <th class="success">Driver Quality</th>
                         <th class="success">Pilot</th>
-                        <th class="success">Communication Problem</th>
+                        <th class="success">Robot Not Moving</th>
+                        <th class="success">Robot Shutdown</th>
                         <th class="success">Unstable Problem</th>
                         <th class="success">Breaking Problem</th>
                         <th class="success"></th>
@@ -602,7 +603,8 @@
                         <td style="background-color:AliceBlue">{%if game.pilot == True
                             %}{{game.pilot_quality}}{%else%}Did'nt have{%endif%}
                         </td>
-                        <td style="background-color:AliceBlue">{{game.communication_problem}}</td>
+                        <td style="background-color:AliceBlue">{{game.not_moving_problem}}</td>
+                        <td style="background-color:AliceBlue">{{game.shutdown_problem}}</td>
                         <td style="background-color:AliceBlue">{{game.unstable_problem}}</td>
                         <td style="background-color:AliceBlue">{{game.breaking_problem}}</td>
                         <td style="background-color:AliceBlue"></td>
