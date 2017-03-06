@@ -883,7 +883,13 @@
             });
             $('#submitButton').click(function(){
             if($('input[name=hopperCatchingQuality]:checked').val() == null){
-                $('input[value=fine,name=hopperCatchingQuality]').prop('checked', true);
+                var hopperQualCatch = $('input[name=hopperCatchingQuality]')
+                for(var i=0 ; i<hopperQualCatch.length ; i++){
+                    if($(hopperQualCatch[i]).val() == "fine"){
+                        $(hopperQualCatch[i]).prop('checked', true);
+                    }
+                }
+
             }
             $('#scoutingForm').submit()
             });
