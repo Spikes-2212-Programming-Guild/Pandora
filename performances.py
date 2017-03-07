@@ -41,6 +41,7 @@ class Results(Base):
 
     # boolean fields
     climbed = Column("climbing", Boolean)
+    failed_to_climb = Column("failed climbing", Boolean)
     defensive_robot = Column("defence", Boolean)
     not_moving_problem = Column("not moving", Boolean)
     shutdown_problem = Column("shutdown", Boolean)
@@ -54,7 +55,7 @@ class Results(Base):
     def __init__(self, number, team, highgoal, lowgoal, gears, hoppers, fouls, highgoal_efficiancy, hoppers_efficiency,
                  gears_efficiency, climbing_quality, defending_quality, driver_quality, climbed, defensive,
                  shutdown_problem, unstable_problem, breaking_problem, comment, passed_line, side_gears,
-                 center_gears, highgoal_auto, lowgoal_auto, pilot, pilot_quality, autonomous, not_moving_problem):
+                 center_gears, highgoal_auto, lowgoal_auto, pilot, pilot_quality, autonomous, not_moving_problem, failed_to_climb):
         """
         :param number:
         :type number: int
@@ -101,3 +102,4 @@ class Results(Base):
         self.pilot = pilot
         self.pilot_quality = pilot_quality
         self.autonomous = autonomous
+        self.failed_to_climb = failed_to_climb

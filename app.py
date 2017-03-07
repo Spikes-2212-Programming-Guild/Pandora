@@ -225,13 +225,22 @@ def scouting_form():
         else:
             values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
+            values["didClimb"] = "False"
+            values["failedClimb"] = "False"
             values["Climb"] = "none"
-        else:
+        elif request.form["Climb"] == "True":
+            values["didClimb"] = "True"
+            values["failedClimb"] = "False"
             values["Climb"] = request.form["qualityClimbing"]
+        elif request.form["Climb"] == "TrueFail":
+            values["didClimb"] = "False"
+            values["failedClimb"] = "True"
+            values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
             recivers = ['roeeiit1@gmail.com']
-            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form["teamNumber"]
+            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form[
+                "teamNumber"]
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
@@ -279,7 +288,8 @@ def scouting_form():
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
-                         driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
+                         driver_quality=request.form["qualityDriver"], climbed=values["didClimb"],
+                         failed_to_climb=values["failedClimb"],
                          defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
                          not_moving_problem=request.form["notMovingProblem"],
                          unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
@@ -329,9 +339,17 @@ def scouting_form():
         else:
             values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
+            values["didClimb"] = "False"
+            values["failedClimb"] = "False"
             values["Climb"] = "none"
-        else:
+        elif request.form["Climb"] == "True":
+            values["didClimb"] = "True"
+            values["failedClimb"] = "False"
             values["Climb"] = request.form["qualityClimbing"]
+        elif request.form["Climb"] == "TrueFail":
+            values["didClimb"] = "False"
+            values["failedClimb"] = "True"
+            values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
             recivers = ['roeeiit1@gmail.com']
@@ -383,7 +401,8 @@ def scouting_form():
                          fouls=values["fouls"], highgoal_efficiancy=values["High"],
                          hoppers_efficiency=values["Hoppers"], gears_efficiency=values["Gears"],
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
-                         driver_quality=request.form["qualityDriver"], climbed=request.form["Climb"],
+                         driver_quality=request.form["qualityDriver"], climbed=values["didClimb"],
+                         failed_to_climb=values["failedClimb"],
                          defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
                          not_moving_problem=request.form["notMovingProblem"],
                          unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],

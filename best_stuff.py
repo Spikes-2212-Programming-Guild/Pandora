@@ -84,23 +84,23 @@ def reliablty_problems(games):
     count = 0
     if len(games) > 5:
         for i in range(4):
-            if games[(len(games)-i)-1].breaking_problem == "True":
+            if games[(len(games)-i)-1].breaking_problem:
                 count += 1
-            if games[(len(games)-i)-1].unstable_problem == "True":
+            if games[(len(games)-i)-1].unstable_problem:
                 count += 1
-            if games[(len(games)-i)-1].not_moving_problem == "True":
+            if games[(len(games)-i)-1].not_moving_problem:
                 count += 1
-            if games[(len(games)-i)-1].shutdown_problem == "True":
+            if games[(len(games)-i)-1].shutdown_problem:
                 count += 1
     else:
         for game in games:
-            if game.breaking_problem == "True":
+            if game.breaking_problem:
                 count += 1
-            if game.unstable_problem == "True":
+            if game.unstable_problem:
                 count += 1
-            if game.shutdown_problem == "True":
+            if game.shutdown_problem:
                 count += 1
-            if game.not_moving_problem == "True":
+            if game.not_moving_problem:
                 count += 1
     return count
 
