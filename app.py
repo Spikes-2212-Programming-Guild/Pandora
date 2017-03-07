@@ -209,6 +209,7 @@ def scouting_form():
         # values["fouls"] = 0
         # finally:
         if request.form["Defence"] == "False":
+
             values["qualityDefence"] = "none"
         else:
             values["qualityDefence"] = request.form["qualityDefence"]
@@ -225,16 +226,16 @@ def scouting_form():
         else:
             values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
-            values["didClimb"] = "False"
-            values["failedClimb"] = "False"
+            values["didClimb"] = False
+            values["failedClimb"] = False
             values["Climb"] = "none"
         elif request.form["Climb"] == "True":
-            values["didClimb"] = "True"
-            values["failedClimb"] = "False"
+            values["didClimb"] = True
+            values["failedClimb"] = False
             values["Climb"] = request.form["qualityClimbing"]
         elif request.form["Climb"] == "TrueFail":
-            values["didClimb"] = "False"
-            values["failedClimb"] = "True"
+            values["didClimb"] = False
+            values["failedClimb"] = True
             values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
@@ -248,38 +249,68 @@ def scouting_form():
             smtpObj.sendmail(sender, recivers, message)
         auto = {}
         if request.form["didAuto"] == "False":
-            auto["GearsSide"] = "False"
-            auto["GearsMid"] = "False"
-            auto["High"] = "False"
-            auto["Low"] = "False"
-            auto["lineAuto"] = "False"
+            auto["GearsSide"] = False
+            auto["GearsMid"] = False
+            auto["High"] = False
+            auto["Low"] = False
+            auto["lineAuto"] = False
         else:
             if request.form["shootingAuto"] == "High":
-                auto["High"] = "True"
-                auto["Low"] = "False"
+                auto["High"] = True
+                auto["Low"] = False
             elif request.form["shootingAuto"] == "Low":
-                auto["High"] = "False"
-                auto["Low"] = "True"
+                auto["High"] = False
+                auto["Low"] = True
             else:
-                auto["High"] = "False"
-                auto["Low"] = "False"
+                auto["High"] = False
+                auto["Low"] = False
             if request.form["gearsAuto"] == "Mid":
-                auto["GearsMid"] = "True"
-                auto["GearsSide"] = "False"
+                auto["GearsMid"] = True
+                auto["GearsSide"] = False
             elif request.form["gearsAuto"] == "Side":
-                auto["GearsMid"] = "False"
-                auto["GearsSide"] = "True"
+                auto["GearsMid"] = False
+                auto["GearsSide"] = True
             else:
-                auto["GearsMid"] = "False"
-                auto["GearsSide"] = "False"
+                auto["GearsMid"] = False
+                auto["GearsSide"] = False
             if request.form["lineAuto"] == "True":
-                auto["lineAuto"] = "True"
+                auto["lineAuto"] = True
             else:
-                auto["lineAuto"] = "False"
+                auto["lineAuto"] = False
         if request.form["Pilot"] == "False":
             values["qualityPilot"] = "none"
         else:
             values["qualityPilot"] = request.form["qualityPilot"]
+        problems = {}
+        if request.form["shutdownProblem"] == "True":
+            problems["shutdownProblem"] = True
+        else:
+            problems["shutdownProblem"] = False
+        if request.form["notMovingProblem"] == "True":
+            problems["notMovingProblem"] = True
+        else:
+            problems["notMovingProblem"] = False
+        if request.form["unstableProblem"] == "True":
+            problems["unstableProblem"] = True
+        else:
+            problems["unstableProblem"] = False
+        if request.form["breakingProblem"] == "True":
+            problems["breakingProblem"] = True
+        else:
+            problems["breakingProblem"] = False
+        booleans = {}
+        if request.form["Pilot"] == "False":
+            booleans["Pilot"] = False
+        else:
+            booleans["Pilot"] = True
+        if request.form["didAuto"] == "False":
+            booleans["didAuto"] = False
+        else:
+            booleans["didAuto"] = True
+        if request.form["Defence"] == "False":
+            booleans["Defence"] = False
+        else:
+            booleans["Defence"] = True
         result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
                          side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
                          passed_line=auto["lineAuto"], highgoal=values["scoreHigh"],
@@ -290,11 +321,11 @@ def scouting_form():
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          driver_quality=request.form["qualityDriver"], climbed=values["didClimb"],
                          failed_to_climb=values["failedClimb"],
-                         defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
-                         not_moving_problem=request.form["notMovingProblem"],
-                         unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
-                         pilot_quality=values["qualityPilot"], autonomous=request.form["didAuto"],
-                         breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
+                         defensive=booleans["Defence"], shutdown_problem=problems["shutdownProblem"],
+                         not_moving_problem=problems["notMovingProblem"],
+                         unstable_problem=problems["unstableProblem"], pilot=booleans["Pilot"],
+                         pilot_quality=values["qualityPilot"], autonomous=booleans["didAuto"],
+                         breaking_problem=problems["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()
         return redirect('/scoutingForm')
@@ -323,6 +354,7 @@ def scouting_form():
         # values["fouls"] = 0
         # finally:
         if request.form["Defence"] == "False":
+
             values["qualityDefence"] = "none"
         else:
             values["qualityDefence"] = request.form["qualityDefence"]
@@ -339,60 +371,91 @@ def scouting_form():
         else:
             values["Gears"] = request.form["qualityGear"]
         if request.form["Climb"] == "False":
-            values["didClimb"] = "False"
-            values["failedClimb"] = "False"
+            values["didClimb"] = False
+            values["failedClimb"] = False
             values["Climb"] = "none"
         elif request.form["Climb"] == "True":
-            values["didClimb"] = "True"
-            values["failedClimb"] = "False"
+            values["didClimb"] = True
+            values["failedClimb"] = False
             values["Climb"] = request.form["qualityClimbing"]
         elif request.form["Climb"] == "TrueFail":
-            values["didClimb"] = "False"
-            values["failedClimb"] = "True"
+            values["didClimb"] = False
+            values["failedClimb"] = True
             values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
-            recivers = ['roeeiit1@gmail.com']
-            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form["teamNumber"]
+            recivers = ['tomervolk13@gmail.com', 'roeeiit1@gmail.com', 'amir141.levy@gmail.com']
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
             smtpObj.login("randommailmessage", "2212InYourPants")
-            smtpObj.sendmail(sender, recivers, message)
+            smtpObj.sendmail(sender, recivers,
+                             "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form[
+                                 "teamNumber"])
         auto = {}
         if request.form["didAuto"] == "False":
-            auto["GearsSide"] = "False"
-            auto["GearsMid"] = "False"
-            auto["High"] = "False"
-            auto["Low"] = "False"
-            auto["lineAuto"] = "False"
+            auto["GearsSide"] = False
+            auto["GearsMid"] = False
+            auto["High"] = False
+            auto["Low"] = False
+            auto["lineAuto"] = False
         else:
             if request.form["shootingAuto"] == "High":
-                auto["High"] = "True"
-                auto["Low"] = "False"
+                auto["High"] = True
+                auto["Low"] = False
             elif request.form["shootingAuto"] == "Low":
-                auto["High"] = "False"
-                auto["Low"] = "True"
+                auto["High"] = False
+                auto["Low"] = True
             else:
-                auto["High"] = "False"
-                auto["Low"] = "False"
+                auto["High"] = False
+                auto["Low"] = False
             if request.form["gearsAuto"] == "Mid":
-                auto["GearsMid"] = "True"
-                auto["GearsSide"] = "False"
+                auto["GearsMid"] = True
+                auto["GearsSide"] = False
             elif request.form["gearsAuto"] == "Side":
-                auto["GearsMid"] = "False"
-                auto["GearsSide"] = "True"
+                auto["GearsMid"] = False
+                auto["GearsSide"] = True
             else:
-                auto["GearsMid"] = "False"
-                auto["GearsSide"] = "False"
+                auto["GearsMid"] = False
+                auto["GearsSide"] = False
             if request.form["lineAuto"] == "True":
-                auto["lineAuto"] = "True"
+                auto["lineAuto"] = True
             else:
-                auto["lineAuto"] = "False"
+                auto["lineAuto"] = False
         if request.form["Pilot"] == "False":
             values["qualityPilot"] = "none"
         else:
             values["qualityPilot"] = request.form["qualityPilot"]
+        problems = {}
+        if request.form["shutdownProblem"] == "True":
+            problems["shutdownProblem"] = True
+        else:
+            problems["shutdownProblem"] = False
+        if request.form["notMovingProblem"] == "True":
+            problems["notMovingProblem"] = True
+        else:
+            problems["notMovingProblem"] = False
+        if request.form["unstableProblem"] == "True":
+            problems["unstableProblem"] = True
+        else:
+            problems["unstableProblem"] = False
+        if request.form["breakingProblem"] == "True":
+            problems["breakingProblem"] = True
+        else:
+            problems["breakingProblem"] = False
+        booleans = {}
+        if request.form["Pilot"] == "False":
+            booleans["Pilot"] = False
+        else:
+            booleans["Pilot"] = True
+        if request.form["didAuto"] == "False":
+            booleans["didAuto"] = False
+        else:
+            booleans["didAuto"] = True
+        if request.form["Defence"] == "False":
+            booleans["Defence"] = False
+        else:
+            booleans["Defence"] = True
         result = Results(highgoal_auto=auto["High"], lowgoal_auto=auto["Low"],
                          side_gears=auto["GearsSide"], center_gears=auto["GearsMid"],
                          passed_line=auto["lineAuto"], highgoal=values["scoreHigh"],
@@ -403,11 +466,11 @@ def scouting_form():
                          climbing_quality=values["Climb"], defending_quality=values["qualityDefence"],
                          driver_quality=request.form["qualityDriver"], climbed=values["didClimb"],
                          failed_to_climb=values["failedClimb"],
-                         defensive=request.form["Defence"], shutdown_problem=request.form["shutdownProblem"],
-                         not_moving_problem=request.form["notMovingProblem"],
-                         unstable_problem=request.form["unstableProblem"], pilot=request.form["Pilot"],
-                         pilot_quality=values["qualityPilot"], autonomous=request.form["didAuto"],
-                         breaking_problem=request.form["breakingProblem"], comment=request.form["comment"])
+                         defensive=booleans["Defence"], shutdown_problem=problems["shutdownProblem"],
+                         not_moving_problem=problems["notMovingProblem"],
+                         unstable_problem=problems["unstableProblem"], pilot=booleans["Pilot"],
+                         pilot_quality=values["qualityPilot"], autonomous=booleans["didAuto"],
+                         breaking_problem=problems["breakingProblem"], comment=request.form["comment"])
         db_session.add(result)
         db_session.flush()
         return redirect('/scoutingForm')

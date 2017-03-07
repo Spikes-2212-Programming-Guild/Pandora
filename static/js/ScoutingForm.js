@@ -707,7 +707,7 @@
                     $('#breakingProblem').removeClass("active");
                     $('#breakingProblemInput').val("False");
                 }
-                else if($('#breakingProblemInput').val() == "False"){
+                else{
                     $('#breakingProblem').addClass("active");
                     $('#breakingProblemInput').val("True");
                 }
