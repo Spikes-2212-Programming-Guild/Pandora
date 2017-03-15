@@ -29,12 +29,12 @@ class Results(Base):
     gears = Column("gears", Integer)
     hoppers = Column("hoppers", Integer)
     fouls = Column("fouls", Integer)
+    climbing_quality = Column("climbing efficiency", Integer)
 
     # efficiency fields
     highgoal_efficiency = Column("high goal efficiency", Enum(*enums.quality))
     hoppers_efficiancy = Column("low goal efficiency", Enum(*enums.quality))
     gears_efficiancy = Column("gears efficiency", Enum(*enums.quality))
-    climbing_quality = Column("climbing efficiency", Enum(*enums.time))
     defending_quality = Column("defending efficiency", Enum(*enums.quality))
     driver_quality = Column("driver efficiency", Enum(*enums.quality))
     pilot_quality = Column("pilot efficiency", Enum(*enums.quality))

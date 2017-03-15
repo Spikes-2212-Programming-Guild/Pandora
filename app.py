@@ -239,9 +239,8 @@ def scouting_form():
             values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
-            recivers = ['roeeiit1@gmail.com']
-            message = "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form[
-                "teamNumber"]
+            recivers = ['amir141.levy@gmail.com']
+            message = "Got a message"
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
@@ -384,14 +383,13 @@ def scouting_form():
             values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
-            recivers = ['tomervolk13@gmail.com', 'roeeiit1@gmail.com', 'amir141.levy@gmail.com']
+            recivers = ['amir141.levy@gmail.com']
+	    message = "Got a message"
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
             smtpObj.login("randommailmessage", "2212InYourPants")
-            smtpObj.sendmail(sender, recivers,
-                             "Got a message from : Match - " + request.form["matchNumber"] + ", Team - " + request.form[
-                                 "teamNumber"])
+            smtpObj.sendmail(sender, recivers,message)
         auto = {}
         if request.form["didAuto"] == "False":
             auto["GearsSide"] = False
@@ -475,9 +473,12 @@ def scouting_form():
         db_session.flush()
         return redirect('/scoutingForm')
 
-
-if __name__ == "__main__":
+@app.before_first_request
+def setup():
     app.secret_key = 'Spikes2212Spikes2212'
     login_manager.logout()
     init_db()
+
+
+if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=True)

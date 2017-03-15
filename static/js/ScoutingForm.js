@@ -336,7 +336,7 @@
             "</div>"+
             "<div id=ClimbedDivStuff>Climbs : "+$('input[name=Climb]:checked').val()+"</div>"+
             "<div id=climbingStuff>"+
-            "Climbing Time : "+$('input[name=qualityClimbing]:checked').val()+"<br/>"+
+            "Climbing Time : "+$('input[name=qualityClimbing]').val()+"<br/>"+
             "</div>"+
             "Defends : "+$('input[name=Defence]:checked').val()+"<br/>"+
             "<div id=defenceStuff>"+
@@ -717,35 +717,11 @@
             function lightUmUp(){
             var textInputs = ["matchNumber","teamNumber"];
             var quality =["very bad", "bad", "fine", "good", "very good"];
-            var checkList = ["Low","Climb","High","Gear","Defence", "Pilot","Driver"];
+            var checkList = ["Low","Climb","High","Gear","Defence","Driver"];
             var boolean = ["True", "False"];
             var time = ["none", "long", "medium", "short"];
             var count = 0;
             var problems = ["breaking", "notMoving", "unstable", "shutdown"];
-
-            if($('#highFuelScoredSend').val()==0&&$('input[name=High]:checked').val()=="True"){
-                count++;
-                $('#numberShootsHigh').addClass("panel-danger");
-                $('#numberShootsHigh').removeClass("panel-default");
-                $('#fuelHighDec').addClass("btn-danger");
-                $('#fuelHighInc').addClass("btn-danger");
-                $('#fuelHighDec').removeClass("btn-primary");
-                $('#fuelHighInc').removeClass("btn-primary");
-                $('#fuelHighDec10').addClass("btn-danger");
-                $('#fuelHighInc10').addClass("btn-danger");
-                $('#fuelHighDec10').removeClass("btn-primary");
-                $('#fuelHighInc10').removeClass("btn-primary");
-            }
-
-            if($('#gearsScoredSend').val()==0&&$('input[name=Gear]:checked').val()=="True"){
-                count++;
-                $('#gearsInputed').addClass("panel-danger");
-                $('#gearsInputed').removeClass("panel-default");
-                $('#gearDec').addClass("btn-danger");
-                $('#gearInc').addClass("btn-danger");
-                $('#gearDec').removeClass("btn-primary");
-                $('#gearInc').removeClass("btn-primary");
-            }
 
             if($('#lowFuelScoredSend').val()==0&&$('input[name=Low]:checked').val()=="True"){
                 count++;
@@ -801,18 +777,6 @@
                              $('div[id="'+id+'"]').removeClass("btn-primary");
                       }
                    }
-               }
-               if(checkList[j]=="Climb"){
-               if($('input[name="'+checkList[j]+'"]:checked').val() == "True"){
-                    if($('input[name="quality'+checkList[j]+'ing'+'"]:checked').val() == null){
-                        count+=1;
-                        for(var i=0;i<time.length;i++){
-                             var id = "time"+checkList[j]+"-"+time[i];
-                             $('div[id="'+id+'"]').addClass("btn-danger");
-                             $('div[id="'+id+'"]').removeClass("btn-primary");
-                      }
-                    }
-               }
                }
             }
             if($('#hoppersUsed').val()>0){

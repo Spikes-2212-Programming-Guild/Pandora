@@ -189,7 +189,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.highgoal}},label:"Match "+{{ loop.index }}},
+        {y:{{game.highgoal}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.HighShooting}},label:"Team Average"},
         {y:{{all_average.HighShooting}},label:"All Average"}
@@ -222,7 +222,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.lowgoal}},label:"Match "+{{ loop.index }}},
+        {y:{{game.lowgoal}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.LowShooting}},label:"Team Average"},
         {y:{{all_average.LowShooting}},label:"All Average"}
@@ -255,7 +255,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.gears}},label:"Match "+{{ loop.index }}},
+        {y:{{game.gears}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Gears}},label:"Team Average"},
         {y:{{all_average.Gears}},label:"All Average"}
@@ -288,7 +288,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.climbed == "False" && game.failed_to_climb == "True"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
+        {y:{%if game.climbed == "True" and game.climbing_quality == "none"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:0}
         ]
@@ -320,7 +320,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.fouls}},label:"Match "+{{ loop.index }}},
+        {y:{{game.fouls}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Fouls}},label:"Team Average"},
         {y:{{all_average.Fouls}},label:"All Average"}
@@ -353,7 +353,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.defensive_robot == True%}1{%else%}0{%endif%},label:"Match "+{{ loop.index }}},
+        {y:{%if game.defensive_robot == True%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:0, label:"-1"}
         ]
@@ -384,7 +384,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{{game.hoppers}},label:"Match "+{{ loop.index }}},
+        {y:{{game.hoppers}},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:{{team_average.Hoppers}},label:"Team Average"},
         {y:{{all_average.Hoppers}},label:"All Average"}
@@ -444,11 +444,6 @@
 <button class="btn btn-primary" id="changeConclusion">Change Conclusion</button>
 <br/>
 <br/>
-
-<button class="btn btn-primary" onclick="$('#autonomousModal').modal('show') ">autonoumus </button>
-
-<br/>
-<br/>
 <div id="summeryDiv">
 
     <br/>
@@ -469,7 +464,6 @@
             </li>
             <li class="list-group-item">Times failed climbing :<span id="paramFailedToClimb">{%for game in games%}{%if game.climbing_quality == "none" and game.climbed=="True"%}<script>failedToClimb+=1;</script>{%endif%}{%endfor%}{{timesFailedClimbing}}<script>$('#paramFailedToClimb').html(failedToClimb);</script></span>
             </li>
-            <li class="list-group-item">Average Climb Time : {{team_average.ClimbTime}}</li>
             <li class="list-group-item">Average fouls : {{team_average.Fouls}}</li>
             <li class="list-group-item">Defence max : {{best_defence}}</li>
             <li class="list-group-item">Average hoppers quality : {{average_hopper}}</li>
@@ -548,10 +542,11 @@
                         <th class="success">Unstable Problem</th>
                         <th class="success">Breaking Problem</th>
                         <th class="success"></th>
+                        <th class="success"></th>
                         <th class="danger"></th>
                     </tr>
                     <tr class="success">
-                        <th class="info" colspan="8" rowspan="2">comment</th>
+                        <th class="info" colspan="13" rowspan="2">comment</th>
                     </tr>
 
                     </thead>
@@ -566,7 +561,7 @@
                         <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
                         <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
                         <td style="background-color:AliceBlue "></td>
-                        <td style="background-color:AliceBlue ">{{team_average.ClimbTime</td>
+                        <td style="background-color:AliceBlue "></td>
                         <td class="danger">{{team_average.Fouls}}</td>
                     </tr>
                     <tr>
@@ -581,25 +576,25 @@
                         <td style="background-color:AliceBlue "></td>
                         <td class="danger">{{all_average.Fouls}}</td>
                     </tr>
+                    <tr>
+                        <td></td>
+                    </tr>
                     {%for game in games%}
-		    <tr>
-			<td></td>
-		    </tr>
-		    <tr>
+                    <tr>
                         <td style="background-color:AliceBlue">{{game.number}}</td>
 
                         <td style="background-color:AliceBlue " value={{game.highgoal}}>{{game.highgoal}}<br/>{{game.highgoal_efficiency}}
                         </td>
                         <td style="background-color:AliceBlue ">{{game.lowgoal}}</td>
-                        <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiancy}}</td>
-                        <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiancy}}</td>
+                        <td style="background-color:AliceBlue ">{{game.gears}}<br/>{{game.gears_efficiency}}</td>
+                        <td style="background-color:AliceBlue ">{{game.hoppers}}<br/>{{game.hoppers_efficiency}}</td>
                         <td style="background-color:AliceBlue ">{%if game.defending_quality != "none" %}
                             yes <br/> {{game.defending_quality}}
                             {%else%} no {%endif%}
                         </td>
-                        <td style="background-color:AliceBlue ">{%if game.=climbed != "True" %}
+                        <td style="background-color:AliceBlue ">{%if game.climbing_quality != "none" %}
                             yes <br/> {{game.climbing_quality}}
-                            {%elif game.climbed == "False" && game.failed_to_climb == "True"%}Failed{%else%}no{%endif%}
+                            {%else%} no{%endif%}
                         </td>
                         <td class="danger">{{game.fouls}}</td>
                     </tr>
@@ -613,12 +608,13 @@
                         <td style="background-color:AliceBlue">{% if game.unstable_problem%} True {%else%} False {%endif%}</td>
                         <td style="background-color:AliceBlue">{% if game.breaking_problem%} True {%else%} False {%endif%}</td>
                         <td style="background-color:AliceBlue"></td>
+                        <td style="background-color:AliceBlue"></td>
                         <td class="danger"></td>
                     </tr>
                     <tr>
-                        <td class="info" colspan="8" rowspan="2" style="text-align:right">{{game.comment}}</td>
-                    </tr>
-		    {%endfor%}   
+                        <td class="info" colspan="13" rowspan="2" style="text-align:right">{{game.comment}}</td>
+                   </tr>    
+		    {%endfor%}
                     </tbody>
                 </table>
                 <div class="form-group">
@@ -655,9 +651,9 @@
                     </tr>
                     </thead>
                     <tbody>
-                    {%for game in games%}
-		    <tr>                    
-   		        <td style="background-color:AliceBlue">{{game.number}}</td>
+                    <tr>
+                        {%for game in games%}
+                        <td style="background-color:AliceBlue">{{game.number}}</td>
                         <td style="background-color:AliceBlue">{{game.autonomous}}</td>
                         <td style="background-color:AliceBlue">{{game.passed_line}}</td>
                         <td style="background-color:AliceBlue">{% if game.center_gears == True %} Put Center {% elif
@@ -666,9 +662,8 @@
                         <td style="background-color:AliceBlue">{% if game.highgoal_auto == True %} Shoot High {% elif
                             game.lowgoal_auto == True %} Shoot Low {%else%} Didn't <Shoot></Shoot> {%endif%}
                         </td>
-		    </tr>                    		
- 		   {%endfor%}
-                    
+                        {%endfor%}
+                    </tr>
                     </tbody>
                 </table>
             </div>

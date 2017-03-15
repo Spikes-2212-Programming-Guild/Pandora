@@ -293,24 +293,12 @@
                 </div>
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
-                        {%for enum in time[1::]%}
-                        <div id="timeClimb-{{enum}}" name="timeClimb" class="btn btn-group-justified btn-primary">
+                        <div id="timeClimb" name="timeClimb" class="btn btn-group-justified btn-primary">
                             <label>
-                                <input type="radio" name="qualityClimbing" value="{{enum}}" id="qualityClimbing"
+                                <input type="number" name="qualityClimbing" id="qualityClimbing"
                                        autocomplete="off">
-                                {{enum}}
-                                {%if enum == "long"%}
-                                30-23
-                                {%endif%}
-                                {%if enum=="medium"%}
-                                23-15
-                                {%endif%}
-                                {%if enum=="short"%}
-                                15-0
-                                {%endif%}
                             </label>
                         </div>
-                        {%endfor%}
                     </div>
                 </div>
             </div>
@@ -358,7 +346,7 @@
             <br/>
         </div>
 
-        <div id="foulsDone" class="panel panel-primary">
+        <div id="foulsDone" style="display:none"  class="panel panel-primary">
             <div class="panel-heading">
                 <h3 class="panel-title" style="text-align: center; font-size: 200%">Fouls Done - <span
                         id="fouls"></span> <input type="hidden" name="foulsDone" id="foulSend">
@@ -449,7 +437,7 @@
         <br/>
         <br/>
 
-        <div class="btn-group btn-group-justified" data-toggle="buttons">
+        <div class="btn-group btn-group-justified" data-toggle="buttons" style="display:none">
                     <label name="pilots" id="doesPilotFalse" class="btn btn-primary btn-group col-lg-6"
                            onclick="$('#pilotQual').hide()">
                         <input type="radio" name="Pilot" id="pilotInputFalse" value="False" autocomplete="off"> Doesnt
