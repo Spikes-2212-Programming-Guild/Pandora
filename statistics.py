@@ -5,7 +5,7 @@ def averages(games):
     """
     high_average = low_average = gears_average = hoppers_average = fouls = count = climb_time = climbCount = 0
     for game in games:
-        if game.Climb == "True":
+        if game.climbed == "True":
             climb_time += game.climbing_quality
             climbCount += 1
         high_average += game.highgoal
@@ -14,9 +14,10 @@ def averages(games):
         hoppers_average += game.hoppers
         fouls += game.fouls
         count += 1
-    if count != 0:
-        statistics = {}
+    statistics = {}
+    if climbCount != 0:
         statistics["ClimbTime"] = climb_time / climbCount
+    if count != 0:
         statistics["HighShooting"] = high_average / count
         statistics["LowShooting"] = low_average / count
         statistics["Gears"] = gears_average / count
