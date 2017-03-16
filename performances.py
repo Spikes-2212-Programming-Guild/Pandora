@@ -12,7 +12,7 @@ class Results(Base):
 
     # id fields
     index = Column(Integer, primary_key=True, autoincrement=True)
-    number = Column(Integer, ForeignKey("games.number"))
+    number = Column("match number", Integer)
     team = Column(Integer, ForeignKey("teams.number"))
 
     # autonomous fields

@@ -195,6 +195,7 @@ def scouting_form():
         values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
         values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
         values["scoreGears"] = int(request.form["gearsScoredSend"]) if request.form["gearsScoredSend"] else 0
+        values["Climb"] = int(request.form["qualityClimbing"]) if request.form["qualityClimbing"] else 0
         # values["scoreHoppers"] = request.form["scoreHoppers"]
         # values["Hoppers"] = request.form["Hoppers"]
         values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
@@ -228,18 +229,15 @@ def scouting_form():
         if request.form["Climb"] == "False":
             values["didClimb"] = False
             values["failedClimb"] = False
-            values["Climb"] = "none"
         elif request.form["Climb"] == "True":
             values["didClimb"] = True
             values["failedClimb"] = False
-            values["Climb"] = request.form["qualityClimbing"]
         elif request.form["Climb"] == "TrueFail":
             values["didClimb"] = False
             values["failedClimb"] = True
-            values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
-            recivers = ['amir141.levy@gmail.com']
+            recivers = ['tomervolk13@gmail.com']
             message = "Got a message"
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
@@ -336,6 +334,7 @@ def scouting_form():
         values = {}
 
         # try:
+        values["Climb"] = int(request.form["qualityClimbing"]) if request.form["qualityClimbing"] else 0
         values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
         values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
         values["scoreGears"] = int(request.form["gearsScoredSend"]) if request.form["gearsScoredSend"] else 0
@@ -376,14 +375,12 @@ def scouting_form():
         elif request.form["Climb"] == "True":
             values["didClimb"] = True
             values["failedClimb"] = False
-            values["Climb"] = request.form["qualityClimbing"]
         elif request.form["Climb"] == "TrueFail":
             values["didClimb"] = False
             values["failedClimb"] = True
-            values["Climb"] = "none"
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
-            recivers = ['amir141.levy@gmail.com']
+            recivers = ['tomervolk13@gmail.com']
 	    message = "Got a message"
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()

@@ -293,11 +293,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="btn-group" data-toggle="buttons">
-                        <div id="timeClimb" name="timeClimb" class="btn btn-group-justified btn-primary">
-                            <label>
-                                <input type="number" name="qualityClimbing" id="qualityClimbing"
-                                       autocomplete="off">
-                            </label>
+                        <div id="timeClimb" name="timeClimb" class="input-group input-group-lg input-group-middle">
+                                <input type="number" class="form-control" name="qualityClimbing" id="qualityClimbing"
+                                       value="0" autocomplete="off">
                         </div>
                     </div>
                 </div>
@@ -440,7 +438,7 @@
         <div class="btn-group btn-group-justified" data-toggle="buttons" style="display:none">
                     <label name="pilots" id="doesPilotFalse" class="btn btn-primary btn-group col-lg-6"
                            onclick="$('#pilotQual').hide()">
-                        <input type="radio" name="Pilot" id="pilotInputFalse" value="False" autocomplete="off"> Doesnt
+                        <input type="radio" name="Pilot" id="pilotInputFalse" value="False" autocomplete="off" checked > Doesnt
                         Have Pilot
                     </label>
                     <label name="pilots" id="doesPilotTrue" class="btn btn-primary btn-group col-lg-6"

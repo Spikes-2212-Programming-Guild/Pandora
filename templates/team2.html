@@ -288,7 +288,7 @@
         legendText: "all averages",
         dataPoints: [
         {%for game in games%}
-        {y:{%if game.climbed == "False" && game.failed_to_climb == "True"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
+        {y:{%if game.climbed == "False" and game.failed_to_climb == "True"%}0.5{%elif game.climbed == "True"%}1{%else%}0{%endif%},label:"Match "+{{ loop.length }}},
         {%endfor%}
         {y:0}
         ]
@@ -566,7 +566,7 @@
                         <td style="background-color:AliceBlue ">{{team_average.Gears}}</td>
                         <td style="background-color:AliceBlue ">{{team_average.Hoppers}}</td>
                         <td style="background-color:AliceBlue "></td>
-                        <td style="background-color:AliceBlue ">{{team_average.ClimbTime</td>
+                        <td style="background-color:AliceBlue ">{{team_average.ClimbTime}}</td>
                         <td class="danger">{{team_average.Fouls}}</td>
                     </tr>
                     <tr>
@@ -597,16 +597,15 @@
                             yes <br/> {{game.defending_quality}}
                             {%else%} no {%endif%}
                         </td>
-                        <td style="background-color:AliceBlue ">{%if game.=climbed != "True" %}
+                        <td style="background-color:AliceBlue ">{%if game.climbed != "True" %}
                             yes <br/> {{game.climbing_quality}}
-                            {%elif game.climbed == "False" && game.failed_to_climb == "True"%}Failed{%else%}no{%endif%}
+                            {%elif game.climbed == "False" and game.failed_to_climb == "True"%}Failed{%else%}no{%endif%}
                         </td>
                         <td class="danger">{{game.fouls}}</td>
                     </tr>
                     <tr>
                         <td style="background-color:AliceBlue">{{game.driver_quality}}</td>
-                        <td style="background-color:AliceBlue">{%if game.pilot == True
-                            %}{{game.pilot_quality}}{%else%}Did'nt have{%endif%}
+                        <td style="background-color:AliceBlue">{%if game.pilot == True%}{{game.pilot_quality}}{%else%}Did'nt have{%endif%}
                         </td>
                         <td style="background-color:AliceBlue">{% if game.not_moving_problem%} True {%else%} False {%endif%}</td>
                         <td style="background-color:AliceBlue">{% if game.shutdown_problem%} True {%else%} False {%endif%}</td>
