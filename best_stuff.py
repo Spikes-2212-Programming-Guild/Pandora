@@ -37,8 +37,8 @@ def average_hopper(games):
             very_good_hoppers += 1
             count += 1
     if count != 0:
-        return (
-                   0 * none_hoppers + 1 * very_bad_hoppers + 2 * bad_hoppers + 3 * fine_hoppers + 4 * good_hoppers + 5 * very_good_hoppers) / count
+        return float((
+                     0 * none_hoppers + 1 * very_bad_hoppers + 2 * bad_hoppers + 3 * fine_hoppers + 4 * good_hoppers + 5 * very_good_hoppers) / count)
     else:
         return 0
 
@@ -71,7 +71,8 @@ def average_driver_quality(games):
             very_good_driver += 1
             count += 1
     if count != 0:
-        return (1 * very_bad_driver + 2 * bad_driver + 3 * fine_driver + 4 * good_driver + 5 * very_good_driver) / count
+        return float(
+            (1 * very_bad_driver + 2 * bad_driver + 3 * fine_driver + 4 * good_driver + 5 * very_good_driver) / count)
     else:
         return 0
 
@@ -84,13 +85,13 @@ def reliablty_problems(games):
     count = 0
     if len(games) > 5:
         for i in range(4):
-            if games[(len(games)-i)-1].breaking_problem:
+            if games[(len(games) - i) - 1].breaking_problem:
                 count += 1
-            if games[(len(games)-i)-1].unstable_problem:
+            if games[(len(games) - i) - 1].unstable_problem:
                 count += 1
-            if games[(len(games)-i)-1].not_moving_problem:
+            if games[(len(games) - i) - 1].not_moving_problem:
                 count += 1
-            if games[(len(games)-i)-1].shutdown_problem:
+            if games[(len(games) - i) - 1].shutdown_problem:
                 count += 1
     else:
         for game in games:

@@ -14,6 +14,7 @@ import enums
 import smtplib
 from statistics import averages, best_game, worst_game
 from best_stuff import best_defence, average_hopper, reliablty_problems, average_driver_quality, average_pilot
+from operator import itemgetter
 
 app = Flask(__name__)
 
@@ -96,6 +97,23 @@ def get_conclusion():
     # db_session.flush()
     team = Team.query.filter_by(number=request.form["team_number"]).first()
     return json.dumps(team.conclusion)
+
+
+@app.route("/tiers")
+def tiers_page():
+    teams = Team.query.all()
+    averages_teams = [len(teams)]
+    driver_averages = [len(teams)]
+    for idx, team in enumerate(teams):
+        averages_teams[idx] = averages(Results.query.filter_by(team=teams[idx].number).all())
+        averages_teams[idx]["headComment"] = teams[idx].conclusion
+    sorted_climb = sorted(averages_teams, key=itemgetter("Climb"), reverse=True)
+    sorted_gears = sorted(averages_teams, key=itemgetter('Gears'), reverse=True)
+    sorted_high = sorted(averages_teams, key=itemgetter('HighShooting'), reverse=True)
+    sorted_low = sorted(averages_teams, key=itemgetter('LowShooting'), reverse=True)
+    sorted_driver = sorted(averages_teams, key=itemgetter('DriverAverage'), reverse=True)
+    return render_template("tiers.html", sorted_climb=sorted_climb, sorted_gears=sorted_gears, sorted_high=sorted_high,
+                           sorted_low=sorted_low, sorted_driver=sorted_driver)
 
 
 @app.route("/team/<teamnumber>", methods=["GET", "POST"])
@@ -381,12 +399,12 @@ def scouting_form():
         if request.form["comment"] != "":
             sender = 'randommailmessage@gmail.com'
             recivers = ['tomervolk13@gmail.com']
-	    message = "Got a message"
+            message = "Got a message"
             smtpObj = smtplib.SMTP(host='smtp.gmail.com', port=587)
             smtpObj.ehlo()
             smtpObj.starttls()
             smtpObj.login("randommailmessage", "2212InYourPants")
-            smtpObj.sendmail(sender, recivers,message)
+            smtpObj.sendmail(sender, recivers, message)
         auto = {}
         if request.form["didAuto"] == "False":
             auto["GearsSide"] = False
@@ -469,6 +487,7 @@ def scouting_form():
         db_session.add(result)
         db_session.flush()
         return redirect('/scoutingForm')
+
 
 @app.before_first_request
 def setup():

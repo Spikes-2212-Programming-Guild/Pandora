@@ -597,9 +597,9 @@
                             yes <br/> {{game.defending_quality}}
                             {%else%} no {%endif%}
                         </td>
-                        <td style="background-color:AliceBlue ">{%if game.climbed == "True" %}
+                        <td style="background-color:AliceBlue ">{%if game.climbed==True %}
                             yes <br/> {{game.climbing_quality}}
-                            {%elif game.climbed == "False" and game.failed_to_climb == "True"%}Failed{%else%}no{%endif%}
+                            {%elif game.climbed==False and game.failed_to_climb==True%}Failed{%else%}no{%endif%}
                         </td>
                         <td class="danger">{{game.fouls}}</td>
                     </tr>

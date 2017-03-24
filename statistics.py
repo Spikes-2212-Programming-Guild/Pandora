@@ -1,11 +1,15 @@
+from best_stuff import average_driver_quality
+
+
 def averages(games):
     """
     :param games: a list of games
     :return: averages dictonery
     """
-    high_average = low_average = gears_average = hoppers_average = fouls = count = climb_time = climbCount = 0
+    high_average = low_average = gears_average = hoppers_average = fouls = count = climb_time = climbCount = climb_times = 0.0
     for game in games:
-        if game.climbed == "True":
+        if game.climbed:
+            climb_times += 1
             climb_time += game.climbing_quality
             climbCount += 1
         high_average += game.highgoal
@@ -13,19 +17,23 @@ def averages(games):
         gears_average += game.gears
         hoppers_average += game.hoppers
         fouls += game.fouls
-        count += 1
+        count += 1.0
     statistics = {}
-    if climbCount != 0:
-        statistics["ClimbTime"] = climb_time / climbCount
-    if count != 0:
-        statistics["HighShooting"] = high_average / count
-        statistics["LowShooting"] = low_average / count
-        statistics["Gears"] = gears_average / count
-        statistics["Hoppers"] = hoppers_average / count
-        statistics["Fouls"] = fouls / count
+    if climbCount >= 1.0:
+        statistics["ClimbTime"] = float(climb_time / climbCount)
+    if count >= 1.0:
+        statistics["Climb"] = format(float(climb_times / count), '.3f')
+        statistics["HighShooting"] = format(float(high_average / count), '.3f')
+        statistics["LowShooting"] = format(float(low_average / count), '.3f')
+        statistics["Gears"] = format(float(gears_average / count), '.3f')
+        statistics["Hoppers"] = format(float(hoppers_average / count), '.3f')
+        statistics["Fouls"] = format(float(fouls / count), '.3f')
+        statistics["TeamNumber"] = games[0].team
+        statistics["DriverAverage"] = average_driver_quality(games)
         return statistics
     # an "empty" object that will not cause nulls
-    return {"HighShooting": 0, "LowShooting": 0, "Gears": 0, "Hoppers": 0, "Fouls": 0, "ClimbTime": 0}
+    return {"Climb": 0.0, "HighShooting": 0.0, "LowShooting": 0.0, "Gears": 0.0, "Hoppers": 0.0, "Fouls": 0.0,
+            "ClimbTime": 0.0, "TeamNumber": 0.0, "DriverAverage": 0.0}
 
 
 def best_game(games):

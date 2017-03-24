@@ -5,3 +5,7 @@ body{
     background-size: cover;
     -o-background-size: cover;
 }
+.hidden-at-start{
+    display:none;
+    padding:25px;
+}
