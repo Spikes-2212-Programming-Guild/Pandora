@@ -48,31 +48,30 @@ def average_driver_quality(games):
     :param games: a list of games
     :return:
     """
-    very_bad_driver = 0
-    bad_driver = 0
-    fine_driver = 0
-    good_driver = 0
-    very_good_driver = 0
-    count = 0
+    very_bad_driver = 0.0
+    bad_driver = 0.0
+    fine_driver = 0.0
+    good_driver = 0.0
+    very_good_driver = 0.0
+    count = 0.0
     for match in games:
         if match.driver_quality == "very bad":
-            very_bad_driver += 1
-            count += 1
+            very_bad_driver += 1.0
+            count += 1.0
         elif match.driver_quality == "bad":
-            bad_driver += 1
-            count += 1
+            bad_driver += 1.0
+            count += 1.0
         elif match.driver_quality == "fine":
-            fine_driver += 1
-            count += 1
+            fine_driver += 1.0
+            count += 1.0
         elif match.driver_quality == "good":
-            good_driver += 1
-            count += 1
+            good_driver += 1.0
+            count += 1.0
         else:
-            very_good_driver += 1
-            count += 1
-    if count != 0:
-        return float(
-            (1 * very_bad_driver + 2 * bad_driver + 3 * fine_driver + 4 * good_driver + 5 * very_good_driver) / count)
+            very_good_driver += 1.0
+            count += 1.0
+    if count >= 1.0:
+        return float((1.0 * very_bad_driver + 2.0 * bad_driver + 3.0 * fine_driver + 4.0 * good_driver + 5.0 * very_good_driver) / count)
     else:
         return 0
 

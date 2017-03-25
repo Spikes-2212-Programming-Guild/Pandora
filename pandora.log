@@ -1,0 +1,22 @@
+[2017-03-25 13:49:08 +0000] [2847] [INFO] Starting gunicorn 19.7.0
+[2017-03-25 13:49:08 +0000] [2847] [INFO] Listening at: http://0.0.0.0:5000 (2847)
+[2017-03-25 13:49:08 +0000] [2847] [INFO] Using worker: sync
+[2017-03-25 13:49:08 +0000] [2852] [INFO] Booting worker with pid: 2852
+[2017-03-25 13:51:45 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2852)
+[2017-03-25 13:51:45 +0000] [2852] [INFO] Worker exiting (pid: 2852)
+[2017-03-25 13:51:45 +0000] [2863] [INFO] Booting worker with pid: 2863
+[2017-03-25 13:52:16 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2863)
+[2017-03-25 13:52:16 +0000] [2863] [INFO] Worker exiting (pid: 2863)
+[2017-03-25 13:52:16 +0000] [2868] [INFO] Booting worker with pid: 2868
+[2017-03-25 13:52:48 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2868)
+[2017-03-25 13:52:48 +0000] [2868] [INFO] Worker exiting (pid: 2868)
+[2017-03-25 13:52:48 +0000] [2873] [INFO] Booting worker with pid: 2873
+[2017-03-25 13:54:26 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2873)
+[2017-03-25 13:54:26 +0000] [2873] [INFO] Worker exiting (pid: 2873)
+[2017-03-25 13:54:26 +0000] [2880] [INFO] Booting worker with pid: 2880
+[2017-03-25 14:51:24 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2880)
+[2017-03-25 14:51:24 +0000] [2880] [INFO] Worker exiting (pid: 2880)
+[2017-03-25 14:51:24 +0000] [3008] [INFO] Booting worker with pid: 3008
+[2017-03-25 14:52:21 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:3008)
+[2017-03-25 14:52:21 +0000] [3008] [INFO] Worker exiting (pid: 3008)
+[2017-03-25 14:52:21 +0000] [3013] [INFO] Booting worker with pid: 3013

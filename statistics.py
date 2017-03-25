@@ -29,7 +29,7 @@ def averages(games):
         statistics["Hoppers"] = format(float(hoppers_average / count), '.3f')
         statistics["Fouls"] = format(float(fouls / count), '.3f')
         statistics["TeamNumber"] = games[0].team
-        statistics["DriverAverage"] = average_driver_quality(games)
+        statistics["DriverAverage"] = format(float(average_driver_quality(games)), '.3f')
         return statistics
     # an "empty" object that will not cause nulls
     return {"Climb": 0.0, "HighShooting": 0.0, "LowShooting": 0.0, "Gears": 0.0, "Hoppers": 0.0, "Fouls": 0.0,

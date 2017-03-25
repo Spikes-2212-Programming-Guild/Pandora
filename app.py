@@ -102,10 +102,9 @@ def get_conclusion():
 @app.route("/tiers")
 def tiers_page():
     teams = Team.query.all()
-    averages_teams = [len(teams)]
-    driver_averages = [len(teams)]
+    averages_teams = []
     for idx, team in enumerate(teams):
-        averages_teams[idx] = averages(Results.query.filter_by(team=teams[idx].number).all())
+        averages_teams.append(averages(Results.query.filter_by(team=teams[idx].number).all()))
         averages_teams[idx]["headComment"] = teams[idx].conclusion
     sorted_climb = sorted(averages_teams, key=itemgetter("Climb"), reverse=True)
     sorted_gears = sorted(averages_teams, key=itemgetter('Gears'), reverse=True)
