@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pandora</title>
+
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/general.css" rel="stylesheet">
+
+    <script src="/static/js/jquery.min.js"></script>
+    <script src="/static/js/bootstrap.min.js"></script>
+    <script src="/static/js/html5shiv.min.js"></script>
+    <script src="/static/js/respond.min.js"></script>
+
+</head>
+<body>
+{% include 'util/menu.html' %}
+<form class="form-horizontal" id="formRemoveGame" role="form" method="post" action="/deleteMatch">
+    <input class="form-control" type="number" placeholder="team number" id="teamNumber" name="teamNumber">
+    <br/>
+    <input class="form-control" type="number" placeholder="match number" id="matchNumber" name="matchNumber">
+    <br/>
+    <label class="btn btn-primary btn-group col-lg-12 col-md-12 col-sm-12 col-xs-12" id="submit" autocomplete="off">Submit</label>
+</form>
+<script>
+    (function(){
+        $(function(){
+        shouldSubmit();
+        })
+
+        function shouldSubmit(){
+            $('#submit').click(function(){
+            var count=0;
+            if($('#matchNumber').val()==""){
+                count++;
+                $('#matchNumber').addClass("btn-danger");
+                $("#matchNumber").on("input", () =>{
+                    $('#matchNumber').removeClass("btn-danger");
+                });
+            }
+            if($('#teamNumber').val()==""){
+                count++;
+                $('#teamNumber').addClass("btn-danger");
+                $("#teamNumber").on("input", () =>{
+                    $('#teamNumber').removeClass("btn-danger");
+                });
+            }
+            if(count==0){
+                $('#formRemoveGame').submit();
+            }
+            });
+
+        }
+
+
+
+
+
+    })()
+</script>
+</body>
+</html>

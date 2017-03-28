@@ -399,6 +399,10 @@
             $('#teamNumber').removeClass("btn-danger");
             });
 
+            $("#qualityClimbing").on("input", () =>{
+            $('#qualityClimbing').removeClass("btn-danger");
+            });
+
             $('#doesHighFalse').click(function(){
             $('#doesHighFalse').removeClass("btn-danger");
             $('#doesHighTrue').removeClass("btn-danger");
@@ -715,7 +719,7 @@
             }
 
             function lightUmUp(){
-            var textInputs = ["matchNumber","teamNumber"];
+            var textInputs = ["matchNumber","teamNumber","qualityClimbing"];
             var quality =["very bad", "bad", "fine", "good", "very good"];
             var checkList = ["Low","Climb","High","Gear","Defence","Driver"];
             var boolean = ["True", "False"];
@@ -752,7 +756,15 @@
                 }
             }
             for(var i=0;i<textInputs.length;i++){
-                if($('#'+textInputs[i]+'').val() == ''){
+                if(textInputs[i]=="qualityClimbing"){
+                    if($('input[name=Climb]:checked').val() == "True"){
+                        if($('#'+textInputs[i]+'').val() == ''){
+                            count+=1;
+                            $('#'+textInputs[i]+'').addClass("btn-danger");
+                        }
+                    }
+                }
+                else if($('#'+textInputs[i]+'').val() == ''){
                     count+=1;
                     $('#'+textInputs[i]+'').addClass("btn-danger");
                 }
@@ -855,6 +867,7 @@
                 }
 
             }
+            $('#showStuffModal').modal('hide');
             $('#scoutingForm').submit()
             });
             $('#overrideButton').click(function(){

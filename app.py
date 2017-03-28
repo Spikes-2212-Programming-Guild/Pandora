@@ -188,6 +188,16 @@ def check_if_happened():
                                            number=request.form["match_number"]).first()
     return json.dumps(match_exists is not None)
 
+@app.route("/deleteMatch", methods=["GET","POST"])
+def delete_match():
+    if request.method == 'POST':
+        delete = db_session.query(Results).filter_by(team=request.form["teamNumber"],
+                                                     number=request.form["matchNumber"]).first()
+        db_session.delete(delete)
+        db_session.flush()
+        return redirect("/deleteMatch")
+    return render_template("/deleteMatch.html")
+
 
 @app.route("/checkIfTeamExists", methods=["POST"])
 def check_if_team_exists():
@@ -351,10 +361,10 @@ def scouting_form():
         values = {}
 
         # try:
-        values["Climb"] = int(request.form["qualityClimbing"]) if request.form["qualityClimbing"] else 0
         values["scoreHigh"] = int(request.form["highFuelScoredSend"]) if request.form["highFuelScoredSend"] else 0
         values["scoreLow"] = int(request.form["lowFuelScoredSend"]) if request.form["lowFuelScoredSend"] else 0
         values["scoreGears"] = int(request.form["gearsScoredSend"]) if request.form["gearsScoredSend"] else 0
+        values["Climb"] = int(request.form["qualityClimbing"]) if request.form["qualityClimbing"] else 0
         # values["scoreHoppers"] = request.form["scoreHoppers"]
         # values["Hoppers"] = request.form["Hoppers"]
         values["fouls"] = int(request.form["foulsDone"]) if request.form["foulsDone"] else 0
@@ -388,7 +398,6 @@ def scouting_form():
         if request.form["Climb"] == "False":
             values["didClimb"] = False
             values["failedClimb"] = False
-            values["Climb"] = "none"
         elif request.form["Climb"] == "True":
             values["didClimb"] = True
             values["failedClimb"] = False

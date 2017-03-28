@@ -1,22 +1,429 @@
-[2017-03-25 13:49:08 +0000] [2847] [INFO] Starting gunicorn 19.7.0
-[2017-03-25 13:49:08 +0000] [2847] [INFO] Listening at: http://0.0.0.0:5000 (2847)
-[2017-03-25 13:49:08 +0000] [2847] [INFO] Using worker: sync
-[2017-03-25 13:49:08 +0000] [2852] [INFO] Booting worker with pid: 2852
-[2017-03-25 13:51:45 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2852)
-[2017-03-25 13:51:45 +0000] [2852] [INFO] Worker exiting (pid: 2852)
-[2017-03-25 13:51:45 +0000] [2863] [INFO] Booting worker with pid: 2863
-[2017-03-25 13:52:16 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2863)
-[2017-03-25 13:52:16 +0000] [2863] [INFO] Worker exiting (pid: 2863)
-[2017-03-25 13:52:16 +0000] [2868] [INFO] Booting worker with pid: 2868
-[2017-03-25 13:52:48 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2868)
-[2017-03-25 13:52:48 +0000] [2868] [INFO] Worker exiting (pid: 2868)
-[2017-03-25 13:52:48 +0000] [2873] [INFO] Booting worker with pid: 2873
-[2017-03-25 13:54:26 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2873)
-[2017-03-25 13:54:26 +0000] [2873] [INFO] Worker exiting (pid: 2873)
-[2017-03-25 13:54:26 +0000] [2880] [INFO] Booting worker with pid: 2880
-[2017-03-25 14:51:24 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:2880)
-[2017-03-25 14:51:24 +0000] [2880] [INFO] Worker exiting (pid: 2880)
-[2017-03-25 14:51:24 +0000] [3008] [INFO] Booting worker with pid: 3008
-[2017-03-25 14:52:21 +0000] [2847] [CRITICAL] WORKER TIMEOUT (pid:3008)
-[2017-03-25 14:52:21 +0000] [3008] [INFO] Worker exiting (pid: 3008)
-[2017-03-25 14:52:21 +0000] [3013] [INFO] Booting worker with pid: 3013
+[2017-03-28 05:54:31 +0000] [4507] [INFO] Starting gunicorn 19.7.1
+[2017-03-28 05:54:31 +0000] [4507] [INFO] Listening at: http://0.0.0.0:5000 (4507)
+[2017-03-28 05:54:31 +0000] [4507] [INFO] Using worker: sync
+[2017-03-28 05:54:31 +0000] [4512] [INFO] Booting worker with pid: 4512
+[2017-03-28 06:10:41,878] ERROR in app: Exception on /newTeam [POST]
+Traceback (most recent call last):
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1982, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1614, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1517, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1612, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/usr/local/lib/python2.7/site-packages/flask/app.py", line 1598, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/home/ec2-user/Pandora-Reqiured-form-roeei/app.py", line 177, in add_team
+    db_session.flush()
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/scoping.py", line 157, in do
+    return getattr(self.registry(), name)(*args, **kwargs)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2139, in flush
+    self._flush(objects)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2259, in _flush
+    transaction.rollback(_capture_exception=True)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/util/langhelpers.py", line 60, in __exit__
+    compat.reraise(exc_type, exc_value, exc_tb)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/session.py", line 2223, in _flush
+    flush_context.execute()
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 389, in execute
+    rec.execute(self)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/unitofwork.py", line 548, in execute
+    uow
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 181, in save_obj
+    mapper, table, insert)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/orm/persistence.py", line 799, in _emit_insert_statements
+    execute(statement, multiparams)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 945, in execute
+    return meth(self, multiparams, params)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/sql/elements.py", line 263, in _execute_on_connection
+    return connection._execute_clauseelement(self, multiparams, params)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1053, in _execute_clauseelement
+    compiled_sql, distilled_params
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1189, in _execute_context
+    context)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1393, in _handle_dbapi_exception
+    exc_info
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/util/compat.py", line 203, in raise_from_cause
+    reraise(type(exception), exception, tb=exc_tb, cause=cause)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/engine/base.py", line 1182, in _execute_context
+    context)
+  File "/usr/local/lib/python2.7/site-packages/sqlalchemy/engine/default.py", line 470, in do_execute
+    cursor.execute(statement, parameters)
+  File "/usr/local/lib64/python2.7/site-packages/MySQLdb/cursors.py", line 205, in execute
+    self.errorhandler(self, exc, value)
+  File "/usr/local/lib64/python2.7/site-packages/MySQLdb/connections.py", line 36, in defaulterrorhandler
+    raise errorclass, errorvalue
+IntegrityError: (_mysql_exceptions.IntegrityError) (1062, "Duplicate entry '5654' for key 'PRIMARY'") [SQL: u'INSERT INTO teams (number, name, conclusion) VALUES (%s, %s, %s)'] [parameters: (u'5654', 'Phoenix', ' ')]
+[2017-03-28 09:58:00 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:4512)
+[2017-03-28 09:58:00 +0000] [4512] [INFO] Worker exiting (pid: 4512)
+[2017-03-28 09:58:00 +0000] [4997] [INFO] Booting worker with pid: 4997
+[2017-03-28 10:01:14 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:4997)
+[2017-03-28 10:01:14 +0000] [4997] [INFO] Worker exiting (pid: 4997)
+[2017-03-28 10:01:14 +0000] [5012] [INFO] Booting worker with pid: 5012
+[2017-03-28 10:17:21 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5012)
+[2017-03-28 10:17:21 +0000] [5012] [INFO] Worker exiting (pid: 5012)
+[2017-03-28 10:17:21 +0000] [5020] [INFO] Booting worker with pid: 5020
+[2017-03-28 10:18:18 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5020)
+[2017-03-28 10:18:18 +0000] [5020] [INFO] Worker exiting (pid: 5020)
+[2017-03-28 10:18:18 +0000] [5024] [INFO] Booting worker with pid: 5024
+[2017-03-28 10:19:08 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5024)
+[2017-03-28 10:19:08 +0000] [5024] [INFO] Worker exiting (pid: 5024)
+[2017-03-28 10:19:08 +0000] [5028] [INFO] Booting worker with pid: 5028
+[2017-03-28 10:31:55 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5028)
+[2017-03-28 10:31:55 +0000] [5028] [INFO] Worker exiting (pid: 5028)
+[2017-03-28 10:31:55 +0000] [5071] [INFO] Booting worker with pid: 5071
+[2017-03-28 10:40:37 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5071)
+[2017-03-28 10:40:37 +0000] [5071] [INFO] Worker exiting (pid: 5071)
+[2017-03-28 10:40:37 +0000] [5077] [INFO] Booting worker with pid: 5077
+[2017-03-28 10:41:22 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5077)
+[2017-03-28 10:41:22 +0000] [5077] [INFO] Worker exiting (pid: 5077)
+[2017-03-28 10:41:22 +0000] [5081] [INFO] Booting worker with pid: 5081
+[2017-03-28 10:41:54 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5081)
+[2017-03-28 10:41:54 +0000] [5081] [INFO] Worker exiting (pid: 5081)
+[2017-03-28 10:41:54 +0000] [5085] [INFO] Booting worker with pid: 5085
+[2017-03-28 10:56:25 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5085)
+[2017-03-28 10:56:25 +0000] [5085] [INFO] Worker exiting (pid: 5085)
+[2017-03-28 10:56:25 +0000] [5124] [INFO] Booting worker with pid: 5124
+[2017-03-28 10:56:59 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5124)
+[2017-03-28 10:56:59 +0000] [5124] [INFO] Worker exiting (pid: 5124)
+[2017-03-28 10:56:59 +0000] [5128] [INFO] Booting worker with pid: 5128
+[2017-03-28 10:58:33 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5128)
+[2017-03-28 10:58:33 +0000] [5128] [INFO] Worker exiting (pid: 5128)
+[2017-03-28 10:58:33 +0000] [5132] [INFO] Booting worker with pid: 5132
+[2017-03-28 11:00:07 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5132)
+[2017-03-28 11:00:07 +0000] [5132] [INFO] Worker exiting (pid: 5132)
+[2017-03-28 11:00:07 +0000] [5138] [INFO] Booting worker with pid: 5138
+[2017-03-28 11:01:04 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5138)
+[2017-03-28 11:01:04 +0000] [5138] [INFO] Worker exiting (pid: 5138)
+[2017-03-28 11:01:04 +0000] [5153] [INFO] Booting worker with pid: 5153
+[2017-03-28 11:03:41 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5153)
+[2017-03-28 11:03:41 +0000] [5153] [INFO] Worker exiting (pid: 5153)
+[2017-03-28 11:03:41 +0000] [5157] [INFO] Booting worker with pid: 5157
+[2017-03-28 11:04:34 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5157)
+[2017-03-28 11:04:34 +0000] [5157] [INFO] Worker exiting (pid: 5157)
+[2017-03-28 11:04:34 +0000] [5169] [INFO] Booting worker with pid: 5169
+[2017-03-28 11:06:40 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5169)
+[2017-03-28 11:06:40 +0000] [5169] [INFO] Worker exiting (pid: 5169)
+[2017-03-28 11:06:40 +0000] [5175] [INFO] Booting worker with pid: 5175
+[2017-03-28 11:08:50 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5175)
+[2017-03-28 11:08:50 +0000] [5175] [INFO] Worker exiting (pid: 5175)
+[2017-03-28 11:08:50 +0000] [5181] [INFO] Booting worker with pid: 5181
+[2017-03-28 11:10:39 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5181)
+[2017-03-28 11:10:39 +0000] [5181] [INFO] Worker exiting (pid: 5181)
+[2017-03-28 11:10:40 +0000] [5185] [INFO] Booting worker with pid: 5185
+[2017-03-28 11:11:50 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5185)
+[2017-03-28 11:11:50 +0000] [5185] [INFO] Worker exiting (pid: 5185)
+[2017-03-28 11:11:50 +0000] [5191] [INFO] Booting worker with pid: 5191
+[2017-03-28 11:12:24 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5191)
+[2017-03-28 11:12:24 +0000] [5191] [INFO] Worker exiting (pid: 5191)
+[2017-03-28 11:12:24 +0000] [5230] [INFO] Booting worker with pid: 5230
+[2017-03-28 11:13:12 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5230)
+[2017-03-28 11:13:12 +0000] [5230] [INFO] Worker exiting (pid: 5230)
+[2017-03-28 11:13:12 +0000] [5234] [INFO] Booting worker with pid: 5234
+[2017-03-28 11:14:59 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5234)
+[2017-03-28 11:14:59 +0000] [5234] [INFO] Worker exiting (pid: 5234)
+[2017-03-28 11:14:59 +0000] [5238] [INFO] Booting worker with pid: 5238
+[2017-03-28 11:18:00 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5238)
+[2017-03-28 11:18:00 +0000] [5238] [INFO] Worker exiting (pid: 5238)
+[2017-03-28 11:18:00 +0000] [5244] [INFO] Booting worker with pid: 5244
+[2017-03-28 11:21:01 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5244)
+[2017-03-28 11:21:01 +0000] [5244] [INFO] Worker exiting (pid: 5244)
+[2017-03-28 11:21:01 +0000] [5248] [INFO] Booting worker with pid: 5248
+[2017-03-28 11:21:32 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5248)
+[2017-03-28 11:21:32 +0000] [5248] [INFO] Worker exiting (pid: 5248)
+[2017-03-28 11:21:32 +0000] [5252] [INFO] Booting worker with pid: 5252
+[2017-03-28 11:22:28 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5252)
+[2017-03-28 11:22:28 +0000] [5252] [INFO] Worker exiting (pid: 5252)
+[2017-03-28 11:22:28 +0000] [5256] [INFO] Booting worker with pid: 5256
+[2017-03-28 11:22:59 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5256)
+[2017-03-28 11:22:59 +0000] [5256] [INFO] Worker exiting (pid: 5256)
+[2017-03-28 11:22:59 +0000] [5260] [INFO] Booting worker with pid: 5260
+[2017-03-28 11:24:29 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5260)
+[2017-03-28 11:24:29 +0000] [5260] [INFO] Worker exiting (pid: 5260)
+[2017-03-28 11:24:29 +0000] [5264] [INFO] Booting worker with pid: 5264
+[2017-03-28 11:29:27 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5264)
+[2017-03-28 11:29:27 +0000] [5264] [INFO] Worker exiting (pid: 5264)
+[2017-03-28 11:29:27 +0000] [5268] [INFO] Booting worker with pid: 5268
+[2017-03-28 11:29:58 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5268)
+[2017-03-28 11:29:58 +0000] [5268] [INFO] Worker exiting (pid: 5268)
+[2017-03-28 11:29:58 +0000] [5272] [INFO] Booting worker with pid: 5272
+[2017-03-28 11:33:04 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5272)
+[2017-03-28 11:33:04 +0000] [5272] [INFO] Worker exiting (pid: 5272)
+[2017-03-28 11:33:04 +0000] [5276] [INFO] Booting worker with pid: 5276
+[2017-03-28 11:33:35 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5276)
+[2017-03-28 11:33:35 +0000] [5276] [INFO] Worker exiting (pid: 5276)
+[2017-03-28 11:33:35 +0000] [5280] [INFO] Booting worker with pid: 5280
+[2017-03-28 11:35:07 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5280)
+[2017-03-28 11:35:07 +0000] [5280] [INFO] Worker exiting (pid: 5280)
+[2017-03-28 11:35:07 +0000] [5284] [INFO] Booting worker with pid: 5284
+[2017-03-28 11:38:20 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5284)
+[2017-03-28 11:38:20 +0000] [5284] [INFO] Worker exiting (pid: 5284)
+[2017-03-28 11:38:20 +0000] [5323] [INFO] Booting worker with pid: 5323
+[2017-03-28 11:39:12 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5323)
+[2017-03-28 11:39:12 +0000] [5323] [INFO] Worker exiting (pid: 5323)
+[2017-03-28 11:39:12 +0000] [5327] [INFO] Booting worker with pid: 5327
+[2017-03-28 11:41:15 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5327)
+[2017-03-28 11:41:15 +0000] [5327] [INFO] Worker exiting (pid: 5327)
+[2017-03-28 11:41:15 +0000] [5331] [INFO] Booting worker with pid: 5331
+[2017-03-28 11:41:46 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5331)
+[2017-03-28 11:41:46 +0000] [5331] [INFO] Worker exiting (pid: 5331)
+[2017-03-28 11:41:46 +0000] [5335] [INFO] Booting worker with pid: 5335
+[2017-03-28 11:42:17 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5335)
+[2017-03-28 11:42:17 +0000] [5335] [INFO] Worker exiting (pid: 5335)
+[2017-03-28 11:42:17 +0000] [5339] [INFO] Booting worker with pid: 5339
+[2017-03-28 11:42:48 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5339)
+[2017-03-28 11:42:48 +0000] [5339] [INFO] Worker exiting (pid: 5339)
+[2017-03-28 11:42:48 +0000] [5343] [INFO] Booting worker with pid: 5343
+[2017-03-28 11:43:19 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5343)
+[2017-03-28 11:43:19 +0000] [5343] [INFO] Worker exiting (pid: 5343)
+[2017-03-28 11:43:19 +0000] [5347] [INFO] Booting worker with pid: 5347
+[2017-03-28 11:43:51 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5347)
+[2017-03-28 11:43:51 +0000] [5347] [INFO] Worker exiting (pid: 5347)
+[2017-03-28 11:43:51 +0000] [5351] [INFO] Booting worker with pid: 5351
+[2017-03-28 11:44:22 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5351)
+[2017-03-28 11:44:22 +0000] [5351] [INFO] Worker exiting (pid: 5351)
+[2017-03-28 11:44:22 +0000] [5355] [INFO] Booting worker with pid: 5355
+[2017-03-28 11:45:46 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5355)
+[2017-03-28 11:45:46 +0000] [5355] [INFO] Worker exiting (pid: 5355)
+[2017-03-28 11:45:46 +0000] [5359] [INFO] Booting worker with pid: 5359
+[2017-03-28 11:46:17 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5359)
+[2017-03-28 11:46:17 +0000] [5359] [INFO] Worker exiting (pid: 5359)
+[2017-03-28 11:46:17 +0000] [5363] [INFO] Booting worker with pid: 5363
+[2017-03-28 11:47:32 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5363)
+[2017-03-28 11:47:32 +0000] [5363] [INFO] Worker exiting (pid: 5363)
+[2017-03-28 11:47:32 +0000] [5367] [INFO] Booting worker with pid: 5367
+[2017-03-28 11:48:58 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5367)
+[2017-03-28 11:48:58 +0000] [5367] [INFO] Worker exiting (pid: 5367)
+[2017-03-28 11:48:58 +0000] [5374] [INFO] Booting worker with pid: 5374
+[2017-03-28 11:50:57 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5374)
+[2017-03-28 11:50:57 +0000] [5374] [INFO] Worker exiting (pid: 5374)
+[2017-03-28 11:50:57 +0000] [5380] [INFO] Booting worker with pid: 5380
+[2017-03-28 11:51:28 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5380)
+[2017-03-28 11:51:28 +0000] [5380] [INFO] Worker exiting (pid: 5380)
+[2017-03-28 11:51:28 +0000] [5384] [INFO] Booting worker with pid: 5384
+[2017-03-28 11:53:44 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5384)
+[2017-03-28 11:53:44 +0000] [5384] [INFO] Worker exiting (pid: 5384)
+[2017-03-28 11:53:44 +0000] [5388] [INFO] Booting worker with pid: 5388
+[2017-03-28 11:56:38 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5388)
+[2017-03-28 11:56:38 +0000] [5388] [INFO] Worker exiting (pid: 5388)
+[2017-03-28 11:56:38 +0000] [5392] [INFO] Booting worker with pid: 5392
+[2017-03-28 11:57:33 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5392)
+[2017-03-28 11:57:33 +0000] [5392] [INFO] Worker exiting (pid: 5392)
+[2017-03-28 11:57:33 +0000] [5396] [INFO] Booting worker with pid: 5396
+[2017-03-28 11:58:05 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5396)
+[2017-03-28 11:58:05 +0000] [5396] [INFO] Worker exiting (pid: 5396)
+[2017-03-28 11:58:06 +0000] [5400] [INFO] Booting worker with pid: 5400
+[2017-03-28 11:59:05 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5400)
+[2017-03-28 11:59:05 +0000] [5400] [INFO] Worker exiting (pid: 5400)
+[2017-03-28 11:59:05 +0000] [5404] [INFO] Booting worker with pid: 5404
+[2017-03-28 12:01:00 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5404)
+[2017-03-28 12:01:00 +0000] [5404] [INFO] Worker exiting (pid: 5404)
+[2017-03-28 12:01:00 +0000] [5408] [INFO] Booting worker with pid: 5408
+[2017-03-28 12:01:33 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5408)
+[2017-03-28 12:01:33 +0000] [5408] [INFO] Worker exiting (pid: 5408)
+[2017-03-28 12:01:33 +0000] [5458] [INFO] Booting worker with pid: 5458
+[2017-03-28 12:02:04 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5458)
+[2017-03-28 12:02:04 +0000] [5458] [INFO] Worker exiting (pid: 5458)
+[2017-03-28 12:02:04 +0000] [5462] [INFO] Booting worker with pid: 5462
+[2017-03-28 12:02:35 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5462)
+[2017-03-28 12:02:35 +0000] [5462] [INFO] Worker exiting (pid: 5462)
+[2017-03-28 12:02:35 +0000] [5466] [INFO] Booting worker with pid: 5466
+[2017-03-28 12:03:06 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5466)
+[2017-03-28 12:03:06 +0000] [5466] [INFO] Worker exiting (pid: 5466)
+[2017-03-28 12:03:06 +0000] [5470] [INFO] Booting worker with pid: 5470
+[2017-03-28 12:03:41 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5470)
+[2017-03-28 12:03:41 +0000] [5470] [INFO] Worker exiting (pid: 5470)
+[2017-03-28 12:03:41 +0000] [5474] [INFO] Booting worker with pid: 5474
+[2017-03-28 12:04:13 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5474)
+[2017-03-28 12:04:13 +0000] [5474] [INFO] Worker exiting (pid: 5474)
+[2017-03-28 12:04:13 +0000] [5480] [INFO] Booting worker with pid: 5480
+[2017-03-28 12:04:44 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5480)
+[2017-03-28 12:04:44 +0000] [5480] [INFO] Worker exiting (pid: 5480)
+[2017-03-28 12:04:44 +0000] [5484] [INFO] Booting worker with pid: 5484
+[2017-03-28 12:05:15 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5484)
+[2017-03-28 12:05:15 +0000] [5484] [INFO] Worker exiting (pid: 5484)
+[2017-03-28 12:05:15 +0000] [5488] [INFO] Booting worker with pid: 5488
+[2017-03-28 12:05:46 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5488)
+[2017-03-28 12:05:46 +0000] [5488] [INFO] Worker exiting (pid: 5488)
+[2017-03-28 12:05:46 +0000] [5492] [INFO] Booting worker with pid: 5492
+[2017-03-28 12:06:17 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5492)
+[2017-03-28 12:06:17 +0000] [5492] [INFO] Worker exiting (pid: 5492)
+[2017-03-28 12:06:17 +0000] [5496] [INFO] Booting worker with pid: 5496
+[2017-03-28 12:06:48 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5496)
+[2017-03-28 12:06:48 +0000] [5496] [INFO] Worker exiting (pid: 5496)
+[2017-03-28 12:06:48 +0000] [5500] [INFO] Booting worker with pid: 5500
+[2017-03-28 12:07:19 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5500)
+[2017-03-28 12:07:19 +0000] [5500] [INFO] Worker exiting (pid: 5500)
+[2017-03-28 12:07:19 +0000] [5504] [INFO] Booting worker with pid: 5504
+[2017-03-28 12:07:57 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5504)
+[2017-03-28 12:07:57 +0000] [5504] [INFO] Worker exiting (pid: 5504)
+[2017-03-28 12:07:57 +0000] [5508] [INFO] Booting worker with pid: 5508
+[2017-03-28 12:08:29 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5508)
+[2017-03-28 12:08:29 +0000] [5508] [INFO] Worker exiting (pid: 5508)
+[2017-03-28 12:08:29 +0000] [5512] [INFO] Booting worker with pid: 5512
+[2017-03-28 12:09:06 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5512)
+[2017-03-28 12:09:06 +0000] [5512] [INFO] Worker exiting (pid: 5512)
+[2017-03-28 12:09:06 +0000] [5516] [INFO] Booting worker with pid: 5516
+[2017-03-28 12:10:20 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5516)
+[2017-03-28 12:10:20 +0000] [5516] [INFO] Worker exiting (pid: 5516)
+[2017-03-28 12:10:20 +0000] [5520] [INFO] Booting worker with pid: 5520
+[2017-03-28 12:13:20 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5520)
+[2017-03-28 12:13:20 +0000] [5520] [INFO] Worker exiting (pid: 5520)
+[2017-03-28 12:13:20 +0000] [5526] [INFO] Booting worker with pid: 5526
+[2017-03-28 12:13:51 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5526)
+[2017-03-28 12:13:51 +0000] [5526] [INFO] Worker exiting (pid: 5526)
+[2017-03-28 12:13:51 +0000] [5530] [INFO] Booting worker with pid: 5530
+[2017-03-28 12:18:45 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5530)
+[2017-03-28 12:18:45 +0000] [5530] [INFO] Worker exiting (pid: 5530)
+[2017-03-28 12:18:45 +0000] [5535] [INFO] Booting worker with pid: 5535
+[2017-03-28 12:20:46 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5535)
+[2017-03-28 12:20:46 +0000] [5535] [INFO] Worker exiting (pid: 5535)
+[2017-03-28 12:20:46 +0000] [5539] [INFO] Booting worker with pid: 5539
+[2017-03-28 12:21:17 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5539)
+[2017-03-28 12:21:17 +0000] [5539] [INFO] Worker exiting (pid: 5539)
+[2017-03-28 12:21:17 +0000] [5543] [INFO] Booting worker with pid: 5543
+[2017-03-28 12:22:19 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5543)
+[2017-03-28 12:22:19 +0000] [5543] [INFO] Worker exiting (pid: 5543)
+[2017-03-28 12:22:19 +0000] [5547] [INFO] Booting worker with pid: 5547
+[2017-03-28 12:22:50 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5547)
+[2017-03-28 12:22:50 +0000] [5547] [INFO] Worker exiting (pid: 5547)
+[2017-03-28 12:22:50 +0000] [5551] [INFO] Booting worker with pid: 5551
+[2017-03-28 12:25:34 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5551)
+[2017-03-28 12:25:34 +0000] [5551] [INFO] Worker exiting (pid: 5551)
+[2017-03-28 12:25:34 +0000] [5555] [INFO] Booting worker with pid: 5555
+[2017-03-28 12:31:24 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5555)
+[2017-03-28 12:31:24 +0000] [5555] [INFO] Worker exiting (pid: 5555)
+[2017-03-28 12:31:24 +0000] [5594] [INFO] Booting worker with pid: 5594
+[2017-03-28 12:32:41 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5594)
+[2017-03-28 12:32:41 +0000] [5594] [INFO] Worker exiting (pid: 5594)
+[2017-03-28 12:32:41 +0000] [5598] [INFO] Booting worker with pid: 5598
+[2017-03-28 12:34:04 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5598)
+[2017-03-28 12:34:04 +0000] [5598] [INFO] Worker exiting (pid: 5598)
+[2017-03-28 12:34:04 +0000] [5602] [INFO] Booting worker with pid: 5602
+[2017-03-28 12:35:41 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5602)
+[2017-03-28 12:35:41 +0000] [5602] [INFO] Worker exiting (pid: 5602)
+[2017-03-28 12:35:41 +0000] [5606] [INFO] Booting worker with pid: 5606
+[2017-03-28 12:36:12 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5606)
+[2017-03-28 12:36:12 +0000] [5606] [INFO] Worker exiting (pid: 5606)
+[2017-03-28 12:36:12 +0000] [5610] [INFO] Booting worker with pid: 5610
+[2017-03-28 12:36:46 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5610)
+[2017-03-28 12:36:46 +0000] [5610] [INFO] Worker exiting (pid: 5610)
+[2017-03-28 12:36:46 +0000] [5614] [INFO] Booting worker with pid: 5614
+[2017-03-28 12:37:18 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5614)
+[2017-03-28 12:37:18 +0000] [5614] [INFO] Worker exiting (pid: 5614)
+[2017-03-28 12:37:18 +0000] [5618] [INFO] Booting worker with pid: 5618
+[2017-03-28 12:37:49 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5618)
+[2017-03-28 12:37:49 +0000] [5618] [INFO] Worker exiting (pid: 5618)
+[2017-03-28 12:37:49 +0000] [5622] [INFO] Booting worker with pid: 5622
+[2017-03-28 12:40:11 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5622)
+[2017-03-28 12:40:11 +0000] [5622] [INFO] Worker exiting (pid: 5622)
+[2017-03-28 12:40:11 +0000] [5626] [INFO] Booting worker with pid: 5626
+[2017-03-28 12:41:43 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5626)
+[2017-03-28 12:41:43 +0000] [5626] [INFO] Worker exiting (pid: 5626)
+[2017-03-28 12:41:43 +0000] [5630] [INFO] Booting worker with pid: 5630
+[2017-03-28 12:48:40 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5630)
+[2017-03-28 12:48:40 +0000] [5630] [INFO] Worker exiting (pid: 5630)
+[2017-03-28 12:48:40 +0000] [5636] [INFO] Booting worker with pid: 5636
+[2017-03-28 12:49:11 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5636)
+[2017-03-28 12:49:11 +0000] [5636] [INFO] Worker exiting (pid: 5636)
+[2017-03-28 12:49:11 +0000] [5640] [INFO] Booting worker with pid: 5640
+[2017-03-28 12:51:42 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5640)
+[2017-03-28 12:51:42 +0000] [5640] [INFO] Worker exiting (pid: 5640)
+[2017-03-28 12:51:42 +0000] [5644] [INFO] Booting worker with pid: 5644
+[2017-03-28 12:52:14 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5644)
+[2017-03-28 12:52:14 +0000] [5644] [INFO] Worker exiting (pid: 5644)
+[2017-03-28 12:52:14 +0000] [5648] [INFO] Booting worker with pid: 5648
+[2017-03-28 12:54:58 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5648)
+[2017-03-28 12:54:58 +0000] [5648] [INFO] Worker exiting (pid: 5648)
+[2017-03-28 12:54:58 +0000] [5652] [INFO] Booting worker with pid: 5652
+[2017-03-28 12:56:10 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5652)
+[2017-03-28 12:56:10 +0000] [5652] [INFO] Worker exiting (pid: 5652)
+[2017-03-28 12:56:10 +0000] [5656] [INFO] Booting worker with pid: 5656
+[2017-03-28 12:56:44 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5656)
+[2017-03-28 12:56:44 +0000] [5656] [INFO] Worker exiting (pid: 5656)
+[2017-03-28 12:56:44 +0000] [5660] [INFO] Booting worker with pid: 5660
+[2017-03-28 12:57:41 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5660)
+[2017-03-28 12:57:41 +0000] [5660] [INFO] Worker exiting (pid: 5660)
+[2017-03-28 12:57:41 +0000] [5699] [INFO] Booting worker with pid: 5699
+[2017-03-28 12:58:12 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5699)
+[2017-03-28 12:58:12 +0000] [5699] [INFO] Worker exiting (pid: 5699)
+[2017-03-28 12:58:12 +0000] [5703] [INFO] Booting worker with pid: 5703
+[2017-03-28 12:59:26 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5703)
+[2017-03-28 12:59:26 +0000] [5703] [INFO] Worker exiting (pid: 5703)
+[2017-03-28 12:59:27 +0000] [5707] [INFO] Booting worker with pid: 5707
+[2017-03-28 13:00:29 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5707)
+[2017-03-28 13:00:29 +0000] [5707] [INFO] Worker exiting (pid: 5707)
+[2017-03-28 13:00:29 +0000] [5711] [INFO] Booting worker with pid: 5711
+[2017-03-28 13:01:00 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5711)
+[2017-03-28 13:01:00 +0000] [5711] [INFO] Worker exiting (pid: 5711)
+[2017-03-28 13:01:00 +0000] [5715] [INFO] Booting worker with pid: 5715
+[2017-03-28 13:02:50 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5715)
+[2017-03-28 13:02:50 +0000] [5715] [INFO] Worker exiting (pid: 5715)
+[2017-03-28 13:02:50 +0000] [5730] [INFO] Booting worker with pid: 5730
+[2017-03-28 13:03:21 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5730)
+[2017-03-28 13:03:21 +0000] [5730] [INFO] Worker exiting (pid: 5730)
+[2017-03-28 13:03:21 +0000] [5734] [INFO] Booting worker with pid: 5734
+[2017-03-28 13:03:54 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5734)
+[2017-03-28 13:03:54 +0000] [5734] [INFO] Worker exiting (pid: 5734)
+[2017-03-28 13:03:54 +0000] [5740] [INFO] Booting worker with pid: 5740
+[2017-03-28 13:04:53 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5740)
+[2017-03-28 13:04:53 +0000] [5740] [INFO] Worker exiting (pid: 5740)
+[2017-03-28 13:04:53 +0000] [5744] [INFO] Booting worker with pid: 5744
+[2017-03-28 13:06:24 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5744)
+[2017-03-28 13:06:24 +0000] [5744] [INFO] Worker exiting (pid: 5744)
+[2017-03-28 13:06:24 +0000] [5750] [INFO] Booting worker with pid: 5750
+[2017-03-28 13:09:11 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5750)
+[2017-03-28 13:09:11 +0000] [5750] [INFO] Worker exiting (pid: 5750)
+[2017-03-28 13:09:11 +0000] [5754] [INFO] Booting worker with pid: 5754
+[2017-03-28 13:14:22 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5754)
+[2017-03-28 13:14:22 +0000] [5754] [INFO] Worker exiting (pid: 5754)
+[2017-03-28 13:14:22 +0000] [5758] [INFO] Booting worker with pid: 5758
+[2017-03-28 13:16:21 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5758)
+[2017-03-28 13:16:21 +0000] [5758] [INFO] Worker exiting (pid: 5758)
+[2017-03-28 13:16:21 +0000] [5762] [INFO] Booting worker with pid: 5762
+[2017-03-28 13:17:31 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5762)
+[2017-03-28 13:17:31 +0000] [5762] [INFO] Worker exiting (pid: 5762)
+[2017-03-28 13:17:31 +0000] [5766] [INFO] Booting worker with pid: 5766
+[2017-03-28 13:20:31 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5766)
+[2017-03-28 13:20:31 +0000] [5766] [INFO] Worker exiting (pid: 5766)
+[2017-03-28 13:20:31 +0000] [5772] [INFO] Booting worker with pid: 5772
+[2017-03-28 13:22:55 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5772)
+[2017-03-28 13:22:55 +0000] [5772] [INFO] Worker exiting (pid: 5772)
+[2017-03-28 13:22:55 +0000] [5811] [INFO] Booting worker with pid: 5811
+[2017-03-28 13:27:21 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5811)
+[2017-03-28 13:27:21 +0000] [5811] [INFO] Worker exiting (pid: 5811)
+[2017-03-28 13:27:21 +0000] [5815] [INFO] Booting worker with pid: 5815
+[2017-03-28 13:28:21 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5815)
+[2017-03-28 13:28:21 +0000] [5815] [INFO] Worker exiting (pid: 5815)
+[2017-03-28 13:28:21 +0000] [5819] [INFO] Booting worker with pid: 5819
+[2017-03-28 13:33:19 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5819)
+[2017-03-28 13:33:19 +0000] [5819] [INFO] Worker exiting (pid: 5819)
+[2017-03-28 13:33:19 +0000] [5827] [INFO] Booting worker with pid: 5827
+[2017-03-28 13:33:50 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5827)
+[2017-03-28 13:33:50 +0000] [5827] [INFO] Worker exiting (pid: 5827)
+[2017-03-28 13:33:50 +0000] [5831] [INFO] Booting worker with pid: 5831
+[2017-03-28 13:34:21 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5831)
+[2017-03-28 13:34:21 +0000] [5831] [INFO] Worker exiting (pid: 5831)
+[2017-03-28 13:34:21 +0000] [5835] [INFO] Booting worker with pid: 5835
+[2017-03-28 13:34:53 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5835)
+[2017-03-28 13:34:53 +0000] [5835] [INFO] Worker exiting (pid: 5835)
+[2017-03-28 13:34:53 +0000] [5839] [INFO] Booting worker with pid: 5839
+[2017-03-28 13:35:51 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5839)
+[2017-03-28 13:35:51 +0000] [5839] [INFO] Worker exiting (pid: 5839)
+[2017-03-28 13:35:51 +0000] [5843] [INFO] Booting worker with pid: 5843
+[2017-03-28 13:36:22 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5843)
+[2017-03-28 13:36:22 +0000] [5843] [INFO] Worker exiting (pid: 5843)
+[2017-03-28 13:36:22 +0000] [5847] [INFO] Booting worker with pid: 5847
+[2017-03-28 13:38:06 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5847)
+[2017-03-28 13:38:06 +0000] [5847] [INFO] Worker exiting (pid: 5847)
+[2017-03-28 13:38:06 +0000] [5851] [INFO] Booting worker with pid: 5851
+[2017-03-28 13:39:50 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5851)
+[2017-03-28 13:39:50 +0000] [5851] [INFO] Worker exiting (pid: 5851)
+[2017-03-28 13:39:50 +0000] [5855] [INFO] Booting worker with pid: 5855
+[2017-03-28 13:40:21 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5855)
+[2017-03-28 13:40:21 +0000] [5855] [INFO] Worker exiting (pid: 5855)
+[2017-03-28 13:40:21 +0000] [5859] [INFO] Booting worker with pid: 5859
+[2017-03-28 13:43:46 +0000] [4507] [CRITICAL] WORKER TIMEOUT (pid:5859)
+[2017-03-28 13:43:46 +0000] [5859] [INFO] Worker exiting (pid: 5859)
+[2017-03-28 13:43:46 +0000] [5865] [INFO] Booting worker with pid: 5865
